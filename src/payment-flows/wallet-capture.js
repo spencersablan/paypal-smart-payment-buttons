@@ -211,7 +211,7 @@ function initWalletCapture({ props, components, payment, serviceData, config, re
 
             return ZalgoPromise.hash({
                 requireShipping: shippingRequired(orderID),
-                orderApproval:   oneClickApproveOrder({ orderID, instrumentType, buyerAccessToken, instrumentID, clientMetadataID, planID, useExistingPlanning }),
+                orderApproval:   oneClickApproveOrder({ orderID, instrumentType, buyerAccessToken, instrumentID, clientMetadataID, planID, useExistingPlanning, enableOrdersApprovalSmartWallet }),
                 onAuth:          onAuth({ accessToken: buyerAccessToken })
             }).then(({ requireShipping, orderApproval }) => {
                 if (requireShipping) {
