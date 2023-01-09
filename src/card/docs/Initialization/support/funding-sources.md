@@ -1,0 +1,27 @@
+# Funding Sources
+
+- `paypal`
+- `venmo`
+- `applepay`
+- `itau`
+- `credit`
+- `paylater`
+- `card`
+- `ideal`
+- `sepa`
+- `bancontact`
+- `giropay`
+- `sofort`
+- `eps`
+- `mybank`
+- `p24`
+- `verkkopankki`
+- `payu`
+- `blik`
+- `trustly`
+- `zimpler`
+- `maxima`
+- `oxxo`
+- `boleto`
+- `wechatpay`
+- `mercadopago`
