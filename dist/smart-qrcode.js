@@ -1951,11 +1951,11 @@
             for (var key in source) source.hasOwnProperty(key) && (target[key] = source[key]);
         };
         function getHTTPTransport(httpWin) {
-            void 0 === httpWin && (httpWin = window);
-            var win = isSameDomain(httpWin) ? assertSameDomain(httpWin) : window;
             return function(_ref) {
                 var url = _ref.url, method = _ref.method, headers = _ref.headers, json = _ref.json, _ref$enableSendBeacon = _ref.enableSendBeacon, enableSendBeacon = void 0 !== _ref$enableSendBeacon && _ref$enableSendBeacon;
                 return promise_ZalgoPromise.try((function() {
+                    var httpWindow = httpWin || window;
+                    var win = isSameDomain(httpWindow) ? assertSameDomain(httpWindow) : window;
                     var beaconResult = !1;
                     (function(_ref) {
                         var headers = _ref.headers, enableSendBeacon = _ref.enableSendBeacon;
@@ -2934,6 +2934,20 @@
         }, satispay_logo_LOGO_COLORS.black = {
             primary: "#2C2E2F"
         };
+        var paidy_logo_LOGO_COLORS;
+        (paidy_logo_LOGO_COLORS = {}).default = {
+            primary: "#FFFFFF",
+            secondary: "#FFFFFF",
+            tertiary: "#FFFFFF"
+        }, paidy_logo_LOGO_COLORS.white = {
+            primary: "#FFFFFF",
+            secondary: "#FFFFFF",
+            tertiary: "#FFFFFF"
+        }, paidy_logo_LOGO_COLORS.black = {
+            primary: "#A6009C",
+            secondary: "#FF009C",
+            tertiary: "#1C1C1C"
+        };
         function ErrorMessage(_ref) {
             var resetFunc = _ref.resetFunc;
             return h("div", {
@@ -3186,7 +3200,7 @@
             logger.addTrackingBuilder((function() {
                 var _ref2;
                 return (_ref2 = {}).state_name = "smart_button", _ref2.context_type = "EC-Token", 
-                _ref2.context_id = orderID, _ref2.button_session_id = buttonSessionID, _ref2.button_version = "5.0.121", 
+                _ref2.context_id = orderID, _ref2.button_session_id = buttonSessionID, _ref2.button_version = "5.0.122", 
                 _ref2.user_id = buttonSessionID, _ref2;
             }));
             (function() {
