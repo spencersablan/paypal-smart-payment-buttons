@@ -3,10 +3,11 @@
 
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 import { FUNDING, CARD, type FundingEligibilityType } from '@paypal/sdk-constants/src';
-import { EXPERIENCE } from '@paypal/checkout-components/src/constants/button';
 
 import type { ProxyWindow, FeatureFlags } from '../types';
 import { getProps, type XProps, type Props } from '../props/props';
+import { getLegacyProps, type LegacyProps } from '../props/legacyProps';
+import type { XOnApprove, XOnComplete, XOnCancel, XOnError, XOnShippingChange, XOnShippingAddressChange, XOnShippingOptionsChange, XCreateOrder, XCreateBillingAgreement, XCreateSubscription } from '../props';
 
 import type { CardStyle, CardPlaceholder, CardFieldsState, ParsedCardType, FieldsState } from './types';
 import { CARD_FIELD_TYPE, CARD_ERRORS } from './constants';
@@ -51,9 +52,14 @@ export type InputEvents = {
     onInputSubmitRequest? : OnInputSubmitRequest,
 }
 
+type ActionProps = {|
+  // eslint-disable-next-line flowtype/no-weak-types
+  action: any, // TODO: once checkout components is released, we can reference this directly
+|}
+
 export type CardXProps = {|
     ...XProps,
-
+    ...ActionProps,
     type : $Values<typeof CARD_FIELD_TYPE>,
     style : CardStyle,
     placeholder : CardPlaceholder,
@@ -66,12 +72,21 @@ export type CardXProps = {|
     parent? : {|
         props : XProps,
         export : CardExport
-    |}
+    |},
+    onApprove : ?XOnApprove,
+    onComplete? : ?XOnComplete,
+    onCancel : XOnCancel,
+    onError : XOnError,
+    onShippingChange : ?XOnShippingChange,
+    onShippingAddressChange : ?XOnShippingAddressChange,
+    onShippingOptionsChange : ?XOnShippingOptionsChange,
+    createOrder : ?XCreateOrder,
+    createBillingAgreement : ?XCreateBillingAgreement,
+    createSubscription : ?XCreateSubscription,
 |};
 
-export type CardProps = {|
+type BaseCardProps = {|
     ...Props,
-
     type : $Values<typeof CARD_FIELD_TYPE>,
     branded : boolean,
     style : CardStyle,
@@ -79,54 +94,132 @@ export type CardProps = {|
     minLength? : number,
     maxLength? : number,
     cardSessionID : string,
-    inlinexo : boolean,
     fundingEligibility : FundingEligibilityType,
     export : CardExport,
     inputEvents : InputEvents,
     facilitatorAccessToken : string,
-    disableAutocomplete? : boolean
+    disableAutocomplete? : boolean,
+|}
+
+export type CardProps = {|
+    ...BaseCardProps,
+    ...LegacyProps,
 |};
+
+export type CardPropsWithAction = {|
+    ...BaseCardProps,
+    ...ActionProps,
+|}
 
 type GetCardPropsOptions = {|
     facilitatorAccessToken : string,
-    featureFlags: FeatureFlags
+    featureFlags: FeatureFlags,
 |};
 
-export function getCardProps({ facilitatorAccessToken, featureFlags } : GetCardPropsOptions) : CardProps {
-    const xprops : CardXProps = window.xprops;
+/**
+ * These CardFields props are disallowed when an action is also provided. 
+ * This is to prevent confusion between which flow is being used at runtime.
+ */
+const disallowedPropsWithAction = ["onApprove", "onCancel", "onComplete", "createOrder", "intent"]
+/**
+ * When CardFields is used with an Action, the required properties change. This is for validating the arguments in that use-case.
+ */
+function validateActionProps (xprops) : ActionProps {
+  disallowedPropsWithAction.forEach((prop) => {
+    if (xprops[prop]) {
+      throw new Error(`Do not pass ${prop} with an action.`)  
+    }
+  })
 
-    const {
-        type,
-        cardSessionID,
-        style,
-        placeholder,
-        minLength,
-        maxLength,
-        fundingEligibility,
-        inputEvents,
-        branded = fundingEligibility?.card?.branded ?? true,
-        parent,
-        experience,
-        export: xport
-    } = xprops;
+  const { action } = xprops
 
-    const props = getProps({ facilitatorAccessToken, branded, paymentSource: null, featureFlags });
+  return {
+    action,
+  }
+}
+
+export function getCardProps({ facilitatorAccessToken, featureFlags } : GetCardPropsOptions) : CardProps | CardPropsWithAction {
+  let props = {}
+  const xprops : CardXProps = window.xprops;
+
+  const {
+      type,
+      cardSessionID,
+      style,
+      placeholder,
+      minLength,
+      maxLength,
+      fundingEligibility,
+      inputEvents,
+      branded = fundingEligibility?.card?.branded ?? true,
+      parent,
+      export: xport,
+      action,
+  } = xprops;
+
+  const returnData = {
+      type,
+      branded,
+      style,
+      placeholder,
+      minLength,
+      maxLength,
+      cardSessionID,
+      fundingEligibility,
+      inputEvents,
+      export:   parent ? parent.export : xport,
+      facilitatorAccessToken,
+  }
+
+  const baseProps = getProps({ branded });
+
+  if (action) {
+    props = validateActionProps(xprops)
+    return {
+      ...baseProps,
+      ...props,
+      ...returnData
+    }
+  } else {
+    props = getLegacyProps({
+      paymentSource: null,
+      partnerAttributionID: xprops.partnerAttributionID,
+      merchantID: xprops.merchantID,
+      clientID: xprops.clientID,
+      currency: xprops.currency,
+      intent: xprops.intent,
+      clientAccessToken: xprops.clientAccessToken,
+      branded,
+      vault: false,
+      facilitatorAccessToken,
+      featureFlags,
+      onShippingChange: xprops.onShippingChange,
+      onShippingAddressChange: xprops.onShippingAddressChange,
+      onShippingOptionsChange: xprops.onShippingOptionsChange,
+      onError: baseProps.onError,
+      onCancel: xprops.onCancel,
+      onApprove: xprops.onApprove,
+      createSubscription: xprops.createSubscription,
+      createOrder: xprops.createOrder,
+      createBillingAgreement: xprops.createBillingAgreement
+    })
 
     return {
-        ...props,
-        type,
-        branded,
-        style,
-        placeholder,
-        minLength,
-        maxLength,
-        cardSessionID,
-        fundingEligibility,
-        inputEvents,
-        inlinexo: experience === EXPERIENCE.INLINE,
-        export:   parent ? parent.export : xport,
-        facilitatorAccessToken
-    };
+      ...baseProps,
+      ...props,
+      type,
+      branded,
+      style,
+      placeholder,
+      minLength,
+      maxLength,
+      cardSessionID,
+      fundingEligibility,
+      inputEvents,
+      export:   parent ? parent.export : xport,
+      facilitatorAccessToken,
+    }
+  }
 }
 
 /* eslint-enable flowtype/require-exact-type */

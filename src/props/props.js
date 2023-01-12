@@ -5,30 +5,15 @@ import { ENV, INTENT, COUNTRY, FUNDING, CARD, PLATFORM, CURRENCY } from '@paypal
 import { EXPERIENCE } from '@paypal/checkout-components/src/constants/button';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
-import type { LocaleType, ProxyWindow, Wallet, ConnectOptions, FeatureFlags } from '../types';
+import type { LocaleType, ProxyWindow, Wallet, ConnectOptions } from '../types';
 import type { XApplePaySessionConfigRequest } from '../payment-flows/types';
 import { getStorageID, isStorageStateFresh } from '../lib';
 
 import { getOnInit } from './onInit';
-import { getCreateOrder } from './createOrder';
-import { getOnApprove } from './onApprove';
-import { getOnComplete } from './onComplete';
-import { getOnCancel } from './onCancel';
-import { getOnShippingChange } from './onShippingChange';
-import { getOnShippingAddressChange } from './onShippingAddressChange';
-import { getOnShippingOptionsChange } from './onShippingOptionsChange';
 import { getOnClick } from './onClick';
-import { getCreateBillingAgreement } from './createBillingAgreement';
-import { getCreateSubscription } from './createSubscription';
-import { getOnAuth } from './onAuth';
 import { getOnError } from './onError';
 
-import type { CreateOrder, XCreateOrder, CreateBillingAgreement, XCreateBillingAgreement, OnInit,
-    XOnInit, OnApprove, XOnApprove, OnComplete, XOnComplete, OnCancel, XOnCancel, OnClick, XOnClick,
-    OnShippingChange, XOnShippingChange, OnShippingAddressChange, XOnShippingAddressChange,
-    OnShippingOptionsChange, XOnShippingOptionsChange, XOnError,
-    OnError, XGetPopupBridge, GetPopupBridge, XCreateSubscription, RememberFunding, GetPageURL, OnAuth, GetQueriedEligibleFunding, PaymentRequest
-} from '.';
+import type { OnInit, XOnInit, OnClick, XOnClick, XOnError, OnError, XGetPopupBridge, GetPopupBridge, RememberFunding, GetPageURL, GetQueriedEligibleFunding, PaymentRequest } from '.';
 
 // export something to force webpack to see this as an ES module
 export const TYPES = true;
@@ -70,10 +55,6 @@ export type XProps = {|
     clientAccessToken : ?string,
     buyerCountry : $Values<typeof COUNTRY>,
 
-    createOrder : ?XCreateOrder,
-    createBillingAgreement : ?XCreateBillingAgreement,
-    createSubscription : ?XCreateSubscription,
-
     getPrerenderDetails : () => ZalgoPromise<PrerenderDetailsType>,
     getPopupBridge : XGetPopupBridge,
     remember : RememberFunding,
@@ -100,14 +81,8 @@ export type XProps = {|
     userIDToken : ?string,
 
     onInit : XOnInit,
-    onApprove : ?XOnApprove,
-    onComplete? : ?XOnComplete,
-    onCancel : XOnCancel,
     onClick : XOnClick,
     onError : XOnError,
-    onShippingChange : ?XOnShippingChange,
-    onShippingAddressChange : ?XOnShippingAddressChange,
-    onShippingOptionsChange : ?XOnShippingOptionsChange,
 
     paymentMethodNonce : ?string,
     paymentMethodToken : ?string,
@@ -170,19 +145,6 @@ export type Props = {|
     onClick : ?OnClick,
     connect : ?ConnectOptions,
 
-    createOrder : CreateOrder,
-
-    createBillingAgreement : ?CreateBillingAgreement,
-    createSubscription : ?XCreateSubscription,
-
-    onApprove : OnApprove,
-    onComplete : OnComplete,
-
-    onCancel : OnCancel,
-    onShippingChange : ?OnShippingChange,
-    onShippingAddressChange : ?OnShippingAddressChange,
-    onShippingOptionsChange : ?OnShippingOptionsChange,
-    onAuth : OnAuth,
     onSmartWalletEligible? : onSmartWalletEligible,
 
     paymentMethodToken : ?string,
@@ -200,17 +162,11 @@ export type Props = {|
 |};
 
 export function getProps({
-    facilitatorAccessToken,
     branded,
-    paymentSource,
-    featureFlags,
     enableOrdersApprovalSmartWallet,
     smartWalletOrderID
 } : {|
-    facilitatorAccessToken : string,
     branded : boolean | null,
-    paymentSource : $Values<typeof FUNDING> | null,
-    featureFlags: FeatureFlags,
     enableOrdersApprovalSmartWallet? : boolean | void,
     smartWalletOrderID? : string | void
 |}) : Props {
@@ -276,19 +232,8 @@ export function getProps({
         ? storageID
         : getStorageID();
 
-    const createBillingAgreement = getCreateBillingAgreement({ createBillingAgreement: xprops.createBillingAgreement, paymentSource });
-    const createSubscription = getCreateSubscription({ createSubscription: xprops.createSubscription, partnerAttributionID, merchantID, clientID, paymentSource }, { facilitatorAccessToken });
-
-    const createOrder = getCreateOrder({ createOrder: xprops.createOrder, currency, intent, merchantID, partnerAttributionID, paymentSource }, { facilitatorAccessToken, createBillingAgreement, createSubscription, enableOrdersApprovalSmartWallet, smartWalletOrderID });
 
     const onError = getOnError({ onError: xprops.onError });
-    const onApprove = getOnApprove({ onApprove: xprops.onApprove, createBillingAgreement, createSubscription, intent, onError, partnerAttributionID, clientAccessToken, vault, clientID, facilitatorAccessToken, branded, createOrder, paymentSource, featureFlags });
-    const onComplete = getOnComplete({ intent, onComplete: xprops.onComplete, partnerAttributionID, onError, clientID, facilitatorAccessToken, createOrder, featureFlags });
-    const onCancel = getOnCancel({ onCancel: xprops.onCancel, onError }, { createOrder });
-    const onShippingChange = getOnShippingChange({ onShippingChange: xprops.onShippingChange, partnerAttributionID, featureFlags  }, { facilitatorAccessToken, createOrder });
-    const onShippingAddressChange = getOnShippingAddressChange({ onShippingAddressChange: xprops.onShippingAddressChange, clientID }, { createOrder });
-    const onShippingOptionsChange = getOnShippingOptionsChange({ onShippingOptionsChange: xprops.onShippingOptionsChange, clientID }, { createOrder });
-    const onAuth = getOnAuth({ facilitatorAccessToken, createOrder, createSubscription, featureFlags });
 
     return {
         uid,
@@ -339,17 +284,6 @@ export function getProps({
         stageHost,
         apiStageHost,
 
-        createOrder,
-        createBillingAgreement,
-        createSubscription,
-        onApprove,
-        onComplete,
-        onCancel,
-        onShippingChange,
-        onShippingAddressChange,
-        onShippingOptionsChange,
-
-        onAuth,
         standaloneFundingSource: fundingSource,
         paymentMethodToken,
         branded,

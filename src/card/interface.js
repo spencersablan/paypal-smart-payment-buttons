@@ -278,9 +278,11 @@ export function submitCardFields({
   extraFields,
   featureFlags
 }: SubmitCardFieldsOptions): ZalgoPromise<void> {
-  const { intent, createOrder, onApprove, onError } = getCardProps({
+  // TODO: For next ticket, take these card props and act on them based on action flow or not
+  // const { intent, createOrder, onApprove, onError } = getCardProps({
+  const cardProps = getCardProps({
     facilitatorAccessToken,
-    featureFlags
+    featureFlags,
   });
 
   resetGQLErrors();
@@ -300,14 +302,16 @@ export function submitCardFields({
       throw new Error(`Restart not implemented for card fields flow`);
     };
 
-    if (intent === INTENT.TOKENIZE) {
+    if (cardProps.intent === INTENT.TOKENIZE) {
       return tokenizeCard({ card }).then(({ paymentMethodToken }) => {
-        return onApprove({ paymentMethodToken }, { restart });
+        // $FlowFixMe
+        return cardProps.onApprove({ paymentMethodToken }, { restart });
       });
     }
 
-    if (intent === INTENT.CAPTURE || intent === INTENT.AUTHORIZE) {
-      return createOrder()
+    if (cardProps.intent === INTENT.CAPTURE || cardProps.intent === INTENT.AUTHORIZE) {
+      // $FlowFixMe
+      return cardProps.createOrder()
         .then(orderID => {
           const cardObject: CardValues = {
             name: card.name,
@@ -332,14 +336,15 @@ export function submitCardFields({
             partnerAttributionID: ""
           }).catch(error => {
             getLogger().info("card_fields_payment_failed");
-            if (onError) {
-              onError(error);
+            if (cardProps.onError) {
+              cardProps.onError(error);
             }
             throw error;
           });
         })
         .then(orderData => {
-          return onApprove(
+          // $FlowFixMe
+          return cardProps.onApprove(
             { payerID: uniqueID(), buyerAccessToken: uniqueID(), ...orderData },
             { restart }
           );

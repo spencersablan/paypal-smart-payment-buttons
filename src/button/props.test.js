@@ -1,8 +1,13 @@
 /* @flow */
+/* eslint import/no-namespace: off */
 
 import { INTENT } from '@paypal/sdk-constants/src';
 
+import * as getLegacyPropsStuff from "../props/legacyProps"
+import * as getOnErrorStuff from "../props/onError"
+
 import { getButtonProps } from './props';
+
 
 describe('getButtonProps', () => {
     const brandedDefault = true;
@@ -22,51 +27,80 @@ describe('getButtonProps', () => {
         window.xprops = {};
     });
 
+    it('should not fail with correct values passed in', () => {
+      window.xprops = {
+        intent:INTENT.SUBSCRIPTION,
+        vault:true,
+        createSubscription:jest.fn(),
+        onError: jest.fn()
+      }
+      expect(() => getButtonProps(defaultArgs)).not.toThrowError();
+    });
+
+    it('should retrieve legacyProps', () => {
+      const legacyPropSpy = jest.spyOn(getLegacyPropsStuff, "getLegacyProps")
+      
+      window.xprops.intent = INTENT.CAPTURE
+      window.xprops.onApprove = jest.fn()
+      const result = getButtonProps(defaultArgs)
+      expect(result.onApprove).toEqual(expect.any(Function))
+      expect(legacyPropSpy).toBeCalled()
+    })
+    
+    it('should setup the onError prop', () => {
+      const getOnErrorSpy = jest.spyOn(getOnErrorStuff, "getOnError")
+      window.xprops.intent = INTENT.CAPTURE
+      window.xprops.onApprove = jest.fn()
+      const result = getButtonProps(defaultArgs)
+      expect(result.onError).toEqual(expect.any(Function))
+      expect(getOnErrorSpy).toBeCalled()
+    })
+    
     it('should fail if createBillingAgreement & createOrder are both passed in', () => {
         window.xprops.createBillingAgreement = jest.fn();
         window.xprops.createOrder = jest.fn();
-        expect(() => getButtonProps(defaultArgs)).toThrowError();
+        expect(() => getButtonProps(defaultArgs)).toThrowError("Do not pass both createBillingAgreement and createOrder");
     });
 
     it('should fail if createBillingAgreement is passed in but not vault', () => {
         window.xprops.createBillingAgreement =  jest.fn();
-        expect(() => getButtonProps(defaultArgs)).toThrowError();
+        expect(() => getButtonProps(defaultArgs)).toThrowError("Must pass vault=true to sdk to use createBillingAgreement");
     });
 
     it('should fail if createSubscription & createOrder are both passed in', () => {
         window.xprops.createSubscription = jest.fn();
         window.xprops.createOrder = jest.fn();
-        expect(() => getButtonProps(defaultArgs)).toThrowError();
+        expect(() => getButtonProps(defaultArgs)).toThrowError("Do not pass both createSubscription and createOrder");
     });
 
     it('should fail if createSubscription but not vault', () => {
         window.xprops.createSubscription = jest.fn();
-        expect(() => getButtonProps(defaultArgs)).toThrowError();
+        expect(() => getButtonProps(defaultArgs)).toThrowError("Must pass vault=true to sdk to use createSubscription");
     });
 
     it('should fail if intent is tokenize but no createBillingAgreement', () => {
         window.xprops.intent = INTENT.TOKENIZE;
-        expect(() => getButtonProps(defaultArgs)).toThrowError();
+        expect(() => getButtonProps(defaultArgs)).toThrowError("Must pass createBillingAgreement with intent=tokenize");
     });
 
     it('should fail if intent is tokenize but contains createOrder', () => {
         window.xprops.intent = INTENT.TOKENIZE;
         window.xprops.createBillingAgreement = jest.fn();
         window.xprops.createOrder = () => 'ok';
-        expect(() => getButtonProps(defaultArgs)).toThrowError();
+        expect(() => getButtonProps(defaultArgs)).toThrowError("Do not pass both createBillingAgreement and createOrder");
     });
 
     it('should fail if intent is tokenize but contains createSubscription', () => {
         window.xprops.intent = INTENT.TOKENIZE;
         window.xprops.createBillingAgreement = jest.fn();
         window.xprops.createSubscription = jest.fn();
-        expect(() => getButtonProps(defaultArgs)).toThrowError();
+        expect(() => getButtonProps(defaultArgs)).toThrowError("Must pass vault=true to sdk to use createBillingAgreement");
     });
 
     it('should fail if intent is subscription but does not contain createSubscription', () => {
         window.xprops.intent = INTENT.SUBSCRIPTION;
         window.xprops.vault = true;
-        expect(() => getButtonProps(defaultArgs)).toThrowError();
+        expect(() => getButtonProps(defaultArgs)).toThrowError("Must pass createSubscription with intent=subscription");
     });
 
     it('should fail if intent is subscription but contains createOrder', () => {
@@ -74,7 +108,7 @@ describe('getButtonProps', () => {
         window.xprops.vault = true;
         window.xprops.createSubscription = jest.fn();
         window.xprops.createOrder = jest.fn();
-        expect(() => getButtonProps(defaultArgs)).toThrowError();
+        expect(() => getButtonProps(defaultArgs)).toThrowError("Do not pass both createSubscription and createOrder");
     });
 
     it('should fail if intent is subscription but contains createBillingAgreement', () => {
@@ -82,14 +116,7 @@ describe('getButtonProps', () => {
         window.xprops.vault = true;
         window.xprops.createSubscription = jest.fn();
         window.xprops.createBillingAgreement = jest.fn();
-        expect(() => getButtonProps(defaultArgs)).toThrowError();
-    });
-
-    it('should not fail with correct values passed in', () => {
-        window.xprops.intent = INTENT.SUBSCRIPTION;
-        window.xprops.vault = true;
-        window.xprops.createSubscription = jest.fn();
-        expect(() => getButtonProps(defaultArgs)).not.toThrowError();
+        expect(() => getButtonProps(defaultArgs)).toThrowError("Do not pass both createSubscription and createBillingAgreement");
     });
 
     it('passes through enableOrdersApprovalSmartWallet and smartWalletOrderID to props', () => {
