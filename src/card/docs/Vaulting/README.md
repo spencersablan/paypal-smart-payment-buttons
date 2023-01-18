@@ -1,28 +1,34 @@
 # Vaulting with HCF
 
 ## Outline of Vaulting Flow
-1. Calling `POST /checkout/orders` creates the order specifying the card as payment method, and indicates vaulting for the specified customer.
-2. The order is successfully created and the `orderId` is returned along with vaulting details such as the `id` of the vaulted payment method.
-3. The returned `orderId` is passed along to the `POST /checkout/capture` call and processing continues as usual.
+1. Define the `CardFields` `createOrder` callback to pass relevant payment information (excluding card details) and desire to vault payment method to server-side API.
+2. API calls `POST /checkout/orders` with vault specific field.
+3. The order is successfully created and the `orderId` is returned along with vaulting details such as the `id` of the vaulted payment method.
+4. Define the `CardFields` `onApprove` callback to pass the returned `orderId` to server-side API.
+5. API calls `POST /checkout/capture`, vault details are returned and processing continues as usual.
 
 ## Modifications to `createOrder`
-In order to vault the card, the request body of the `POST /checkout/orders` call must include the `customerId` and the instruction to vault the payment method. For example:
+In order to vault the card, some indicator needs to be set inside of `createOrder` to pass through to the `POST /checkout/orders` call; for example, a checkbox on a page that, when checked, includes the vault parameter and customer id in the body passed to the server-side API.
 ```json
-{
-  payment_source: {
+let vaulting = vaultCheckbox.checked;
+if (vaulting) {
+  payload.payment_source = {
     card: {
       attributes: {
-        customer: {
+         customer: {
           id: "vwxj123",
         },
         vault: {
-          store_in_vault: "ON_SUCCESS"
+          store_in_vault: "ON_SUCCESS",
         },
       },
     },
-  },
+  };
 }
 ```
+
+## Modifications to `onApprove`
+After the order is successfully created via `createOrder`, the order needs to be captured. This is done by defining the `CardFields.onApprove` callback to pass the orderId to a server-side API that calls `POST checkout/orders/${orderId}/capture`. No vault specific data is required in the body of the call. Once the order is successfully captured, the response will include the vaulting data.
 
 Depending on the type of card being used, several different responses may be returned to indicate the vaulting status. Generally, if vaulting occurred successfully, you will see the `payment_source.card.attributes.vault` field populated with an `id` field. This is the id of the vaulted payment method that can be stored and used to retrieve the vaulted payment method for subsequent transactions. Example response:
 ```json
@@ -66,6 +72,7 @@ Depending on the type of card being used, several different responses may be ret
 ### Card Specific Requirements
 
 #### Visa
+No special considerations required for Visa implementation.
 
 #### MasterCard
 Vaulting with MasterCard uses an asynchronous process. Instead of a vault `id` being returned, a `setup_token` is returned. More details TBD.
