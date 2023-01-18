@@ -8325,6 +8325,26 @@ window.smartCard = function(modules) {
             return _ref2.smartWallet;
         }));
     }));
+    function getOnError(_ref) {
+        var onError = _ref.onError;
+        var onErrorHandler = onError ? (handler = onError, seenErrors = [], seenStringifiedErrors = {}, 
+        function(err) {
+            if (-1 === seenErrors.indexOf(err)) {
+                seenErrors.push(err);
+                var stringifiedError = stringifyError(err);
+                if (!seenStringifiedErrors[stringifiedError]) {
+                    seenStringifiedErrors[stringifiedError] = !0;
+                    return handler(err);
+                }
+            }
+        }) : src_util_noop;
+        var handler, seenErrors, seenStringifiedErrors;
+        return function(err) {
+            return promise_ZalgoPromise.try((function() {
+                return onErrorHandler(err);
+            }));
+        };
+    }
     function getCreateOrder(_ref5, _ref6) {
         var createOrder = _ref5.createOrder, currency = _ref5.currency;
         var createBillingAgreement = _ref6.createBillingAgreement, createSubscription = _ref6.createSubscription, enableOrdersApprovalSmartWallet = _ref6.enableOrdersApprovalSmartWallet, smartWalletOrderID = _ref6.smartWalletOrderID;
@@ -8558,72 +8578,8 @@ window.smartCard = function(modules) {
     };
     var onShippingAddressChange_excluded = [ "amount", "buyerAccessToken", "event", "forceRestAPI", "shipping_address" ];
     var onShippingOptionsChange_excluded = [ "amount", "buyerAccessToken", "event", "forceRestAPI", "options", "selected_shipping_option" ];
-    function getProps(_ref) {
-        var facilitatorAccessToken = _ref.facilitatorAccessToken, branded = _ref.branded, paymentSource = _ref.paymentSource, featureFlags = _ref.featureFlags, enableOrdersApprovalSmartWallet = _ref.enableOrdersApprovalSmartWallet, smartWalletOrderID = _ref.smartWalletOrderID;
-        var xprops = window.xprops;
-        var uid = xprops.uid, env = xprops.env, _xprops$vault = xprops.vault, vault = void 0 !== _xprops$vault && _xprops$vault, commit = xprops.commit, locale = xprops.locale, platform = xprops.platform, sessionID = xprops.sessionID, clientID = xprops.clientID, partnerAttributionID = xprops.partnerAttributionID, merchantRequestedPopupsDisabled = xprops.merchantRequestedPopupsDisabled, clientMetadataID = xprops.clientMetadataID, sdkCorrelationID = xprops.sdkCorrelationID, getParentDomain = xprops.getParentDomain, clientAccessToken = xprops.clientAccessToken, getPopupBridge = xprops.getPopupBridge, getPrerenderDetails = xprops.getPrerenderDetails, getPageUrl = xprops.getPageUrl, enableThreeDomainSecure = xprops.enableThreeDomainSecure, enableVaultInstallments = xprops.enableVaultInstallments, _xprops$enableNativeC = xprops.enableNativeCheckout, enableNativeCheckout = void 0 !== _xprops$enableNativeC && _xprops$enableNativeC, _xprops$experience = xprops.experience, experience = void 0 === _xprops$experience ? "" : _xprops$experience, rememberFunding = xprops.remember, stageHost = xprops.stageHost, apiStageHost = xprops.apiStageHost, getParent = xprops.getParent, fundingSource = xprops.fundingSource, currency = xprops.currency, connect = xprops.connect, intent = xprops.intent, merchantID = xprops.merchantID, amount = xprops.amount, userIDToken = xprops.userIDToken, enableFunding = xprops.enableFunding, disableFunding = xprops.disableFunding, disableCard = xprops.disableCard, disableAutocomplete = xprops.disableAutocomplete, wallet = xprops.wallet, _xprops$paymentMethod = xprops.paymentMethodToken, paymentMethodToken = void 0 === _xprops$paymentMethod ? xprops.paymentMethodNonce : _xprops$paymentMethod, _xprops$getQueriedEli = xprops.getQueriedEligibleFunding, getQueriedEligibleFunding = void 0 === _xprops$getQueriedEli ? function() {
-            return promise_ZalgoPromise.resolve([]);
-        } : _xprops$getQueriedEli, storageID = xprops.storageID, applePay = xprops.applePay, userExperienceFlow = xprops.userExperienceFlow, allowBillingPayments = xprops.allowBillingPayments, paymentRequest = xprops.paymentRequest;
-        var onInit = function(_ref) {
-            var onInit = _ref.onInit;
-            return function(data) {
-                var enabled = !0;
-                return {
-                    initPromise: promise_ZalgoPromise.try((function() {
-                        if (onInit) return onInit(data, (set = function(val) {
-                            enabled = val;
-                        }, {
-                            enable: function() {
-                                return promise_ZalgoPromise.try((function() {
-                                    return set(!0);
-                                }));
-                            },
-                            disable: function() {
-                                return promise_ZalgoPromise.try((function() {
-                                    return set(!1);
-                                }));
-                            }
-                        }));
-                        var set;
-                    })),
-                    isEnabled: function() {
-                        return enabled;
-                    }
-                };
-            };
-        }({
-            onInit: xprops.onInit
-        });
-        var merchantDomain = "function" == typeof getParentDomain ? getParentDomain() : "unknown";
-        enableFunding = enableFunding || [];
-        disableFunding = disableFunding || [];
-        var onClick = function(_ref2) {
-            var onClick = _ref2.onClick;
-            if (onClick) return memoize((function(_ref3) {
-                return onClick((_ref = {
-                    fundingSource: _ref3.fundingSource
-                }, {
-                    fundingSource: _ref.fundingSource
-                }), {
-                    resolve: function() {
-                        return promise_ZalgoPromise.try((function() {
-                            return !0;
-                        }));
-                    },
-                    reject: function() {
-                        return promise_ZalgoPromise.try((function() {
-                            return !1;
-                        }));
-                    }
-                }).then((function(valid) {
-                    return !1 !== valid;
-                }));
-                var _ref;
-            }));
-        }({
-            onClick: xprops.onClick
-        });
-        var stickinessID = storageID && getSDKStorage().isStateFresh() ? storageID : getSDKStorage().getID();
+    function getLegacyProps(_ref) {
+        var paymentSource = _ref.paymentSource, partnerAttributionID = _ref.partnerAttributionID, merchantID = _ref.merchantID, clientID = _ref.clientID, facilitatorAccessToken = _ref.facilitatorAccessToken, currency = _ref.currency, intent = _ref.intent, enableOrdersApprovalSmartWallet = _ref.enableOrdersApprovalSmartWallet, smartWalletOrderID = _ref.smartWalletOrderID, branded = _ref.branded, clientAccessToken = _ref.clientAccessToken, _ref$vault = _ref.vault, vault = void 0 !== _ref$vault && _ref$vault, featureFlags = _ref.featureFlags, inputCreateSubscription = _ref.createSubscription, inputCreateOrder = _ref.createOrder, onError = _ref.onError, inputOnApprove = _ref.onApprove, inputOnComplete = _ref.onComplete, inputOnCancel = _ref.onCancel, inputOnShippingChange = _ref.onShippingChange, inputOnShippingAddressChange = _ref.onShippingAddressChange, inputOnShippingOptionsChange = _ref.onShippingOptionsChange;
         var createBillingAgreement = function(_ref2) {
             var createBillingAgreement = _ref2.createBillingAgreement, paymentSource = _ref2.paymentSource;
             if (createBillingAgreement) return function() {
@@ -8638,7 +8594,7 @@ window.smartCard = function(modules) {
                 var _ref;
             };
         }({
-            createBillingAgreement: xprops.createBillingAgreement,
+            createBillingAgreement: _ref.createBillingAgreement,
             paymentSource: paymentSource
         });
         var createSubscription = function(_ref3, _ref4) {
@@ -8718,7 +8674,7 @@ window.smartCard = function(modules) {
                 };
             }
         }({
-            createSubscription: xprops.createSubscription,
+            createSubscription: inputCreateSubscription,
             partnerAttributionID: partnerAttributionID,
             merchantID: merchantID,
             clientID: clientID,
@@ -8727,7 +8683,7 @@ window.smartCard = function(modules) {
             facilitatorAccessToken: facilitatorAccessToken
         });
         var createOrder = getCreateOrder({
-            createOrder: xprops.createOrder,
+            createOrder: inputCreateOrder,
             currency: currency,
             intent: intent,
             merchantID: merchantID,
@@ -8739,28 +8695,6 @@ window.smartCard = function(modules) {
             createSubscription: createSubscription,
             enableOrdersApprovalSmartWallet: enableOrdersApprovalSmartWallet,
             smartWalletOrderID: smartWalletOrderID
-        });
-        var onError = function(_ref) {
-            var onError = _ref.onError;
-            var onErrorHandler = onError ? (handler = onError, seenErrors = [], seenStringifiedErrors = {}, 
-            function(err) {
-                if (-1 === seenErrors.indexOf(err)) {
-                    seenErrors.push(err);
-                    var stringifiedError = stringifyError(err);
-                    if (!seenStringifiedErrors[stringifiedError]) {
-                        seenStringifiedErrors[stringifiedError] = !0;
-                        return handler(err);
-                    }
-                }
-            }) : src_util_noop;
-            var handler, seenErrors, seenStringifiedErrors;
-            return function(err) {
-                return promise_ZalgoPromise.try((function() {
-                    return onErrorHandler(err);
-                }));
-            };
-        }({
-            onError: xprops.onError
         });
         var onApprove = function(_ref19) {
             var intent = _ref19.intent, createSubscription = _ref19.createSubscription, onApprove = _ref19.onApprove, partnerAttributionID = _ref19.partnerAttributionID, onError = _ref19.onError, clientAccessToken = _ref19.clientAccessToken, vault = _ref19.vault, clientID = _ref19.clientID, facilitatorAccessToken = _ref19.facilitatorAccessToken, branded = _ref19.branded, createOrder = _ref19.createOrder, paymentSource = _ref19.paymentSource, featureFlags = _ref19.featureFlags;
@@ -9234,7 +9168,7 @@ window.smartCard = function(modules) {
             });
             throw new Error("Unsupported intent: " + intent);
         }({
-            onApprove: xprops.onApprove,
+            onApprove: inputOnApprove,
             createBillingAgreement: createBillingAgreement,
             createSubscription: createSubscription,
             intent: intent,
@@ -9297,7 +9231,7 @@ window.smartCard = function(modules) {
             })) : promiseNoop;
         }({
             intent: intent,
-            onComplete: xprops.onComplete,
+            onComplete: inputOnComplete,
             partnerAttributionID: partnerAttributionID,
             onError: onError,
             clientID: clientID,
@@ -9339,7 +9273,7 @@ window.smartCard = function(modules) {
                 }));
             }));
         }({
-            onCancel: xprops.onCancel,
+            onCancel: inputOnCancel,
             onError: onError
         }, {
             createOrder: createOrder
@@ -9389,7 +9323,7 @@ window.smartCard = function(modules) {
                 }));
             };
         }({
-            onShippingChange: xprops.onShippingChange,
+            onShippingChange: inputOnShippingChange,
             partnerAttributionID: partnerAttributionID,
             featureFlags: featureFlags
         }, {
@@ -9555,7 +9489,7 @@ window.smartCard = function(modules) {
                 }));
             };
         }({
-            onShippingAddressChange: xprops.onShippingAddressChange,
+            onShippingAddressChange: inputOnShippingAddressChange,
             clientID: clientID
         }, {
             createOrder: createOrder
@@ -9710,7 +9644,7 @@ window.smartCard = function(modules) {
                 }));
             };
         }({
-            onShippingOptionsChange: xprops.onShippingOptionsChange,
+            onShippingOptionsChange: inputOnShippingOptionsChange,
             clientID: clientID
         }, {
             createOrder: createOrder
@@ -9764,79 +9698,189 @@ window.smartCard = function(modules) {
             featureFlags: featureFlags
         });
         return {
-            uid: uid,
-            env: env,
-            vault: vault,
-            commit: commit,
-            clientAccessToken: clientAccessToken,
-            locale: locale,
-            sessionID: sessionID,
-            clientID: clientID,
-            partnerAttributionID: partnerAttributionID,
-            clientMetadataID: clientMetadataID,
-            sdkCorrelationID: sdkCorrelationID,
-            merchantDomain: merchantDomain,
-            platform: platform,
-            currency: currency,
-            intent: intent,
-            wallet: wallet,
-            merchantRequestedPopupsDisabled: merchantRequestedPopupsDisabled,
-            getPopupBridge: getPopupBridge,
-            getPrerenderDetails: getPrerenderDetails,
-            getPageUrl: getPageUrl,
-            rememberFunding: rememberFunding,
-            getParent: getParent,
-            connect: connect,
-            fundingSource: fundingSource,
-            enableFunding: enableFunding,
-            disableFunding: disableFunding,
-            disableCard: disableCard,
-            disableAutocomplete: disableAutocomplete,
-            getQueriedEligibleFunding: getQueriedEligibleFunding,
-            amount: amount,
-            userIDToken: userIDToken,
-            enableThreeDomainSecure: enableThreeDomainSecure,
-            enableNativeCheckout: enableNativeCheckout,
-            enableVaultInstallments: enableVaultInstallments,
-            experience: experience,
-            onClick: onClick,
-            onInit: onInit,
-            onError: onError,
-            stageHost: stageHost,
-            apiStageHost: apiStageHost,
-            createOrder: createOrder,
             createBillingAgreement: createBillingAgreement,
             createSubscription: createSubscription,
+            createOrder: createOrder,
             onApprove: onApprove,
             onComplete: onComplete,
             onCancel: onCancel,
             onShippingChange: onShippingChange,
             onShippingAddressChange: onShippingAddressChange,
             onShippingOptionsChange: onShippingOptionsChange,
-            onAuth: onAuth,
-            standaloneFundingSource: fundingSource,
-            paymentMethodToken: paymentMethodToken,
-            branded: branded,
-            stickinessID: stickinessID,
-            applePay: applePay,
-            userExperienceFlow: userExperienceFlow,
-            allowBillingPayments: allowBillingPayments,
-            paymentRequest: paymentRequest,
-            merchantID: merchantID,
-            enableOrdersApprovalSmartWallet: enableOrdersApprovalSmartWallet,
-            smartWalletOrderID: smartWalletOrderID
+            onAuth: onAuth
         };
     }
+    var disallowedPropsWithAction = [ "onApprove", "onCancel", "onComplete", "createOrder", "intent" ];
     function getCardProps(_ref) {
         var _fundingEligibility$c, _fundingEligibility$c2;
-        var facilitatorAccessToken = _ref.facilitatorAccessToken;
+        var facilitatorAccessToken = _ref.facilitatorAccessToken, featureFlags = _ref.featureFlags;
         var xprops = window.xprops;
-        var type = xprops.type, cardSessionID = xprops.cardSessionID, style = xprops.style, placeholder = xprops.placeholder, minLength = xprops.minLength, maxLength = xprops.maxLength, fundingEligibility = xprops.fundingEligibility, inputEvents = xprops.inputEvents, _xprops$branded = xprops.branded, branded = void 0 === _xprops$branded ? null == (_fundingEligibility$c = null == fundingEligibility || null == (_fundingEligibility$c2 = fundingEligibility.card) ? void 0 : _fundingEligibility$c2.branded) || _fundingEligibility$c : _xprops$branded, parent = xprops.parent, experience = xprops.experience, xport = xprops.export;
-        return _extends({}, getProps({
-            facilitatorAccessToken: facilitatorAccessToken,
+        var type = xprops.type, cardSessionID = xprops.cardSessionID, style = xprops.style, placeholder = xprops.placeholder, minLength = xprops.minLength, maxLength = xprops.maxLength, fundingEligibility = xprops.fundingEligibility, inputEvents = xprops.inputEvents, _xprops$branded = xprops.branded, branded = void 0 === _xprops$branded ? null == (_fundingEligibility$c = null == fundingEligibility || null == (_fundingEligibility$c2 = fundingEligibility.card) ? void 0 : _fundingEligibility$c2.branded) || _fundingEligibility$c : _xprops$branded, parent = xprops.parent, xport = xprops.export, action = xprops.action;
+        var returnData = {
+            type: type,
             branded: branded,
+            style: style,
+            placeholder: placeholder,
+            minLength: minLength,
+            maxLength: maxLength,
+            cardSessionID: cardSessionID,
+            fundingEligibility: fundingEligibility,
+            inputEvents: inputEvents,
+            export: parent ? parent.export : xport,
+            facilitatorAccessToken: facilitatorAccessToken
+        };
+        var baseProps = function(_ref) {
+            var branded = _ref.branded, enableOrdersApprovalSmartWallet = _ref.enableOrdersApprovalSmartWallet, smartWalletOrderID = _ref.smartWalletOrderID;
+            var xprops = window.xprops;
+            var uid = xprops.uid, env = xprops.env, _xprops$vault = xprops.vault, vault = void 0 !== _xprops$vault && _xprops$vault, commit = xprops.commit, locale = xprops.locale, platform = xprops.platform, sessionID = xprops.sessionID, clientID = xprops.clientID, partnerAttributionID = xprops.partnerAttributionID, merchantRequestedPopupsDisabled = xprops.merchantRequestedPopupsDisabled, clientMetadataID = xprops.clientMetadataID, sdkCorrelationID = xprops.sdkCorrelationID, getParentDomain = xprops.getParentDomain, clientAccessToken = xprops.clientAccessToken, getPopupBridge = xprops.getPopupBridge, getPrerenderDetails = xprops.getPrerenderDetails, getPageUrl = xprops.getPageUrl, enableThreeDomainSecure = xprops.enableThreeDomainSecure, enableVaultInstallments = xprops.enableVaultInstallments, _xprops$enableNativeC = xprops.enableNativeCheckout, enableNativeCheckout = void 0 !== _xprops$enableNativeC && _xprops$enableNativeC, _xprops$experience = xprops.experience, experience = void 0 === _xprops$experience ? "" : _xprops$experience, rememberFunding = xprops.remember, stageHost = xprops.stageHost, apiStageHost = xprops.apiStageHost, getParent = xprops.getParent, fundingSource = xprops.fundingSource, currency = xprops.currency, connect = xprops.connect, intent = xprops.intent, merchantID = xprops.merchantID, amount = xprops.amount, userIDToken = xprops.userIDToken, enableFunding = xprops.enableFunding, disableFunding = xprops.disableFunding, disableCard = xprops.disableCard, disableAutocomplete = xprops.disableAutocomplete, wallet = xprops.wallet, _xprops$paymentMethod = xprops.paymentMethodToken, paymentMethodToken = void 0 === _xprops$paymentMethod ? xprops.paymentMethodNonce : _xprops$paymentMethod, _xprops$getQueriedEli = xprops.getQueriedEligibleFunding, getQueriedEligibleFunding = void 0 === _xprops$getQueriedEli ? function() {
+                return promise_ZalgoPromise.resolve([]);
+            } : _xprops$getQueriedEli, storageID = xprops.storageID, applePay = xprops.applePay, userExperienceFlow = xprops.userExperienceFlow, allowBillingPayments = xprops.allowBillingPayments, paymentRequest = xprops.paymentRequest;
+            var onInit = function(_ref) {
+                var onInit = _ref.onInit;
+                return function(data) {
+                    var enabled = !0;
+                    return {
+                        initPromise: promise_ZalgoPromise.try((function() {
+                            if (onInit) return onInit(data, (set = function(val) {
+                                enabled = val;
+                            }, {
+                                enable: function() {
+                                    return promise_ZalgoPromise.try((function() {
+                                        return set(!0);
+                                    }));
+                                },
+                                disable: function() {
+                                    return promise_ZalgoPromise.try((function() {
+                                        return set(!1);
+                                    }));
+                                }
+                            }));
+                            var set;
+                        })),
+                        isEnabled: function() {
+                            return enabled;
+                        }
+                    };
+                };
+            }({
+                onInit: xprops.onInit
+            });
+            var merchantDomain = "function" == typeof getParentDomain ? getParentDomain() : "unknown";
+            enableFunding = enableFunding || [];
+            disableFunding = disableFunding || [];
+            var onClick = function(_ref2) {
+                var onClick = _ref2.onClick;
+                if (onClick) return memoize((function(_ref3) {
+                    return onClick((_ref = {
+                        fundingSource: _ref3.fundingSource
+                    }, {
+                        fundingSource: _ref.fundingSource
+                    }), {
+                        resolve: function() {
+                            return promise_ZalgoPromise.try((function() {
+                                return !0;
+                            }));
+                        },
+                        reject: function() {
+                            return promise_ZalgoPromise.try((function() {
+                                return !1;
+                            }));
+                        }
+                    }).then((function(valid) {
+                        return !1 !== valid;
+                    }));
+                    var _ref;
+                }));
+            }({
+                onClick: xprops.onClick
+            });
+            var stickinessID = storageID && getSDKStorage().isStateFresh() ? storageID : getSDKStorage().getID();
+            return {
+                uid: uid,
+                env: env,
+                vault: vault,
+                commit: commit,
+                clientAccessToken: clientAccessToken,
+                locale: locale,
+                sessionID: sessionID,
+                clientID: clientID,
+                partnerAttributionID: partnerAttributionID,
+                clientMetadataID: clientMetadataID,
+                sdkCorrelationID: sdkCorrelationID,
+                merchantDomain: merchantDomain,
+                platform: platform,
+                currency: currency,
+                intent: intent,
+                wallet: wallet,
+                merchantRequestedPopupsDisabled: merchantRequestedPopupsDisabled,
+                getPopupBridge: getPopupBridge,
+                getPrerenderDetails: getPrerenderDetails,
+                getPageUrl: getPageUrl,
+                rememberFunding: rememberFunding,
+                getParent: getParent,
+                connect: connect,
+                fundingSource: fundingSource,
+                enableFunding: enableFunding,
+                disableFunding: disableFunding,
+                disableCard: disableCard,
+                disableAutocomplete: disableAutocomplete,
+                getQueriedEligibleFunding: getQueriedEligibleFunding,
+                amount: amount,
+                userIDToken: userIDToken,
+                enableThreeDomainSecure: enableThreeDomainSecure,
+                enableNativeCheckout: enableNativeCheckout,
+                enableVaultInstallments: enableVaultInstallments,
+                experience: experience,
+                onClick: onClick,
+                onInit: onInit,
+                onError: getOnError({
+                    onError: xprops.onError
+                }),
+                stageHost: stageHost,
+                apiStageHost: apiStageHost,
+                standaloneFundingSource: fundingSource,
+                paymentMethodToken: paymentMethodToken,
+                branded: branded,
+                stickinessID: stickinessID,
+                applePay: applePay,
+                userExperienceFlow: userExperienceFlow,
+                allowBillingPayments: allowBillingPayments,
+                paymentRequest: paymentRequest,
+                merchantID: merchantID,
+                enableOrdersApprovalSmartWallet: enableOrdersApprovalSmartWallet,
+                smartWalletOrderID: smartWalletOrderID
+            };
+        }({
+            branded: branded
+        });
+        return action ? _extends({}, baseProps, function(xprops) {
+            disallowedPropsWithAction.forEach((function(prop) {
+                if (xprops[prop]) throw new Error("Do not pass " + prop + " with an action.");
+            }));
+            return {
+                action: xprops.action
+            };
+        }(xprops), returnData) : _extends({}, baseProps, getLegacyProps({
             paymentSource: null,
-            featureFlags: _ref.featureFlags
+            partnerAttributionID: xprops.partnerAttributionID,
+            merchantID: xprops.merchantID,
+            clientID: xprops.clientID,
+            currency: xprops.currency,
+            intent: xprops.intent,
+            clientAccessToken: xprops.clientAccessToken,
+            branded: branded,
+            vault: !1,
+            facilitatorAccessToken: facilitatorAccessToken,
+            featureFlags: featureFlags,
+            onShippingChange: xprops.onShippingChange,
+            onShippingAddressChange: xprops.onShippingAddressChange,
+            onShippingOptionsChange: xprops.onShippingOptionsChange,
+            onError: baseProps.onError,
+            onCancel: xprops.onCancel,
+            onApprove: xprops.onApprove,
+            createSubscription: xprops.createSubscription,
+            createOrder: xprops.createOrder,
+            createBillingAgreement: xprops.createBillingAgreement
         }), {
             type: type,
             branded: branded,
@@ -9847,7 +9891,6 @@ window.smartCard = function(modules) {
             cardSessionID: cardSessionID,
             fundingEligibility: fundingEligibility,
             inputEvents: inputEvents,
-            inlinexo: "inline" === experience,
             export: parent ? parent.export : xport,
             facilitatorAccessToken: facilitatorAccessToken
         });
@@ -10000,10 +10043,10 @@ window.smartCard = function(modules) {
     }
     function submitCardFields(_ref) {
         var facilitatorAccessToken = _ref.facilitatorAccessToken, extraFields = _ref.extraFields;
-        var _getCardProps = getCardProps({
+        var cardProps = getCardProps({
             facilitatorAccessToken: facilitatorAccessToken,
             featureFlags: _ref.featureFlags
-        }), intent = _getCardProps.intent, createOrder = _getCardProps.createOrder, onApprove = _getCardProps.onApprove, onError = _getCardProps.onError;
+        });
         interface_resetGQLErrors();
         return promise_ZalgoPromise.try((function() {
             if (!hasCardFields()) throw new Error("Card fields not available to submit");
@@ -10012,7 +10055,7 @@ window.smartCard = function(modules) {
                 var restart = function() {
                     throw new Error("Restart not implemented for card fields flow");
                 };
-                return intent === sdk_constants.INTENT.TOKENIZE ? function(_ref24) {
+                return cardProps.intent === sdk_constants.INTENT.TOKENIZE ? function(_ref24) {
                     var card = _ref24.card;
                     return promise_ZalgoPromise.try((function() {
                         console.info("Card Tokenize GQL mutation not yet implemented", {
@@ -10025,12 +10068,12 @@ window.smartCard = function(modules) {
                 }({
                     card: card
                 }).then((function(_ref2) {
-                    return onApprove({
+                    return cardProps.onApprove({
                         paymentMethodToken: _ref2.paymentMethodToken
                     }, {
                         restart: restart
                     });
-                })) : intent === sdk_constants.INTENT.CAPTURE || intent === sdk_constants.INTENT.AUTHORIZE ? createOrder().then((function(orderID) {
+                })) : cardProps.intent === sdk_constants.INTENT.CAPTURE || cardProps.intent === sdk_constants.INTENT.AUTHORIZE ? cardProps.createOrder().then((function(orderID) {
                     var cardObject = _extends({
                         name: card.name,
                         number: card.number,
@@ -10060,11 +10103,11 @@ window.smartCard = function(modules) {
                         partnerAttributionID: ""
                     }).catch((function(error) {
                         getLogger().info("card_fields_payment_failed");
-                        onError && onError(error);
+                        cardProps.onError && cardProps.onError(error);
                         throw error;
                     }));
                 })).then((function(orderData) {
-                    return onApprove(_extends({
+                    return cardProps.onApprove(_extends({
                         payerID: uniqueID(),
                         buyerAccessToken: uniqueID()
                     }, orderData), {

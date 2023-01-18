@@ -10844,7 +10844,7 @@ window.spb = function(modules) {
             Object(lib.getLogger)().info("rest_api_create_order_token");
             var headers = ((_headers15 = {})[constants.HEADERS.AUTHORIZATION] = "Bearer " + accessToken, 
             _headers15[constants.HEADERS.PARTNER_ATTRIBUTION_ID] = partnerAttributionID, _headers15[constants.HEADERS.CLIENT_METADATA_ID] = clientMetadataID, 
-            _headers15[constants.HEADERS.APP_NAME] = constants.SMART_PAYMENT_BUTTONS, _headers15[constants.HEADERS.APP_VERSION] = "5.0.122", 
+            _headers15[constants.HEADERS.APP_NAME] = constants.SMART_PAYMENT_BUTTONS, _headers15[constants.HEADERS.APP_VERSION] = "5.0.123", 
             _headers15);
             var paymentSource = {
                 token: {
@@ -11775,12 +11775,115 @@ window.spb = function(modules) {
         var esm_extends = __webpack_require__("./node_modules/@babel/runtime/helpers/esm/extends.js");
         var constants_button = __webpack_require__("./node_modules/@paypal/checkout-components/src/constants/button.js");
         var props_props = __webpack_require__("./src/props/props.js");
+        var props_createBillingAgreement = __webpack_require__("./src/props/createBillingAgreement.js");
+        var props_createSubscription = __webpack_require__("./src/props/createSubscription.js");
+        var props_createOrder = __webpack_require__("./src/props/createOrder.js");
+        var props_onApprove = __webpack_require__("./src/props/onApprove.js");
+        var props_onComplete = __webpack_require__("./src/props/onComplete.js");
+        var props_onCancel = __webpack_require__("./src/props/onCancel.js");
+        var props_onShippingChange = __webpack_require__("./src/props/onShippingChange.js");
+        var props_onShippingAddressChange = __webpack_require__("./src/props/onShippingAddressChange.js");
+        var props_onShippingOptionsChange = __webpack_require__("./src/props/onShippingOptionsChange.js");
+        var props_onAuth = __webpack_require__("./src/props/onAuth.js");
+        function getLegacyProps(_ref) {
+            var paymentSource = _ref.paymentSource, partnerAttributionID = _ref.partnerAttributionID, merchantID = _ref.merchantID, clientID = _ref.clientID, facilitatorAccessToken = _ref.facilitatorAccessToken, currency = _ref.currency, intent = _ref.intent, enableOrdersApprovalSmartWallet = _ref.enableOrdersApprovalSmartWallet, smartWalletOrderID = _ref.smartWalletOrderID, branded = _ref.branded, clientAccessToken = _ref.clientAccessToken, _ref$vault = _ref.vault, vault = void 0 !== _ref$vault && _ref$vault, featureFlags = _ref.featureFlags, inputCreateBillingAgreement = _ref.createBillingAgreement, inputCreateSubscription = _ref.createSubscription, inputCreateOrder = _ref.createOrder, onError = _ref.onError, inputOnApprove = _ref.onApprove, inputOnComplete = _ref.onComplete, inputOnCancel = _ref.onCancel, inputOnShippingChange = _ref.onShippingChange, inputOnShippingAddressChange = _ref.onShippingAddressChange, inputOnShippingOptionsChange = _ref.onShippingOptionsChange;
+            var createBillingAgreement = Object(props_createBillingAgreement.getCreateBillingAgreement)({
+                createBillingAgreement: inputCreateBillingAgreement,
+                paymentSource: paymentSource
+            });
+            var createSubscription = Object(props_createSubscription.getCreateSubscription)({
+                createSubscription: inputCreateSubscription,
+                partnerAttributionID: partnerAttributionID,
+                merchantID: merchantID,
+                clientID: clientID,
+                paymentSource: paymentSource
+            }, {
+                facilitatorAccessToken: facilitatorAccessToken
+            });
+            var createOrder = Object(props_createOrder.getCreateOrder)({
+                createOrder: inputCreateOrder,
+                currency: currency,
+                intent: intent,
+                merchantID: merchantID,
+                partnerAttributionID: partnerAttributionID,
+                paymentSource: paymentSource
+            }, {
+                facilitatorAccessToken: facilitatorAccessToken,
+                createBillingAgreement: createBillingAgreement,
+                createSubscription: createSubscription,
+                enableOrdersApprovalSmartWallet: enableOrdersApprovalSmartWallet,
+                smartWalletOrderID: smartWalletOrderID
+            });
+            return {
+                createBillingAgreement: createBillingAgreement,
+                createSubscription: createSubscription,
+                createOrder: createOrder,
+                onApprove: Object(props_onApprove.getOnApprove)({
+                    onApprove: inputOnApprove,
+                    createBillingAgreement: createBillingAgreement,
+                    createSubscription: createSubscription,
+                    intent: intent,
+                    onError: onError,
+                    partnerAttributionID: partnerAttributionID,
+                    clientAccessToken: clientAccessToken,
+                    vault: vault,
+                    clientID: clientID,
+                    facilitatorAccessToken: facilitatorAccessToken,
+                    branded: branded,
+                    createOrder: createOrder,
+                    paymentSource: paymentSource,
+                    featureFlags: featureFlags
+                }),
+                onComplete: Object(props_onComplete.getOnComplete)({
+                    intent: intent,
+                    onComplete: inputOnComplete,
+                    partnerAttributionID: partnerAttributionID,
+                    onError: onError,
+                    clientID: clientID,
+                    facilitatorAccessToken: facilitatorAccessToken,
+                    createOrder: createOrder,
+                    featureFlags: featureFlags
+                }),
+                onCancel: Object(props_onCancel.getOnCancel)({
+                    onCancel: inputOnCancel,
+                    onError: onError
+                }, {
+                    createOrder: createOrder
+                }),
+                onShippingChange: Object(props_onShippingChange.getOnShippingChange)({
+                    onShippingChange: inputOnShippingChange,
+                    partnerAttributionID: partnerAttributionID,
+                    featureFlags: featureFlags
+                }, {
+                    facilitatorAccessToken: facilitatorAccessToken,
+                    createOrder: createOrder
+                }),
+                onShippingAddressChange: Object(props_onShippingAddressChange.getOnShippingAddressChange)({
+                    onShippingAddressChange: inputOnShippingAddressChange,
+                    clientID: clientID
+                }, {
+                    createOrder: createOrder
+                }),
+                onShippingOptionsChange: Object(props_onShippingOptionsChange.getOnShippingOptionsChange)({
+                    onShippingOptionsChange: inputOnShippingOptionsChange,
+                    clientID: clientID
+                }, {
+                    createOrder: createOrder
+                }),
+                onAuth: Object(props_onAuth.getOnAuth)({
+                    facilitatorAccessToken: facilitatorAccessToken,
+                    createOrder: createOrder,
+                    createSubscription: createSubscription,
+                    featureFlags: featureFlags
+                })
+            };
+        }
         var TYPES = !0;
         function getButtonProps(_ref) {
             var _branded;
             var facilitatorAccessToken = _ref.facilitatorAccessToken, paymentSource = _ref.paymentSource, featureFlags = _ref.featureFlags, enableOrdersApprovalSmartWallet = _ref.enableOrdersApprovalSmartWallet, smartWalletOrderID = _ref.smartWalletOrderID;
             var xprops = window.xprops;
-            var buttonSessionID = xprops.buttonSessionID, style = xprops.style, branded = xprops.branded, experience = xprops.experience, intent = xprops.intent;
+            var buttonSessionID = xprops.buttonSessionID, style = xprops.style, branded = xprops.branded, experience = xprops.experience, intent = xprops.intent, partnerAttributionID = xprops.partnerAttributionID, merchantID = xprops.merchantID, clientID = xprops.clientID, clientAccessToken = xprops.clientAccessToken, _xprops$vault = xprops.vault, vault = void 0 !== _xprops$vault && _xprops$vault, currency = xprops.currency;
             branded = null != (_branded = branded) ? _branded : _ref.brandedDefault;
             if (xprops.createBillingAgreement) {
                 if (xprops.createOrder) throw new Error("Do not pass both createBillingAgreement and createOrder");
@@ -11799,14 +11902,37 @@ window.spb = function(modules) {
                 if (!xprops.createSubscription) throw new Error("Must pass createSubscription with intent=subscription");
                 if (xprops.createOrder || xprops.createBillingAgreement) throw new Error("Must not pass createOrder or createBillingAgreement with intent=tokenize");
             }
-            return Object(esm_extends.default)({}, Object(props_props.getProps)({
-                facilitatorAccessToken: facilitatorAccessToken,
+            var props = Object(props_props.getProps)({
                 branded: branded,
-                paymentSource: paymentSource,
-                featureFlags: featureFlags,
                 enableOrdersApprovalSmartWallet: enableOrdersApprovalSmartWallet,
                 smartWalletOrderID: smartWalletOrderID
-            }), {
+            });
+            var legacyProps = getLegacyProps({
+                paymentSource: paymentSource,
+                partnerAttributionID: partnerAttributionID,
+                merchantID: merchantID,
+                clientID: clientID,
+                facilitatorAccessToken: facilitatorAccessToken,
+                currency: currency,
+                intent: intent,
+                enableOrdersApprovalSmartWallet: enableOrdersApprovalSmartWallet,
+                smartWalletOrderID: smartWalletOrderID,
+                branded: branded,
+                clientAccessToken: clientAccessToken,
+                vault: vault,
+                featureFlags: featureFlags,
+                createBillingAgreement: xprops.createBillingAgreement,
+                createSubscription: xprops.createSubscription,
+                createOrder: xprops.createOrder,
+                onError: props.onError,
+                onApprove: xprops.onApprove,
+                onComplete: xprops.onComplete,
+                onCancel: xprops.onCancel,
+                onShippingChange: xprops.onShippingChange,
+                onShippingAddressChange: xprops.onShippingAddressChange,
+                onShippingOptionsChange: xprops.onShippingOptionsChange
+            });
+            return Object(esm_extends.default)({}, props, legacyProps, {
                 style: style,
                 buttonSessionID: buttonSessionID,
                 branded: branded,
@@ -12772,7 +12898,7 @@ window.spb = function(modules) {
                             var eligibilityReason = _ref8.eligibilityReason, orderID = _ref8.orderID;
                             var _ref9 = _ref8.locale || locale, country = _ref9.country, lang = _ref9.lang;
                             var access_token = _ref8.accessToken || buyerAccessToken || "";
-                            if (window.innerWidth < 300 || buyerIntent === constants.BUYER_INTENT.PAY_WITH_DIFFERENT_FUNDING_SHIPPING || buyerIntent === constants.BUYER_INTENT.PAY_WITH_DIFFERENT_ACCOUNT) {
+                            if (window.innerWidth < 250 || buyerIntent === constants.BUYER_INTENT.PAY_WITH_DIFFERENT_FUNDING_SHIPPING || buyerIntent === constants.BUYER_INTENT.PAY_WITH_DIFFERENT_ACCOUNT) {
                                 var _getLogger$info$track2;
                                 Object(lib.getLogger)().info("checkout_smart_wallet_not_eligible ", {
                                     buyerIntent: buyerIntent,
@@ -13337,6 +13463,7 @@ window.spb = function(modules) {
         _VALIDATOR_TO_TYPE_MA[types.HIPER] = sdk_constants_src.CARD.HIPER, _VALIDATOR_TO_TYPE_MA[types.JCB] = sdk_constants_src.CARD.JCB, 
         _VALIDATOR_TO_TYPE_MA[types.MASTERCARD] = sdk_constants_src.CARD.MASTERCARD, _VALIDATOR_TO_TYPE_MA[types.UNIONPAY] = sdk_constants_src.CARD.CUP, 
         _VALIDATOR_TO_TYPE_MA[types.VISA] = sdk_constants_src.CARD.VISA;
+        var disallowedPropsWithAction = [ "onApprove", "onCancel", "onComplete", "createOrder", "intent" ];
         __webpack_require__("./node_modules/@krakenjs/belter/index.js");
         function getExportsByFrameName(name) {
             try {
@@ -13400,18 +13527,13 @@ window.spb = function(modules) {
                     start: function() {
                         return function(_ref) {
                             var facilitatorAccessToken = _ref.facilitatorAccessToken, extraFields = _ref.extraFields;
-                            var _getCardProps = function(_ref) {
+                            var cardProps = function(_ref) {
                                 var _fundingEligibility$c, _fundingEligibility$c2;
                                 var facilitatorAccessToken = _ref.facilitatorAccessToken, featureFlags = _ref.featureFlags;
+                                var props = {};
                                 var xprops = window.xprops;
-                                var type = xprops.type, cardSessionID = xprops.cardSessionID, style = xprops.style, placeholder = xprops.placeholder, minLength = xprops.minLength, maxLength = xprops.maxLength, fundingEligibility = xprops.fundingEligibility, inputEvents = xprops.inputEvents, _xprops$branded = xprops.branded, branded = void 0 === _xprops$branded ? null == (_fundingEligibility$c = null == fundingEligibility || null == (_fundingEligibility$c2 = fundingEligibility.card) ? void 0 : _fundingEligibility$c2.branded) || _fundingEligibility$c : _xprops$branded, parent = xprops.parent, experience = xprops.experience, xport = xprops.export;
-                                var props = Object(props_props.getProps)({
-                                    facilitatorAccessToken: facilitatorAccessToken,
-                                    branded: branded,
-                                    paymentSource: null,
-                                    featureFlags: featureFlags
-                                });
-                                return Object(esm_extends.default)({}, props, {
+                                var type = xprops.type, cardSessionID = xprops.cardSessionID, style = xprops.style, placeholder = xprops.placeholder, minLength = xprops.minLength, maxLength = xprops.maxLength, fundingEligibility = xprops.fundingEligibility, inputEvents = xprops.inputEvents, _xprops$branded = xprops.branded, branded = void 0 === _xprops$branded ? null == (_fundingEligibility$c = null == fundingEligibility || null == (_fundingEligibility$c2 = fundingEligibility.card) ? void 0 : _fundingEligibility$c2.branded) || _fundingEligibility$c : _xprops$branded, parent = xprops.parent, xport = xprops.export, action = xprops.action;
+                                var returnData = {
                                     type: type,
                                     branded: branded,
                                     style: style,
@@ -13421,14 +13543,62 @@ window.spb = function(modules) {
                                     cardSessionID: cardSessionID,
                                     fundingEligibility: fundingEligibility,
                                     inputEvents: inputEvents,
-                                    inlinexo: experience === constants_button.EXPERIENCE.INLINE,
+                                    export: parent ? parent.export : xport,
+                                    facilitatorAccessToken: facilitatorAccessToken
+                                };
+                                var baseProps = Object(props_props.getProps)({
+                                    branded: branded
+                                });
+                                if (action) {
+                                    props = function(xprops) {
+                                        disallowedPropsWithAction.forEach((function(prop) {
+                                            if (xprops[prop]) throw new Error("Do not pass " + prop + " with an action.");
+                                        }));
+                                        return {
+                                            action: xprops.action
+                                        };
+                                    }(xprops);
+                                    return Object(esm_extends.default)({}, baseProps, props, returnData);
+                                }
+                                props = getLegacyProps({
+                                    paymentSource: null,
+                                    partnerAttributionID: xprops.partnerAttributionID,
+                                    merchantID: xprops.merchantID,
+                                    clientID: xprops.clientID,
+                                    currency: xprops.currency,
+                                    intent: xprops.intent,
+                                    clientAccessToken: xprops.clientAccessToken,
+                                    branded: branded,
+                                    vault: !1,
+                                    facilitatorAccessToken: facilitatorAccessToken,
+                                    featureFlags: featureFlags,
+                                    onShippingChange: xprops.onShippingChange,
+                                    onShippingAddressChange: xprops.onShippingAddressChange,
+                                    onShippingOptionsChange: xprops.onShippingOptionsChange,
+                                    onError: baseProps.onError,
+                                    onCancel: xprops.onCancel,
+                                    onApprove: xprops.onApprove,
+                                    createSubscription: xprops.createSubscription,
+                                    createOrder: xprops.createOrder,
+                                    createBillingAgreement: xprops.createBillingAgreement
+                                });
+                                return Object(esm_extends.default)({}, baseProps, props, {
+                                    type: type,
+                                    branded: branded,
+                                    style: style,
+                                    placeholder: placeholder,
+                                    minLength: minLength,
+                                    maxLength: maxLength,
+                                    cardSessionID: cardSessionID,
+                                    fundingEligibility: fundingEligibility,
+                                    inputEvents: inputEvents,
                                     export: parent ? parent.export : xport,
                                     facilitatorAccessToken: facilitatorAccessToken
                                 });
                             }({
                                 facilitatorAccessToken: facilitatorAccessToken,
                                 featureFlags: _ref.featureFlags
-                            }), intent = _getCardProps.intent, createOrder = _getCardProps.createOrder, onApprove = _getCardProps.onApprove, onError = _getCardProps.onError;
+                            });
                             !function() {
                                 var _getCardFrames5 = getCardFrames(), cardFrame = _getCardFrames5.cardFrame, cardNumberFrame = _getCardFrames5.cardNumberFrame, cardExpiryFrame = _getCardFrames5.cardExpiryFrame, cardCVVFrame = _getCardFrames5.cardCVVFrame;
                                 cardFrame && cardFrame.resetGQLErrors();
@@ -13443,15 +13613,15 @@ window.spb = function(modules) {
                                     var restart = function() {
                                         throw new Error("Restart not implemented for card fields flow");
                                     };
-                                    return intent === sdk_constants.INTENT.TOKENIZE ? Object(api.tokenizeCard)({
+                                    return cardProps.intent === sdk_constants.INTENT.TOKENIZE ? Object(api.tokenizeCard)({
                                         card: card
                                     }).then((function(_ref2) {
-                                        return onApprove({
+                                        return cardProps.onApprove({
                                             paymentMethodToken: _ref2.paymentMethodToken
                                         }, {
                                             restart: restart
                                         });
-                                    })) : intent === sdk_constants.INTENT.CAPTURE || intent === sdk_constants.INTENT.AUTHORIZE ? createOrder().then((function(orderID) {
+                                    })) : cardProps.intent === sdk_constants.INTENT.CAPTURE || cardProps.intent === sdk_constants.INTENT.AUTHORIZE ? cardProps.createOrder().then((function(orderID) {
                                         var cardObject = Object(esm_extends.default)({
                                             name: card.name,
                                             number: card.number,
@@ -13469,11 +13639,11 @@ window.spb = function(modules) {
                                             partnerAttributionID: ""
                                         }).catch((function(error) {
                                             Object(lib.getLogger)().info("card_fields_payment_failed");
-                                            onError && onError(error);
+                                            cardProps.onError && cardProps.onError(error);
                                             throw error;
                                         }));
                                     })).then((function(orderData) {
-                                        return onApprove(Object(esm_extends.default)({
+                                        return cardProps.onApprove(Object(esm_extends.default)({
                                             payerID: Object(src.uniqueID)(),
                                             buyerAccessToken: Object(src.uniqueID)()
                                         }, orderData), {
@@ -16378,7 +16548,7 @@ window.spb = function(modules) {
                     var _ref3;
                     return (_ref3 = {})[sdk_constants_src.FPTI_KEY.CONTEXT_TYPE] = constants.FPTI_CONTEXT_TYPE.BUTTON_SESSION_ID, 
                     _ref3[sdk_constants_src.FPTI_KEY.CONTEXT_ID] = buttonSessionID, _ref3[sdk_constants_src.FPTI_KEY.BUTTON_SESSION_UID] = buttonSessionID, 
-                    _ref3[sdk_constants_src.FPTI_KEY.BUTTON_VERSION] = "5.0.122", _ref3[constants.FPTI_BUTTON_KEY.BUTTON_CORRELATION_ID] = buttonCorrelationID, 
+                    _ref3[sdk_constants_src.FPTI_KEY.BUTTON_VERSION] = "5.0.123", _ref3[constants.FPTI_BUTTON_KEY.BUTTON_CORRELATION_ID] = buttonCorrelationID, 
                     _ref3[sdk_constants_src.FPTI_KEY.STICKINESS_ID] = Object(lib.isAndroidChrome)() ? stickinessID : null, 
                     _ref3[sdk_constants_src.FPTI_KEY.PARTNER_ATTRIBUTION_ID] = partnerAttributionID, 
                     _ref3[sdk_constants_src.FPTI_KEY.USER_ACTION] = commit ? sdk_constants_src.FPTI_USER_ACTION.COMMIT : sdk_constants_src.FPTI_USER_ACTION.CONTINUE, 
@@ -19235,21 +19405,11 @@ window.spb = function(modules) {
         var _krakenjs_zalgo_promise_src__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("./node_modules/@krakenjs/zalgo-promise/src/index.js");
         var _lib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("./src/lib/index.js");
         var _onInit__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("./src/props/onInit.js");
-        var _createOrder__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("./src/props/createOrder.js");
-        var _onApprove__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("./src/props/onApprove.js");
-        var _onComplete__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("./src/props/onComplete.js");
-        var _onCancel__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("./src/props/onCancel.js");
-        var _onShippingChange__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("./src/props/onShippingChange.js");
-        var _onShippingAddressChange__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("./src/props/onShippingAddressChange.js");
-        var _onShippingOptionsChange__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("./src/props/onShippingOptionsChange.js");
-        var _onClick__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("./src/props/onClick.js");
-        var _createBillingAgreement__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("./src/props/createBillingAgreement.js");
-        var _createSubscription__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("./src/props/createSubscription.js");
-        var _onAuth__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("./src/props/onAuth.js");
-        var _onError__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__("./src/props/onError.js");
+        var _onClick__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("./src/props/onClick.js");
+        var _onError__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("./src/props/onError.js");
         var TYPES = !0;
         function getProps(_ref) {
-            var facilitatorAccessToken = _ref.facilitatorAccessToken, branded = _ref.branded, paymentSource = _ref.paymentSource, featureFlags = _ref.featureFlags, enableOrdersApprovalSmartWallet = _ref.enableOrdersApprovalSmartWallet, smartWalletOrderID = _ref.smartWalletOrderID;
+            var branded = _ref.branded, enableOrdersApprovalSmartWallet = _ref.enableOrdersApprovalSmartWallet, smartWalletOrderID = _ref.smartWalletOrderID;
             var xprops = window.xprops;
             var uid = xprops.uid, env = xprops.env, _xprops$vault = xprops.vault, vault = void 0 !== _xprops$vault && _xprops$vault, commit = xprops.commit, locale = xprops.locale, platform = xprops.platform, sessionID = xprops.sessionID, clientID = xprops.clientID, partnerAttributionID = xprops.partnerAttributionID, merchantRequestedPopupsDisabled = xprops.merchantRequestedPopupsDisabled, clientMetadataID = xprops.clientMetadataID, sdkCorrelationID = xprops.sdkCorrelationID, getParentDomain = xprops.getParentDomain, clientAccessToken = xprops.clientAccessToken, getPopupBridge = xprops.getPopupBridge, getPrerenderDetails = xprops.getPrerenderDetails, getPageUrl = xprops.getPageUrl, enableThreeDomainSecure = xprops.enableThreeDomainSecure, enableVaultInstallments = xprops.enableVaultInstallments, _xprops$enableNativeC = xprops.enableNativeCheckout, enableNativeCheckout = void 0 !== _xprops$enableNativeC && _xprops$enableNativeC, _xprops$experience = xprops.experience, experience = void 0 === _xprops$experience ? "" : _xprops$experience, rememberFunding = xprops.remember, stageHost = xprops.stageHost, apiStageHost = xprops.apiStageHost, getParent = xprops.getParent, fundingSource = xprops.fundingSource, currency = xprops.currency, connect = xprops.connect, intent = xprops.intent, merchantID = xprops.merchantID, amount = xprops.amount, userIDToken = xprops.userIDToken, enableFunding = xprops.enableFunding, disableFunding = xprops.disableFunding, disableCard = xprops.disableCard, disableAutocomplete = xprops.disableAutocomplete, wallet = xprops.wallet, _xprops$paymentMethod = xprops.paymentMethodToken, paymentMethodToken = void 0 === _xprops$paymentMethod ? xprops.paymentMethodNonce : _xprops$paymentMethod, _xprops$getQueriedEli = xprops.getQueriedEligibleFunding, getQueriedEligibleFunding = void 0 === _xprops$getQueriedEli ? function() {
                 return _krakenjs_zalgo_promise_src__WEBPACK_IMPORTED_MODULE_2__.ZalgoPromise.resolve([]);
@@ -19260,40 +19420,10 @@ window.spb = function(modules) {
             var merchantDomain = "function" == typeof getParentDomain ? getParentDomain() : "unknown";
             enableFunding = enableFunding || [];
             disableFunding = disableFunding || [];
-            var onClick = Object(_onClick__WEBPACK_IMPORTED_MODULE_12__.getOnClick)({
+            var onClick = Object(_onClick__WEBPACK_IMPORTED_MODULE_5__.getOnClick)({
                 onClick: xprops.onClick
             });
             var stickinessID = storageID && Object(_lib__WEBPACK_IMPORTED_MODULE_3__.isStorageStateFresh)() ? storageID : Object(_lib__WEBPACK_IMPORTED_MODULE_3__.getStorageID)();
-            var createBillingAgreement = Object(_createBillingAgreement__WEBPACK_IMPORTED_MODULE_13__.getCreateBillingAgreement)({
-                createBillingAgreement: xprops.createBillingAgreement,
-                paymentSource: paymentSource
-            });
-            var createSubscription = Object(_createSubscription__WEBPACK_IMPORTED_MODULE_14__.getCreateSubscription)({
-                createSubscription: xprops.createSubscription,
-                partnerAttributionID: partnerAttributionID,
-                merchantID: merchantID,
-                clientID: clientID,
-                paymentSource: paymentSource
-            }, {
-                facilitatorAccessToken: facilitatorAccessToken
-            });
-            var createOrder = Object(_createOrder__WEBPACK_IMPORTED_MODULE_5__.getCreateOrder)({
-                createOrder: xprops.createOrder,
-                currency: currency,
-                intent: intent,
-                merchantID: merchantID,
-                partnerAttributionID: partnerAttributionID,
-                paymentSource: paymentSource
-            }, {
-                facilitatorAccessToken: facilitatorAccessToken,
-                createBillingAgreement: createBillingAgreement,
-                createSubscription: createSubscription,
-                enableOrdersApprovalSmartWallet: enableOrdersApprovalSmartWallet,
-                smartWalletOrderID: smartWalletOrderID
-            });
-            var onError = Object(_onError__WEBPACK_IMPORTED_MODULE_16__.getOnError)({
-                onError: xprops.onError
-            });
             return {
                 uid: uid,
                 env: env,
@@ -19332,70 +19462,11 @@ window.spb = function(modules) {
                 experience: experience,
                 onClick: onClick,
                 onInit: onInit,
-                onError: onError,
+                onError: Object(_onError__WEBPACK_IMPORTED_MODULE_6__.getOnError)({
+                    onError: xprops.onError
+                }),
                 stageHost: stageHost,
                 apiStageHost: apiStageHost,
-                createOrder: createOrder,
-                createBillingAgreement: createBillingAgreement,
-                createSubscription: createSubscription,
-                onApprove: Object(_onApprove__WEBPACK_IMPORTED_MODULE_6__.getOnApprove)({
-                    onApprove: xprops.onApprove,
-                    createBillingAgreement: createBillingAgreement,
-                    createSubscription: createSubscription,
-                    intent: intent,
-                    onError: onError,
-                    partnerAttributionID: partnerAttributionID,
-                    clientAccessToken: clientAccessToken,
-                    vault: vault,
-                    clientID: clientID,
-                    facilitatorAccessToken: facilitatorAccessToken,
-                    branded: branded,
-                    createOrder: createOrder,
-                    paymentSource: paymentSource,
-                    featureFlags: featureFlags
-                }),
-                onComplete: Object(_onComplete__WEBPACK_IMPORTED_MODULE_7__.getOnComplete)({
-                    intent: intent,
-                    onComplete: xprops.onComplete,
-                    partnerAttributionID: partnerAttributionID,
-                    onError: onError,
-                    clientID: clientID,
-                    facilitatorAccessToken: facilitatorAccessToken,
-                    createOrder: createOrder,
-                    featureFlags: featureFlags
-                }),
-                onCancel: Object(_onCancel__WEBPACK_IMPORTED_MODULE_8__.getOnCancel)({
-                    onCancel: xprops.onCancel,
-                    onError: onError
-                }, {
-                    createOrder: createOrder
-                }),
-                onShippingChange: Object(_onShippingChange__WEBPACK_IMPORTED_MODULE_9__.getOnShippingChange)({
-                    onShippingChange: xprops.onShippingChange,
-                    partnerAttributionID: partnerAttributionID,
-                    featureFlags: featureFlags
-                }, {
-                    facilitatorAccessToken: facilitatorAccessToken,
-                    createOrder: createOrder
-                }),
-                onShippingAddressChange: Object(_onShippingAddressChange__WEBPACK_IMPORTED_MODULE_10__.getOnShippingAddressChange)({
-                    onShippingAddressChange: xprops.onShippingAddressChange,
-                    clientID: clientID
-                }, {
-                    createOrder: createOrder
-                }),
-                onShippingOptionsChange: Object(_onShippingOptionsChange__WEBPACK_IMPORTED_MODULE_11__.getOnShippingOptionsChange)({
-                    onShippingOptionsChange: xprops.onShippingOptionsChange,
-                    clientID: clientID
-                }, {
-                    createOrder: createOrder
-                }),
-                onAuth: Object(_onAuth__WEBPACK_IMPORTED_MODULE_15__.getOnAuth)({
-                    facilitatorAccessToken: facilitatorAccessToken,
-                    createOrder: createOrder,
-                    createSubscription: createSubscription,
-                    featureFlags: featureFlags
-                }),
                 standaloneFundingSource: fundingSource,
                 paymentMethodToken: paymentMethodToken,
                 branded: branded,
