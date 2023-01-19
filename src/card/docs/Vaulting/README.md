@@ -9,7 +9,7 @@
 
 ## Modifications to `createOrder`
 In order to vault the card, some indicator needs to be set inside of `createOrder` to pass through to the `POST v2/checkout/orders` call; for example, a checkbox on a page that, when checked, includes the vault parameter and customer id in the body passed to the server-side API.
-```json
+```js
 let vaulting = vaultCheckbox.checked;
 if (vaulting) {
   payload.payment_source = {
