@@ -281,7 +281,7 @@ function initCheckout({ props, components, serviceData, payment, config, restart
             onSmartWalletEligible: ({ accessToken, eligibilityReason, locale: smartWalletLocale, orderID }) : ZalgoPromise<{| smartWalletRendered : boolean, buyerIntent : string |}> => {
                 const { country, lang } = smartWalletLocale || locale;
                 const access_token = accessToken || buyerAccessToken || "";
-                const PPOF_MIN_WIDTH = 300;
+                const PPOF_MIN_WIDTH = 250;
                 
                 if (window.innerWidth < PPOF_MIN_WIDTH || buyerIntent === BUYER_INTENT.PAY_WITH_DIFFERENT_FUNDING_SHIPPING || buyerIntent === BUYER_INTENT.PAY_WITH_DIFFERENT_ACCOUNT) {
                     getLogger().info(`checkout_smart_wallet_not_eligible `, {
