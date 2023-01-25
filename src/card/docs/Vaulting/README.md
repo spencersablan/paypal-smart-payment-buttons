@@ -69,7 +69,7 @@ Depending on the type of card being used, several different responses may be ret
         }
       }
     }
-  },
+  }
 ```
 
 ### Card Specific Requirements
