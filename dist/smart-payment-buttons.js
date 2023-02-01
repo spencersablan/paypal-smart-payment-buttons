@@ -7229,6 +7229,283 @@ window.spb = function(modules) {
         }
         var TYPES = !0;
     },
+    "./node_modules/@krakenjs/zalgo-promise/dist/zalgo-promise.js": function(module, exports, __webpack_require__) {
+        "undefined" != typeof self && self, module.exports = function(e) {
+            var t = {};
+            function r(n) {
+                if (t[n]) return t[n].exports;
+                var o = t[n] = {
+                    i: n,
+                    l: !1,
+                    exports: {}
+                };
+                return e[n].call(o.exports, o, o.exports, r), o.l = !0, o.exports;
+            }
+            return r.m = e, r.c = t, r.d = function(e, t, n) {
+                r.o(e, t) || Object.defineProperty(e, t, {
+                    enumerable: !0,
+                    get: n
+                });
+            }, r.r = function(e) {
+                "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(e, Symbol.toStringTag, {
+                    value: "Module"
+                }), Object.defineProperty(e, "__esModule", {
+                    value: !0
+                });
+            }, r.t = function(e, t) {
+                if (1 & t && (e = r(e)), 8 & t) return e;
+                if (4 & t && "object" == typeof e && e && e.__esModule) return e;
+                var n = Object.create(null);
+                if (r.r(n), Object.defineProperty(n, "default", {
+                    enumerable: !0,
+                    value: e
+                }), 2 & t && "string" != typeof e) for (var o in e) r.d(n, o, function(t) {
+                    return e[t];
+                }.bind(null, o));
+                return n;
+            }, r.n = function(e) {
+                var t = e && e.__esModule ? function() {
+                    return e.default;
+                } : function() {
+                    return e;
+                };
+                return r.d(t, "a", t), t;
+            }, r.o = function(e, t) {
+                return {}.hasOwnProperty.call(e, t);
+            }, r.p = "", r(r.s = 0);
+        }([ function(e, t, r) {
+            "use strict";
+            function n(e) {
+                try {
+                    if (!e) return !1;
+                    if ("undefined" != typeof Promise && e instanceof Promise) return !0;
+                    if ("undefined" != typeof window && "function" == typeof window.Window && e instanceof window.Window) return !1;
+                    if ("undefined" != typeof window && "function" == typeof window.constructor && e instanceof window.constructor) return !1;
+                    var t = {}.toString;
+                    if (t) {
+                        var r = t.call(e);
+                        if ("[object Window]" === r || "[object global]" === r || "[object DOMWindow]" === r) return !1;
+                    }
+                    if ("function" == typeof e.then) return !0;
+                } catch (e) {
+                    return !1;
+                }
+                return !1;
+            }
+            r.r(t), r.d(t, "ZalgoPromise", (function() {
+                return a;
+            }));
+            var o, i = [], c = [], u = 0;
+            function s() {
+                if (!u && o) {
+                    var e = o;
+                    o = null, e.resolve();
+                }
+            }
+            function f() {
+                u += 1;
+            }
+            function l() {
+                u -= 1, s();
+            }
+            var a = function() {
+                function e(e) {
+                    var t = this;
+                    if (this.resolved = void 0, this.rejected = void 0, this.errorHandled = void 0, 
+                    this.value = void 0, this.error = void 0, this.handlers = void 0, this.dispatching = void 0, 
+                    this.stack = void 0, this.resolved = !1, this.rejected = !1, this.errorHandled = !1, 
+                    this.handlers = [], e) {
+                        var r, n, o = !1, i = !1, c = !1;
+                        f();
+                        try {
+                            e((function(e) {
+                                c ? t.resolve(e) : (o = !0, r = e);
+                            }), (function(e) {
+                                c ? t.reject(e) : (i = !0, n = e);
+                            }));
+                        } catch (e) {
+                            return l(), void this.reject(e);
+                        }
+                        l(), c = !0, o ? this.resolve(r) : i && this.reject(n);
+                    }
+                }
+                var t = e.prototype;
+                return t.resolve = function(e) {
+                    if (this.resolved || this.rejected) return this;
+                    if (n(e)) throw new Error("Can not resolve promise with another promise");
+                    return this.resolved = !0, this.value = e, this.dispatch(), this;
+                }, t.reject = function(e) {
+                    var t = this;
+                    if (this.resolved || this.rejected) return this;
+                    if (n(e)) throw new Error("Can not reject promise with another promise");
+                    if (!e) {
+                        var r = e && "function" == typeof e.toString ? e.toString() : {}.toString.call(e);
+                        e = new Error("Expected reject to be called with Error, got " + r);
+                    }
+                    return this.rejected = !0, this.error = e, this.errorHandled || setTimeout((function() {
+                        t.errorHandled || function(e, t) {
+                            if (-1 === i.indexOf(e)) {
+                                i.push(e), setTimeout((function() {
+                                    throw e;
+                                }), 1);
+                                for (var r = 0; r < c.length; r++) c[r](e, t);
+                            }
+                        }(e, t);
+                    }), 1), this.dispatch(), this;
+                }, t.asyncReject = function(e) {
+                    return this.errorHandled = !0, this.reject(e), this;
+                }, t.dispatch = function() {
+                    var t = this.resolved, r = this.rejected, o = this.handlers;
+                    if (!this.dispatching && (t || r)) {
+                        this.dispatching = !0, f();
+                        for (var i = function(e, t) {
+                            return e.then((function(e) {
+                                t.resolve(e);
+                            }), (function(e) {
+                                t.reject(e);
+                            }));
+                        }, c = 0; c < o.length; c++) {
+                            var u = o[c], s = u.onSuccess, a = u.onError, h = u.promise, d = void 0;
+                            if (t) try {
+                                d = s ? s(this.value) : this.value;
+                            } catch (e) {
+                                h.reject(e);
+                                continue;
+                            } else if (r) {
+                                if (!a) {
+                                    h.reject(this.error);
+                                    continue;
+                                }
+                                try {
+                                    d = a(this.error);
+                                } catch (e) {
+                                    h.reject(e);
+                                    continue;
+                                }
+                            }
+                            if (d instanceof e && (d.resolved || d.rejected)) {
+                                var v = d;
+                                v.resolved ? h.resolve(v.value) : h.reject(v.error), v.errorHandled = !0;
+                            } else n(d) ? d instanceof e && (d.resolved || d.rejected) ? d.resolved ? h.resolve(d.value) : h.reject(d.error) : i(d, h) : h.resolve(d);
+                        }
+                        o.length = 0, this.dispatching = !1, l();
+                    }
+                }, t.then = function(t, r) {
+                    if (t && "function" != typeof t && !t.call) throw new Error("Promise.then expected a function for success handler");
+                    if (r && "function" != typeof r && !r.call) throw new Error("Promise.then expected a function for error handler");
+                    var n = new e;
+                    return this.handlers.push({
+                        promise: n,
+                        onSuccess: t,
+                        onError: r
+                    }), this.errorHandled = !0, this.dispatch(), n;
+                }, t.catch = function(e) {
+                    return this.then(void 0, e);
+                }, t.finally = function(t) {
+                    if (t && "function" != typeof t && !t.call) throw new Error("Promise.finally expected a function");
+                    return this.then((function(r) {
+                        return e.try(t).then((function() {
+                            return r;
+                        }));
+                    }), (function(r) {
+                        return e.try(t).then((function() {
+                            throw r;
+                        }));
+                    }));
+                }, t.timeout = function(e, t) {
+                    var r = this;
+                    if (this.resolved || this.rejected) return this;
+                    var n = setTimeout((function() {
+                        r.resolved || r.rejected || r.reject(t || new Error("Promise timed out after " + e + "ms"));
+                    }), e);
+                    return this.then((function(e) {
+                        return clearTimeout(n), e;
+                    }));
+                }, t.toPromise = function() {
+                    if ("undefined" == typeof Promise) throw new TypeError("Could not find Promise");
+                    return Promise.resolve(this);
+                }, t.lazy = function() {
+                    return this.errorHandled = !0, this;
+                }, e.resolve = function(t) {
+                    return t instanceof e ? t : n(t) ? new e((function(e, r) {
+                        return t.then(e, r);
+                    })) : (new e).resolve(t);
+                }, e.reject = function(t) {
+                    return (new e).reject(t);
+                }, e.asyncReject = function(t) {
+                    return (new e).asyncReject(t);
+                }, e.all = function(t) {
+                    var r = new e, o = t.length, i = [].slice();
+                    if (!o) return r.resolve(i), r;
+                    for (var c = function(e, t, n) {
+                        return t.then((function(t) {
+                            i[e] = t, 0 == (o -= 1) && r.resolve(i);
+                        }), (function(e) {
+                            n.reject(e);
+                        }));
+                    }, u = 0; u < t.length; u++) {
+                        var s = t[u];
+                        if (s instanceof e) {
+                            if (s.resolved) {
+                                i[u] = s.value, o -= 1;
+                                continue;
+                            }
+                        } else if (!n(s)) {
+                            i[u] = s, o -= 1;
+                            continue;
+                        }
+                        c(u, e.resolve(s), r);
+                    }
+                    return 0 === o && r.resolve(i), r;
+                }, e.hash = function(t) {
+                    var r = {}, o = [], i = function(e) {
+                        if (t.hasOwnProperty(e)) {
+                            var i = t[e];
+                            n(i) ? o.push(i.then((function(t) {
+                                r[e] = t;
+                            }))) : r[e] = i;
+                        }
+                    };
+                    for (var c in t) i(c);
+                    return e.all(o).then((function() {
+                        return r;
+                    }));
+                }, e.map = function(t, r) {
+                    return e.all(t.map(r));
+                }, e.onPossiblyUnhandledException = function(e) {
+                    return function(e) {
+                        return c.push(e), {
+                            cancel: function() {
+                                c.splice(c.indexOf(e), 1);
+                            }
+                        };
+                    }(e);
+                }, e.try = function(t, r, n) {
+                    if (t && "function" != typeof t && !t.call) throw new Error("Promise.try expected a function");
+                    var o;
+                    f();
+                    try {
+                        o = t.apply(r, n || []);
+                    } catch (t) {
+                        return l(), e.reject(t);
+                    }
+                    return l(), e.resolve(o);
+                }, e.delay = function(t) {
+                    return new e((function(e) {
+                        setTimeout(e, t);
+                    }));
+                }, e.isPromise = function(t) {
+                    return !!(t && t instanceof e) || n(t);
+                }, e.flush = function() {
+                    return t = o = o || new e, s(), t;
+                    var t;
+                }, e;
+            }();
+        } ]);
+    },
+    "./node_modules/@krakenjs/zalgo-promise/index.js": function(module, exports, __webpack_require__) {
+        module.exports = __webpack_require__("./node_modules/@krakenjs/zalgo-promise/dist/zalgo-promise.js");
+    },
     "./node_modules/@krakenjs/zalgo-promise/src/index.js": function(module, __webpack_exports__, __webpack_require__) {
         "use strict";
         __webpack_require__.r(__webpack_exports__);
@@ -10844,7 +11121,7 @@ window.spb = function(modules) {
             Object(lib.getLogger)().info("rest_api_create_order_token");
             var headers = ((_headers15 = {})[constants.HEADERS.AUTHORIZATION] = "Bearer " + accessToken, 
             _headers15[constants.HEADERS.PARTNER_ATTRIBUTION_ID] = partnerAttributionID, _headers15[constants.HEADERS.CLIENT_METADATA_ID] = clientMetadataID, 
-            _headers15[constants.HEADERS.APP_NAME] = constants.SMART_PAYMENT_BUTTONS, _headers15[constants.HEADERS.APP_VERSION] = "5.0.125", 
+            _headers15[constants.HEADERS.APP_NAME] = constants.SMART_PAYMENT_BUTTONS, _headers15[constants.HEADERS.APP_VERSION] = "5.0.126", 
             _headers15);
             var paymentSource = {
                 token: {
@@ -13451,20 +13728,6 @@ window.spb = function(modules) {
             },
             inline: !0
         };
-        var sdk_constants = __webpack_require__("./node_modules/@paypal/sdk-constants/index.js");
-        var dist = __webpack_require__("./node_modules/card-validator/dist/index.js");
-        var _CARD_FIELD_TYPE_TO_F, _VALIDATOR_TO_TYPE_MA;
-        var types = __webpack_require__.n(dist).a.creditCardType.types;
-        (_CARD_FIELD_TYPE_TO_F = {}).single = constants.FRAME_NAME.CARD_FIELD, _CARD_FIELD_TYPE_TO_F.number = constants.FRAME_NAME.CARD_NUMBER_FIELD, 
-        _CARD_FIELD_TYPE_TO_F.cvv = constants.FRAME_NAME.CARD_CVV_FIELD, _CARD_FIELD_TYPE_TO_F.expiry = constants.FRAME_NAME.CARD_EXPIRY_FIELD, 
-        _CARD_FIELD_TYPE_TO_F.name = constants.FRAME_NAME.CARD_NAME_FIELD, _CARD_FIELD_TYPE_TO_F.postal = constants.FRAME_NAME.CARD_POSTAL_FIELD;
-        (_VALIDATOR_TO_TYPE_MA = {})[types.AMERICAN_EXPRESS] = sdk_constants_src.CARD.AMEX, 
-        _VALIDATOR_TO_TYPE_MA[types.DISCOVER] = sdk_constants_src.CARD.DISCOVER, _VALIDATOR_TO_TYPE_MA[types.ELO] = sdk_constants_src.CARD.ELO, 
-        _VALIDATOR_TO_TYPE_MA[types.HIPER] = sdk_constants_src.CARD.HIPER, _VALIDATOR_TO_TYPE_MA[types.JCB] = sdk_constants_src.CARD.JCB, 
-        _VALIDATOR_TO_TYPE_MA[types.MASTERCARD] = sdk_constants_src.CARD.MASTERCARD, _VALIDATOR_TO_TYPE_MA[types.UNIONPAY] = sdk_constants_src.CARD.CUP, 
-        _VALIDATOR_TO_TYPE_MA[types.VISA] = sdk_constants_src.CARD.VISA;
-        var disallowedPropsWithAction = [ "onApprove", "onCancel", "onComplete", "createOrder", "intent" ];
-        __webpack_require__("./node_modules/@krakenjs/belter/index.js");
         function getExportsByFrameName(name) {
             try {
                 for (var _i2 = 0, _getAllFramesInWindow2 = Object(cross_domain_utils_src.getAllFramesInWindow)(window); _i2 < _getAllFramesInWindow2.length; _i2++) {
@@ -13483,14 +13746,10 @@ window.spb = function(modules) {
                 cardPostalFrame: getExportsByFrameName(constants.FRAME_NAME.CARD_POSTAL_FIELD)
             };
         }
-        function hasCardFields() {
-            var _getCardFrames2 = getCardFrames();
-            return !!(_getCardFrames2.cardFrame || _getCardFrames2.cardNumberFrame && _getCardFrames2.cardCVVFrame && _getCardFrames2.cardExpiryFrame);
-        }
         function getCardFields() {
             var cardFrame = getExportsByFrameName(constants.FRAME_NAME.CARD_FIELD);
             if (cardFrame && cardFrame.isFieldValid()) return cardFrame.getFieldValue();
-            var _getCardFrames3 = getCardFrames(), cardNumberFrame = _getCardFrames3.cardNumberFrame, cardCVVFrame = _getCardFrames3.cardCVVFrame, cardExpiryFrame = _getCardFrames3.cardExpiryFrame, cardNameFrame = _getCardFrames3.cardNameFrame, cardPostalFrame = _getCardFrames3.cardPostalFrame;
+            var _getCardFrames = getCardFrames(), cardNumberFrame = _getCardFrames.cardNumberFrame, cardCVVFrame = _getCardFrames.cardCVVFrame, cardExpiryFrame = _getCardFrames.cardExpiryFrame, cardNameFrame = _getCardFrames.cardNameFrame, cardPostalFrame = _getCardFrames.cardPostalFrame;
             if (cardNumberFrame && cardNumberFrame.isFieldValid() && cardCVVFrame && cardCVVFrame.isFieldValid() && cardExpiryFrame && cardExpiryFrame.isFieldValid() && (!cardNameFrame || cardNameFrame.isFieldValid()) && (!cardPostalFrame || cardPostalFrame.isFieldValid())) return {
                 number: cardNumberFrame.getFieldValue(),
                 cvv: cardCVVFrame.getFieldValue(),
@@ -13500,11 +13759,135 @@ window.spb = function(modules) {
             };
             throw new Error("Card fields not available to submit");
         }
+        var dist = __webpack_require__("./node_modules/card-validator/dist/index.js");
+        var dist_default = __webpack_require__.n(dist);
+        var _CARD_FIELD_TYPE_TO_F, _VALIDATOR_TO_TYPE_MA;
+        var types = dist_default.a.creditCardType.types;
+        (_CARD_FIELD_TYPE_TO_F = {}).single = constants.FRAME_NAME.CARD_FIELD, _CARD_FIELD_TYPE_TO_F.number = constants.FRAME_NAME.CARD_NUMBER_FIELD, 
+        _CARD_FIELD_TYPE_TO_F.cvv = constants.FRAME_NAME.CARD_CVV_FIELD, _CARD_FIELD_TYPE_TO_F.expiry = constants.FRAME_NAME.CARD_EXPIRY_FIELD, 
+        _CARD_FIELD_TYPE_TO_F.name = constants.FRAME_NAME.CARD_NAME_FIELD, _CARD_FIELD_TYPE_TO_F.postal = constants.FRAME_NAME.CARD_POSTAL_FIELD;
+        (_VALIDATOR_TO_TYPE_MA = {})[types.AMERICAN_EXPRESS] = sdk_constants_src.CARD.AMEX, 
+        _VALIDATOR_TO_TYPE_MA[types.DISCOVER] = sdk_constants_src.CARD.DISCOVER, _VALIDATOR_TO_TYPE_MA[types.ELO] = sdk_constants_src.CARD.ELO, 
+        _VALIDATOR_TO_TYPE_MA[types.HIPER] = sdk_constants_src.CARD.HIPER, _VALIDATOR_TO_TYPE_MA[types.JCB] = sdk_constants_src.CARD.JCB, 
+        _VALIDATOR_TO_TYPE_MA[types.MASTERCARD] = sdk_constants_src.CARD.MASTERCARD, _VALIDATOR_TO_TYPE_MA[types.UNIONPAY] = sdk_constants_src.CARD.CUP, 
+        _VALIDATOR_TO_TYPE_MA[types.VISA] = sdk_constants_src.CARD.VISA;
+        var belter = __webpack_require__("./node_modules/@krakenjs/belter/index.js");
+        dist_default.a.creditCardType.addCard({
+            code: {
+                name: "CVV",
+                size: 3
+            },
+            gaps: [ 4, 8, 12 ],
+            lengths: [ 16, 18, 19 ],
+            niceType: "Carte Bancaire",
+            patterns: [],
+            type: "cb-nationale"
+        });
+        dist_default.a.creditCardType.addCard({
+            code: {
+                name: "CVV",
+                size: 3
+            },
+            gaps: [ 4, 8, 12, 16 ],
+            lengths: [ 19 ],
+            niceType: "Carte Aurore",
+            patterns: [],
+            type: "cetelem"
+        });
+        dist_default.a.creditCardType.addCard({
+            code: {
+                name: "",
+                size: 0
+            },
+            gaps: [ 4, 8, 12, 16 ],
+            lengths: [ 17 ],
+            niceType: "Cofinoga ou Privilège",
+            patterns: [],
+            type: "cofinoga"
+        });
+        dist_default.a.creditCardType.addCard({
+            code: {
+                name: "",
+                size: 0
+            },
+            gaps: [ 4, 8 ],
+            lengths: [ 8, 9 ],
+            niceType: "4 étoiles",
+            patterns: [],
+            type: "cofidis"
+        });
+        function hasCardFields() {
+            var _getCardFrames = getCardFrames();
+            return Boolean(_getCardFrames.cardFrame || _getCardFrames.cardNumberFrame && _getCardFrames.cardCVVFrame && _getCardFrames.cardExpiryFrame);
+        }
         function reformatExpiry(expiry) {
             if ("string" == typeof expiry) {
                 var _expiry$split = expiry.split("/");
                 return _expiry$split[1] + "-" + _expiry$split[0];
             }
+        }
+        var sdk_constants = __webpack_require__("./node_modules/@paypal/sdk-constants/index.js");
+        var zalgo_promise = __webpack_require__("./node_modules/@krakenjs/zalgo-promise/index.js");
+        var disallowedPropsWithAction = [ "onApprove", "onCancel", "onComplete", "createOrder", "intent" ];
+        function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
+            try {
+                var info = gen[key](arg);
+                var value = info.value;
+            } catch (error) {
+                reject(error);
+                return;
+            }
+            info.done ? resolve(value) : Promise.resolve(value).then(_next, _throw);
+        }
+        function _asyncToGenerator(fn) {
+            return function() {
+                var self = this, args = arguments;
+                return new Promise((function(resolve, reject) {
+                    var gen = fn.apply(self, args);
+                    function _next(value) {
+                        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
+                    }
+                    function _throw(err) {
+                        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
+                    }
+                    _next(void 0);
+                }));
+            };
+        }
+        function updateVaultSetupToken(_ref) {
+            var vaultSetupToken = _ref.vaultSetupToken, lowScopedAccessToken = _ref.lowScopedAccessToken, paymentSourceDetails = _ref.paymentSourceDetails;
+            return Object(src.request)({
+                method: "post",
+                url: "/v3/vault/setup-tokens/" + vaultSetupToken + "/update",
+                headers: {
+                    Authorization: "Basic " + lowScopedAccessToken,
+                    "Content-Type": "application/json"
+                },
+                data: {
+                    payment_source: {
+                        card: Object(esm_extends.default)({}, paymentSourceDetails)
+                    }
+                }
+            }).then((function(_ref2) {
+                var body = _ref2.body;
+                if (!body || "APPROVED" === !body.status) throw new Error("request was not approved");
+                return vaultSetupToken;
+            }));
+        }
+        function _vaultPaymentSource() {
+            return (_vaultPaymentSource = _asyncToGenerator((function*(_ref) {
+                var action = _ref.action, lowScopedAccessToken = _ref.lowScopedAccessToken, paymentSourceDetails = _ref.paymentSourceDetails;
+                var createVaultSetupToken = action.createVaultSetupToken, onApprove = action.onApprove;
+                var vaultSetupToken = (yield createVaultSetupToken()).vaultSetupToken;
+                yield updateVaultSetupToken({
+                    vaultSetupToken: vaultSetupToken,
+                    lowScopedAccessToken: lowScopedAccessToken,
+                    paymentSourceDetails: paymentSourceDetails
+                });
+                yield onApprove({
+                    vaultSetupToken: vaultSetupToken
+                });
+            }))).apply(this, arguments);
         }
         var cardField = {
             name: "card_field",
@@ -13560,6 +13943,7 @@ window.spb = function(modules) {
                                     }(xprops);
                                     return Object(esm_extends.default)({}, baseProps, props, returnData);
                                 }
+                                var _props, _parent$props;
                                 props = getLegacyProps({
                                     paymentSource: null,
                                     partnerAttributionID: xprops.partnerAttributionID,
@@ -13593,64 +13977,83 @@ window.spb = function(modules) {
                                     fundingEligibility: fundingEligibility,
                                     inputEvents: inputEvents,
                                     export: parent ? parent.export : xport,
-                                    facilitatorAccessToken: facilitatorAccessToken
+                                    facilitatorAccessToken: facilitatorAccessToken,
+                                    action: (null == (_props = props) ? void 0 : _props.action) || (null == parent || null == (_parent$props = parent.props) ? void 0 : _parent$props.action)
                                 });
                             }({
                                 facilitatorAccessToken: facilitatorAccessToken,
                                 featureFlags: _ref.featureFlags
                             });
                             !function() {
-                                var _getCardFrames5 = getCardFrames(), cardFrame = _getCardFrames5.cardFrame, cardNumberFrame = _getCardFrames5.cardNumberFrame, cardExpiryFrame = _getCardFrames5.cardExpiryFrame, cardCVVFrame = _getCardFrames5.cardCVVFrame;
+                                var _getCardFrames = getCardFrames(), cardFrame = _getCardFrames.cardFrame, cardNumberFrame = _getCardFrames.cardNumberFrame, cardExpiryFrame = _getCardFrames.cardExpiryFrame, cardCVVFrame = _getCardFrames.cardCVVFrame;
                                 cardFrame && cardFrame.resetGQLErrors();
                                 cardNumberFrame && cardNumberFrame.resetGQLErrors();
                                 cardExpiryFrame && cardExpiryFrame.resetGQLErrors();
                                 cardCVVFrame && cardCVVFrame.resetGQLErrors();
                             }();
-                            return zalgo_promise_src.ZalgoPromise.try((function() {
+                            return zalgo_promise.ZalgoPromise.try((function() {
                                 if (!hasCardFields()) throw new Error("Card fields not available to submit");
                                 var card = getCardFields();
-                                if (card) {
-                                    var restart = function() {
-                                        throw new Error("Restart not implemented for card fields flow");
-                                    };
-                                    return cardProps.intent === sdk_constants.INTENT.TOKENIZE ? Object(api.tokenizeCard)({
-                                        card: card
-                                    }).then((function(_ref2) {
-                                        return cardProps.onApprove({
-                                            paymentMethodToken: _ref2.paymentMethodToken
-                                        }, {
-                                            restart: restart
+                                if (!card) throw new Error("Card not available to submit");
+                                var restart = function() {
+                                    throw new Error("Restart not implemented for card fields flow");
+                                };
+                                if (void 0 !== cardProps.action) switch (cardProps.action.type) {
+                                  case "save":
+                                    try {
+                                        return function(_x) {
+                                            return _vaultPaymentSource.apply(this, arguments);
+                                        }({
+                                            action: cardProps.action,
+                                            lowScopedAccessToken: facilitatorAccessToken,
+                                            paymentSourceDetails: card
                                         });
-                                    })) : cardProps.intent === sdk_constants.INTENT.CAPTURE || cardProps.intent === sdk_constants.INTENT.AUTHORIZE ? cardProps.createOrder().then((function(orderID) {
-                                        var cardObject = Object(esm_extends.default)({
-                                            name: card.name,
-                                            number: card.number,
-                                            expiry: reformatExpiry(card.expiry),
-                                            security_code: card.cvv
-                                        }, extraFields);
-                                        card.name && (cardObject.name = card.name);
-                                        var data = {
-                                            payment_source: {
-                                                card: cardObject
-                                            }
-                                        };
-                                        return Object(api.confirmOrderAPI)(orderID, data, {
-                                            facilitatorAccessToken: facilitatorAccessToken,
-                                            partnerAttributionID: ""
-                                        }).catch((function(error) {
-                                            Object(lib.getLogger)().info("card_fields_payment_failed");
-                                            cardProps.onError && cardProps.onError(error);
-                                            throw error;
-                                        }));
-                                    })).then((function(orderData) {
-                                        return cardProps.onApprove(Object(esm_extends.default)({
-                                            payerID: Object(src.uniqueID)(),
-                                            buyerAccessToken: Object(src.uniqueID)()
-                                        }, orderData), {
-                                            restart: restart
-                                        });
-                                    })) : void 0;
+                                    } catch (error) {
+                                        Object(lib.getLogger)().info("card_fields_vault_payment_source_failed");
+                                        throw error;
+                                    }
+
+                                  default:
+                                    Object(lib.getLogger)().info("card_fields_unsupported_action");
+                                    throw new Error("Action of type " + cardProps.action.type + " is not supported by Card Fields");
                                 }
+                                return cardProps.intent === sdk_constants.INTENT.TOKENIZE ? Object(api.tokenizeCard)({
+                                    card: card
+                                }).then((function(_ref2) {
+                                    return cardProps.onApprove({
+                                        paymentMethodToken: _ref2.paymentMethodToken
+                                    }, {
+                                        restart: restart
+                                    });
+                                })) : cardProps.intent === sdk_constants.INTENT.CAPTURE || cardProps.intent === sdk_constants.INTENT.AUTHORIZE ? cardProps.createOrder().then((function(orderID) {
+                                    var cardObject = Object(esm_extends.default)({
+                                        name: card.name,
+                                        number: card.number,
+                                        expiry: reformatExpiry(card.expiry),
+                                        security_code: card.cvv
+                                    }, extraFields);
+                                    card.name && (cardObject.name = card.name);
+                                    var data = {
+                                        payment_source: {
+                                            card: cardObject
+                                        }
+                                    };
+                                    return Object(api.confirmOrderAPI)(orderID, data, {
+                                        facilitatorAccessToken: facilitatorAccessToken,
+                                        partnerAttributionID: ""
+                                    }).catch((function(error) {
+                                        Object(lib.getLogger)().info("card_fields_payment_failed");
+                                        cardProps.onError && cardProps.onError(error);
+                                        throw error;
+                                    }));
+                                })).then((function(orderData) {
+                                    return cardProps.onApprove(Object(esm_extends.default)({
+                                        payerID: Object(belter.uniqueID)(),
+                                        buyerAccessToken: Object(belter.uniqueID)()
+                                    }, orderData), {
+                                        restart: restart
+                                    });
+                                })) : void 0;
                             }));
                         }({
                             facilitatorAccessToken: facilitatorAccessToken,
@@ -16548,7 +16951,7 @@ window.spb = function(modules) {
                     var _ref3;
                     return (_ref3 = {})[sdk_constants_src.FPTI_KEY.CONTEXT_TYPE] = constants.FPTI_CONTEXT_TYPE.BUTTON_SESSION_ID, 
                     _ref3[sdk_constants_src.FPTI_KEY.CONTEXT_ID] = buttonSessionID, _ref3[sdk_constants_src.FPTI_KEY.BUTTON_SESSION_UID] = buttonSessionID, 
-                    _ref3[sdk_constants_src.FPTI_KEY.BUTTON_VERSION] = "5.0.125", _ref3[constants.FPTI_BUTTON_KEY.BUTTON_CORRELATION_ID] = buttonCorrelationID, 
+                    _ref3[sdk_constants_src.FPTI_KEY.BUTTON_VERSION] = "5.0.126", _ref3[constants.FPTI_BUTTON_KEY.BUTTON_CORRELATION_ID] = buttonCorrelationID, 
                     _ref3[sdk_constants_src.FPTI_KEY.STICKINESS_ID] = Object(lib.isAndroidChrome)() ? stickinessID : null, 
                     _ref3[sdk_constants_src.FPTI_KEY.PARTNER_ATTRIBUTION_ID] = partnerAttributionID, 
                     _ref3[sdk_constants_src.FPTI_KEY.USER_ACTION] = commit ? sdk_constants_src.FPTI_USER_ACTION.COMMIT : sdk_constants_src.FPTI_USER_ACTION.CONTINUE, 

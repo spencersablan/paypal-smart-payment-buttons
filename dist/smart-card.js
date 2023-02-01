@@ -55,7 +55,7 @@ window.smartCard = function(modules) {
         return {}.hasOwnProperty.call(object, property);
     };
     __webpack_require__.p = "";
-    return __webpack_require__(__webpack_require__.s = 46);
+    return __webpack_require__(__webpack_require__.s = 48);
 }([ function(module, exports, __webpack_require__) {
     "use strict";
     var __createBinding = this && this.__createBinding || (Object.create ? function(o, m, k, k2) {
@@ -85,13 +85,13 @@ window.smartCard = function(modules) {
         __setModuleDefault(result, mod);
         return result;
     })(__webpack_require__(7));
-    var cardholder_name_1 = __webpack_require__(19);
-    var card_number_1 = __webpack_require__(20);
-    var expiration_date_1 = __webpack_require__(22);
+    var cardholder_name_1 = __webpack_require__(20);
+    var card_number_1 = __webpack_require__(21);
+    var expiration_date_1 = __webpack_require__(23);
     var expiration_month_1 = __webpack_require__(9);
     var expiration_year_1 = __webpack_require__(6);
-    var cvv_1 = __webpack_require__(25);
-    var postal_code_1 = __webpack_require__(26);
+    var cvv_1 = __webpack_require__(26);
+    var postal_code_1 = __webpack_require__(27);
     module.exports = {
         creditCardType: creditCardType,
         cardholderName: cardholder_name_1.cardholderName,
@@ -102,6 +102,8 @@ window.smartCard = function(modules) {
         cvv: cvv_1.cvv,
         postalCode: postal_code_1.postalCode
     };
+}, function(module, exports, __webpack_require__) {
+    module.exports = __webpack_require__(28);
 }, function(module, exports, __webpack_require__) {
     "use strict";
     module.exports = {
@@ -118,15 +120,13 @@ window.smartCard = function(modules) {
         }
     };
 }, function(module, exports, __webpack_require__) {
-    module.exports = __webpack_require__(27);
-}, function(module, exports, __webpack_require__) {
     "use strict";
     var keyCannotMutateValue = __webpack_require__(4);
-    var getSelection = __webpack_require__(1).get;
-    var setSelection = __webpack_require__(1).set;
+    var getSelection = __webpack_require__(2).get;
+    var setSelection = __webpack_require__(2).set;
     var isBackspace = __webpack_require__(11);
-    var isDelete = __webpack_require__(40);
-    var Formatter = __webpack_require__(41);
+    var isDelete = __webpack_require__(42);
+    var Formatter = __webpack_require__(43);
     function BaseStrategy(options) {
         this.isFormatted = !1;
         this.inputElement = options.element;
@@ -242,7 +242,7 @@ window.smartCard = function(modules) {
     module.exports = BaseStrategy;
 }, function(module, exports, __webpack_require__) {
     "use strict";
-    var getCurrentSelection = __webpack_require__(1).get;
+    var getCurrentSelection = __webpack_require__(2).get;
     module.exports = function(event) {
         var input = event.currentTarget || event.srcElement;
         var selection = getCurrentSelection(input);
@@ -294,7 +294,7 @@ window.smartCard = function(modules) {
         }
     };
 }, function(module, exports, __webpack_require__) {
-    module.exports = __webpack_require__(28);
+    module.exports = __webpack_require__(29);
 }, function(module, exports, __webpack_require__) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
@@ -343,10 +343,10 @@ window.smartCard = function(modules) {
             return t;
         }).apply(this, arguments);
     };
-    var cardTypes = __webpack_require__(14);
-    var add_matching_cards_to_results_1 = __webpack_require__(15);
-    var is_valid_input_type_1 = __webpack_require__(17);
-    var find_best_match_1 = __webpack_require__(18);
+    var cardTypes = __webpack_require__(15);
+    var add_matching_cards_to_results_1 = __webpack_require__(16);
+    var is_valid_input_type_1 = __webpack_require__(18);
+    var find_best_match_1 = __webpack_require__(19);
     var clone_1 = __webpack_require__(8);
     var customCards = {};
     var cardNames = {
@@ -453,10 +453,10 @@ window.smartCard = function(modules) {
 }, function(module, exports, __webpack_require__) {
     "use strict";
     var UA = window.navigator && window.navigator.userAgent;
-    var isAndroid = __webpack_require__(30);
-    var isChrome = __webpack_require__(31);
-    var isIos = __webpack_require__(34);
-    var isIE9 = __webpack_require__(35);
+    var isAndroid = __webpack_require__(32);
+    var isChrome = __webpack_require__(33);
+    var isIos = __webpack_require__(36);
+    var isIE9 = __webpack_require__(37);
     var KITKAT_WEBVIEW_REGEX = /Version\/\d\.\d* Chrome\/\d*\.0\.0\.0/;
     module.exports = {
         isIE9: isIE9,
@@ -484,7 +484,7 @@ window.smartCard = function(modules) {
     "use strict";
     var keyCannotMutateValue = __webpack_require__(4);
     var BaseStrategy = __webpack_require__(3);
-    var setSelection = __webpack_require__(1).set;
+    var setSelection = __webpack_require__(2).set;
     function AndroidChromeStrategy(options) {
         BaseStrategy.call(this, options);
     }
@@ -518,7 +518,9 @@ window.smartCard = function(modules) {
     };
     module.exports = AndroidChromeStrategy;
 }, function(module, exports, __webpack_require__) {
-    module.exports = __webpack_require__(29);
+    module.exports = __webpack_require__(30);
+}, function(module, exports, __webpack_require__) {
+    module.exports = __webpack_require__(31);
 }, function(module, exports, __webpack_require__) {
     "use strict";
     module.exports = {
@@ -662,7 +664,7 @@ window.smartCard = function(modules) {
     });
     exports.addMatchingCardsToResults = void 0;
     var clone_1 = __webpack_require__(8);
-    var matches_1 = __webpack_require__(16);
+    var matches_1 = __webpack_require__(17);
     exports.addMatchingCardsToResults = function(cardNumber, cardConfiguration, results) {
         var i, patternLength;
         for (i = 0; i < cardConfiguration.patterns.length; i++) {
@@ -741,7 +743,7 @@ window.smartCard = function(modules) {
         value: !0
     });
     exports.cardNumber = void 0;
-    var luhn10 = __webpack_require__(21);
+    var luhn10 = __webpack_require__(22);
     var getCardTypes = __webpack_require__(7);
     function verification(card, isPotentiallyValid, isValid) {
         return {
@@ -798,7 +800,7 @@ window.smartCard = function(modules) {
         value: !0
     });
     exports.expirationDate = void 0;
-    var parse_date_1 = __webpack_require__(23);
+    var parse_date_1 = __webpack_require__(24);
     var expiration_month_1 = __webpack_require__(9);
     var expiration_year_1 = __webpack_require__(6);
     function verification(isValid, isPotentiallyValid, month, year) {
@@ -840,7 +842,7 @@ window.smartCard = function(modules) {
     });
     exports.parseDate = void 0;
     var expiration_year_1 = __webpack_require__(6);
-    var is_array_1 = __webpack_require__(24);
+    var is_array_1 = __webpack_require__(25);
     exports.parseDate = function(datestring) {
         var date;
         /^\d{4}-\d{1,2}$/.test(datestring) ? date = datestring.split("-").reverse() : /\//.test(datestring) ? date = datestring.split(/\s*\/\s*/g) : /\s/.test(datestring) && (date = datestring.split(/ +/g));
@@ -5188,17 +5190,290 @@ window.smartCard = function(modules) {
         }, k = !0, g = [ m.IDEAL, m.BANCONTACT, m.GIROPAY, m.SOFORT, m.EPS, m.MYBANK, m.P24, m.PAYU, m.BLIK, m.TRUSTLY, m.ZIMPLER, m.MAXIMA, m.OXXO, m.BOLETO, m.BOLETOBANCARIO, m.WECHATPAY, m.MERCADOPAGO, m.MULTIBANCO, m.SATISPAY, m.PAIDY ];
     } ]);
 }, function(module, exports, __webpack_require__) {
+    "undefined" != typeof self && self, module.exports = function(e) {
+        var t = {};
+        function r(n) {
+            if (t[n]) return t[n].exports;
+            var o = t[n] = {
+                i: n,
+                l: !1,
+                exports: {}
+            };
+            return e[n].call(o.exports, o, o.exports, r), o.l = !0, o.exports;
+        }
+        return r.m = e, r.c = t, r.d = function(e, t, n) {
+            r.o(e, t) || Object.defineProperty(e, t, {
+                enumerable: !0,
+                get: n
+            });
+        }, r.r = function(e) {
+            "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(e, Symbol.toStringTag, {
+                value: "Module"
+            }), Object.defineProperty(e, "__esModule", {
+                value: !0
+            });
+        }, r.t = function(e, t) {
+            if (1 & t && (e = r(e)), 8 & t) return e;
+            if (4 & t && "object" == typeof e && e && e.__esModule) return e;
+            var n = Object.create(null);
+            if (r.r(n), Object.defineProperty(n, "default", {
+                enumerable: !0,
+                value: e
+            }), 2 & t && "string" != typeof e) for (var o in e) r.d(n, o, function(t) {
+                return e[t];
+            }.bind(null, o));
+            return n;
+        }, r.n = function(e) {
+            var t = e && e.__esModule ? function() {
+                return e.default;
+            } : function() {
+                return e;
+            };
+            return r.d(t, "a", t), t;
+        }, r.o = function(e, t) {
+            return {}.hasOwnProperty.call(e, t);
+        }, r.p = "", r(r.s = 0);
+    }([ function(e, t, r) {
+        "use strict";
+        function n(e) {
+            try {
+                if (!e) return !1;
+                if ("undefined" != typeof Promise && e instanceof Promise) return !0;
+                if ("undefined" != typeof window && "function" == typeof window.Window && e instanceof window.Window) return !1;
+                if ("undefined" != typeof window && "function" == typeof window.constructor && e instanceof window.constructor) return !1;
+                var t = {}.toString;
+                if (t) {
+                    var r = t.call(e);
+                    if ("[object Window]" === r || "[object global]" === r || "[object DOMWindow]" === r) return !1;
+                }
+                if ("function" == typeof e.then) return !0;
+            } catch (e) {
+                return !1;
+            }
+            return !1;
+        }
+        r.r(t), r.d(t, "ZalgoPromise", (function() {
+            return a;
+        }));
+        var o, i = [], c = [], u = 0;
+        function s() {
+            if (!u && o) {
+                var e = o;
+                o = null, e.resolve();
+            }
+        }
+        function f() {
+            u += 1;
+        }
+        function l() {
+            u -= 1, s();
+        }
+        var a = function() {
+            function e(e) {
+                var t = this;
+                if (this.resolved = void 0, this.rejected = void 0, this.errorHandled = void 0, 
+                this.value = void 0, this.error = void 0, this.handlers = void 0, this.dispatching = void 0, 
+                this.stack = void 0, this.resolved = !1, this.rejected = !1, this.errorHandled = !1, 
+                this.handlers = [], e) {
+                    var r, n, o = !1, i = !1, c = !1;
+                    f();
+                    try {
+                        e((function(e) {
+                            c ? t.resolve(e) : (o = !0, r = e);
+                        }), (function(e) {
+                            c ? t.reject(e) : (i = !0, n = e);
+                        }));
+                    } catch (e) {
+                        return l(), void this.reject(e);
+                    }
+                    l(), c = !0, o ? this.resolve(r) : i && this.reject(n);
+                }
+            }
+            var t = e.prototype;
+            return t.resolve = function(e) {
+                if (this.resolved || this.rejected) return this;
+                if (n(e)) throw new Error("Can not resolve promise with another promise");
+                return this.resolved = !0, this.value = e, this.dispatch(), this;
+            }, t.reject = function(e) {
+                var t = this;
+                if (this.resolved || this.rejected) return this;
+                if (n(e)) throw new Error("Can not reject promise with another promise");
+                if (!e) {
+                    var r = e && "function" == typeof e.toString ? e.toString() : {}.toString.call(e);
+                    e = new Error("Expected reject to be called with Error, got " + r);
+                }
+                return this.rejected = !0, this.error = e, this.errorHandled || setTimeout((function() {
+                    t.errorHandled || function(e, t) {
+                        if (-1 === i.indexOf(e)) {
+                            i.push(e), setTimeout((function() {
+                                throw e;
+                            }), 1);
+                            for (var r = 0; r < c.length; r++) c[r](e, t);
+                        }
+                    }(e, t);
+                }), 1), this.dispatch(), this;
+            }, t.asyncReject = function(e) {
+                return this.errorHandled = !0, this.reject(e), this;
+            }, t.dispatch = function() {
+                var t = this.resolved, r = this.rejected, o = this.handlers;
+                if (!this.dispatching && (t || r)) {
+                    this.dispatching = !0, f();
+                    for (var i = function(e, t) {
+                        return e.then((function(e) {
+                            t.resolve(e);
+                        }), (function(e) {
+                            t.reject(e);
+                        }));
+                    }, c = 0; c < o.length; c++) {
+                        var u = o[c], s = u.onSuccess, a = u.onError, h = u.promise, d = void 0;
+                        if (t) try {
+                            d = s ? s(this.value) : this.value;
+                        } catch (e) {
+                            h.reject(e);
+                            continue;
+                        } else if (r) {
+                            if (!a) {
+                                h.reject(this.error);
+                                continue;
+                            }
+                            try {
+                                d = a(this.error);
+                            } catch (e) {
+                                h.reject(e);
+                                continue;
+                            }
+                        }
+                        if (d instanceof e && (d.resolved || d.rejected)) {
+                            var v = d;
+                            v.resolved ? h.resolve(v.value) : h.reject(v.error), v.errorHandled = !0;
+                        } else n(d) ? d instanceof e && (d.resolved || d.rejected) ? d.resolved ? h.resolve(d.value) : h.reject(d.error) : i(d, h) : h.resolve(d);
+                    }
+                    o.length = 0, this.dispatching = !1, l();
+                }
+            }, t.then = function(t, r) {
+                if (t && "function" != typeof t && !t.call) throw new Error("Promise.then expected a function for success handler");
+                if (r && "function" != typeof r && !r.call) throw new Error("Promise.then expected a function for error handler");
+                var n = new e;
+                return this.handlers.push({
+                    promise: n,
+                    onSuccess: t,
+                    onError: r
+                }), this.errorHandled = !0, this.dispatch(), n;
+            }, t.catch = function(e) {
+                return this.then(void 0, e);
+            }, t.finally = function(t) {
+                if (t && "function" != typeof t && !t.call) throw new Error("Promise.finally expected a function");
+                return this.then((function(r) {
+                    return e.try(t).then((function() {
+                        return r;
+                    }));
+                }), (function(r) {
+                    return e.try(t).then((function() {
+                        throw r;
+                    }));
+                }));
+            }, t.timeout = function(e, t) {
+                var r = this;
+                if (this.resolved || this.rejected) return this;
+                var n = setTimeout((function() {
+                    r.resolved || r.rejected || r.reject(t || new Error("Promise timed out after " + e + "ms"));
+                }), e);
+                return this.then((function(e) {
+                    return clearTimeout(n), e;
+                }));
+            }, t.toPromise = function() {
+                if ("undefined" == typeof Promise) throw new TypeError("Could not find Promise");
+                return Promise.resolve(this);
+            }, t.lazy = function() {
+                return this.errorHandled = !0, this;
+            }, e.resolve = function(t) {
+                return t instanceof e ? t : n(t) ? new e((function(e, r) {
+                    return t.then(e, r);
+                })) : (new e).resolve(t);
+            }, e.reject = function(t) {
+                return (new e).reject(t);
+            }, e.asyncReject = function(t) {
+                return (new e).asyncReject(t);
+            }, e.all = function(t) {
+                var r = new e, o = t.length, i = [].slice();
+                if (!o) return r.resolve(i), r;
+                for (var c = function(e, t, n) {
+                    return t.then((function(t) {
+                        i[e] = t, 0 == (o -= 1) && r.resolve(i);
+                    }), (function(e) {
+                        n.reject(e);
+                    }));
+                }, u = 0; u < t.length; u++) {
+                    var s = t[u];
+                    if (s instanceof e) {
+                        if (s.resolved) {
+                            i[u] = s.value, o -= 1;
+                            continue;
+                        }
+                    } else if (!n(s)) {
+                        i[u] = s, o -= 1;
+                        continue;
+                    }
+                    c(u, e.resolve(s), r);
+                }
+                return 0 === o && r.resolve(i), r;
+            }, e.hash = function(t) {
+                var r = {}, o = [], i = function(e) {
+                    if (t.hasOwnProperty(e)) {
+                        var i = t[e];
+                        n(i) ? o.push(i.then((function(t) {
+                            r[e] = t;
+                        }))) : r[e] = i;
+                    }
+                };
+                for (var c in t) i(c);
+                return e.all(o).then((function() {
+                    return r;
+                }));
+            }, e.map = function(t, r) {
+                return e.all(t.map(r));
+            }, e.onPossiblyUnhandledException = function(e) {
+                return function(e) {
+                    return c.push(e), {
+                        cancel: function() {
+                            c.splice(c.indexOf(e), 1);
+                        }
+                    };
+                }(e);
+            }, e.try = function(t, r, n) {
+                if (t && "function" != typeof t && !t.call) throw new Error("Promise.try expected a function");
+                var o;
+                f();
+                try {
+                    o = t.apply(r, n || []);
+                } catch (t) {
+                    return l(), e.reject(t);
+                }
+                return l(), e.resolve(o);
+            }, e.delay = function(t) {
+                return new e((function(e) {
+                    setTimeout(e, t);
+                }));
+            }, e.isPromise = function(t) {
+                return !!(t && t instanceof e) || n(t);
+            }, e.flush = function() {
+                return t = o = o || new e, s(), t;
+                var t;
+            }, e;
+        }();
+    } ]);
+}, function(module, exports, __webpack_require__) {
     "use strict";
     var device = __webpack_require__(10);
-    var supportsInputFormatting = __webpack_require__(36);
-    var constants = __webpack_require__(37);
-    var isValidElement = __webpack_require__(38);
-    var IosStrategy = __webpack_require__(39);
+    var supportsInputFormatting = __webpack_require__(38);
+    var constants = __webpack_require__(39);
+    var isValidElement = __webpack_require__(40);
+    var IosStrategy = __webpack_require__(41);
     var AndroidChromeStrategy = __webpack_require__(12);
-    var KitKatChromiumBasedWebViewStrategy = __webpack_require__(43);
-    var IE9Strategy = __webpack_require__(44);
+    var KitKatChromiumBasedWebViewStrategy = __webpack_require__(45);
+    var IE9Strategy = __webpack_require__(46);
     var BaseStrategy = __webpack_require__(3);
-    var NoopStrategy = __webpack_require__(45);
+    var NoopStrategy = __webpack_require__(47);
     function RestrictedInput(options) {
         if (!isValidElement((options = options || {}).element)) throw new Error(constants.errors.INVALID_ELEMENT);
         if (!options.pattern) throw new Error(constants.errors.PATTERN_MISSING);
@@ -5222,8 +5497,8 @@ window.smartCard = function(modules) {
     };
 }, function(module, exports, __webpack_require__) {
     "use strict";
-    var isEdge = __webpack_require__(32);
-    var isSamsung = __webpack_require__(33);
+    var isEdge = __webpack_require__(34);
+    var isSamsung = __webpack_require__(35);
     module.exports = function(ua) {
         return !(-1 === (ua = ua || navigator.userAgent).indexOf("Chrome") && -1 === ua.indexOf("CriOS") || isEdge(ua) || isSamsung(ua));
     };
@@ -5272,8 +5547,8 @@ window.smartCard = function(modules) {
     "use strict";
     var BaseStrategy = __webpack_require__(3);
     var keyCannotMutateValue = __webpack_require__(4);
-    var getSelection = __webpack_require__(1).get;
-    var setSelection = __webpack_require__(1).set;
+    var getSelection = __webpack_require__(2).get;
+    var setSelection = __webpack_require__(2).set;
     function IosStrategy(options) {
         BaseStrategy.call(this, options);
     }
@@ -5327,7 +5602,7 @@ window.smartCard = function(modules) {
     };
 }, function(module, exports, __webpack_require__) {
     "use strict";
-    var parsePattern = __webpack_require__(42);
+    var parsePattern = __webpack_require__(44);
     var isBackspace = __webpack_require__(11);
     function Formatter(pattern) {
         this.setPattern(pattern);
@@ -5474,8 +5749,8 @@ window.smartCard = function(modules) {
     "use strict";
     var BaseStrategy = __webpack_require__(3);
     var keyCannotMutateValue = __webpack_require__(4);
-    var getSelection = __webpack_require__(1).get;
-    var setSelection = __webpack_require__(1).set;
+    var getSelection = __webpack_require__(2).get;
+    var setSelection = __webpack_require__(2).set;
     function IE9Strategy(options) {
         BaseStrategy.call(this, options);
     }
@@ -5574,23 +5849,26 @@ window.smartCard = function(modules) {
     __webpack_require__.d(__webpack_exports__, "CardPostalCodeField", (function() {
         return CardPostalCodeField;
     }));
-    __webpack_require__.d(__webpack_exports__, "isEmpty", (function() {
-        return isEmpty;
+    __webpack_require__.d(__webpack_exports__, "getCardFields", (function() {
+        return getCardFields;
     }));
     __webpack_require__.d(__webpack_exports__, "getCardFieldState", (function() {
         return getCardFieldState;
     }));
-    __webpack_require__.d(__webpack_exports__, "hasCardFields", (function() {
-        return hasCardFields;
+    __webpack_require__.d(__webpack_exports__, "getFieldErrors", (function() {
+        return getFieldErrors_getFieldErrors;
     }));
-    __webpack_require__.d(__webpack_exports__, "getCardFields", (function() {
-        return getCardFields;
+    __webpack_require__.d(__webpack_exports__, "resetGQLErrors", (function() {
+        return gql_resetGQLErrors;
     }));
     __webpack_require__.d(__webpack_exports__, "emitGqlErrors", (function() {
         return emitGqlErrors;
     }));
-    __webpack_require__.d(__webpack_exports__, "resetGQLErrors", (function() {
-        return interface_resetGQLErrors;
+    __webpack_require__.d(__webpack_exports__, "hasCardFields", (function() {
+        return hasCardFields;
+    }));
+    __webpack_require__.d(__webpack_exports__, "isEmpty", (function() {
+        return isEmpty;
     }));
     __webpack_require__.d(__webpack_exports__, "reformatExpiry", (function() {
         return reformatExpiry;
@@ -5598,8 +5876,11 @@ window.smartCard = function(modules) {
     __webpack_require__.d(__webpack_exports__, "submitCardFields", (function() {
         return submitCardFields;
     }));
-    __webpack_require__.d(__webpack_exports__, "getFieldErrors", (function() {
-        return interface_getFieldErrors;
+    __webpack_require__.d(__webpack_exports__, "updateVaultSetupToken", (function() {
+        return updateVaultSetupToken;
+    }));
+    __webpack_require__.d(__webpack_exports__, "vaultPaymentSource", (function() {
+        return vaultPaymentSource;
     }));
     function _extends() {
         return (_extends = Object.assign || function(target) {
@@ -7604,7 +7885,7 @@ window.smartCard = function(modules) {
     };
     var VALID_EXTRA_FIELDS = [ "billingAddress" ];
     var ALLOWED_ATTRIBUTES = [ "aria-invalid", "aria-required", "disabled", "placeholder" ];
-    var belter = __webpack_require__(2);
+    var belter = __webpack_require__(1);
     var defaultInputState = {
         inputValue: "",
         maskedInputValue: "",
@@ -7873,7 +8154,200 @@ window.smartCard = function(modules) {
             }
         });
     }
+    function getExportsByFrameName(name) {
+        try {
+            for (var _i2 = 0, _getAllFramesInWindow2 = function(win) {
+                var top = function(win) {
+                    void 0 === win && (win = window);
+                    try {
+                        if (win.top) return win.top;
+                    } catch (err) {}
+                    if (utils_getParent(win) === win) return win;
+                    try {
+                        if (isAncestorParent(window, win) && window.top) return window.top;
+                    } catch (err) {}
+                    try {
+                        if (isAncestorParent(win, window) && window.top) return window.top;
+                    } catch (err) {}
+                    for (var _i7 = 0, _getAllChildFrames4 = getAllChildFrames(win); _i7 < _getAllChildFrames4.length; _i7++) {
+                        var frame = _getAllChildFrames4[_i7];
+                        try {
+                            if (frame.top) return frame.top;
+                        } catch (err) {}
+                        if (utils_getParent(frame) === frame) return frame;
+                    }
+                }(win);
+                if (!top) throw new Error("Can not determine top window");
+                var result = [].concat(getAllChildFrames(top), [ top ]);
+                -1 === result.indexOf(win) && (result = [].concat(result, [ win ], getAllChildFrames(win)));
+                return result;
+            }(window); _i2 < _getAllFramesInWindow2.length; _i2++) {
+                var win = _getAllFramesInWindow2[_i2];
+                if (isSameDomain(win) && win.exports && win.exports.name === name) return win.exports;
+            }
+        } catch (err) {}
+    }
+    function getCardFrames() {
+        return {
+            cardFrame: getExportsByFrameName("card-field"),
+            cardNumberFrame: getExportsByFrameName("card-number-field"),
+            cardCVVFrame: getExportsByFrameName("card-cvv-field"),
+            cardExpiryFrame: getExportsByFrameName("card-expiry-field"),
+            cardNameFrame: getExportsByFrameName("card-name-field"),
+            cardPostalFrame: getExportsByFrameName("card-postal-field")
+        };
+    }
+    function getCardFields() {
+        var cardFrame = getExportsByFrameName("card-field");
+        if (cardFrame && cardFrame.isFieldValid()) return cardFrame.getFieldValue();
+        var _getCardFrames = getCardFrames(), cardNumberFrame = _getCardFrames.cardNumberFrame, cardCVVFrame = _getCardFrames.cardCVVFrame, cardExpiryFrame = _getCardFrames.cardExpiryFrame, cardNameFrame = _getCardFrames.cardNameFrame, cardPostalFrame = _getCardFrames.cardPostalFrame;
+        if (cardNumberFrame && cardNumberFrame.isFieldValid() && cardCVVFrame && cardCVVFrame.isFieldValid() && cardExpiryFrame && cardExpiryFrame.isFieldValid() && (!cardNameFrame || cardNameFrame.isFieldValid()) && (!cardPostalFrame || cardPostalFrame.isFieldValid())) return {
+            number: cardNumberFrame.getFieldValue(),
+            cvv: cardCVVFrame.getFieldValue(),
+            expiry: cardExpiryFrame.getFieldValue(),
+            name: (null == cardNameFrame ? void 0 : cardNameFrame.getFieldValue()) || "",
+            postalCode: (null == cardPostalFrame ? void 0 : cardPostalFrame.getFieldValue()) || ""
+        };
+        throw new Error("Card fields not available to submit");
+    }
+    function isEmpty(value) {
+        return 0 === value.length;
+    }
+    function getCardFieldState() {
+        var _getCardFrames = getCardFrames(), cardNumberFrame = _getCardFrames.cardNumberFrame, cardCVVFrame = _getCardFrames.cardCVVFrame, cardExpiryFrame = _getCardFrames.cardExpiryFrame;
+        var optionalFields = {};
+        [ _getCardFrames.cardNameFrame, _getCardFrames.cardPostalFrame ].forEach((function(cardFrame) {
+            cardFrame && (optionalFields[kebabToCamelCase(cardFrame.name)] = {
+                isEmpty: isEmpty(null == cardFrame ? void 0 : cardFrame.getFieldValue()),
+                isValid: null == cardFrame ? void 0 : cardFrame.isFieldValid(),
+                isPotentiallyValid: cardFrame.isFieldPotentiallyValid(),
+                isFocused: cardFrame.isFieldFocused()
+            });
+        }));
+        return {
+            cards: parsedCardType(cardNumberFrame.getPotentialCardTypes()),
+            fields: _extends({}, optionalFields, {
+                cardNumberField: {
+                    isEmpty: isEmpty(cardNumberFrame.getFieldValue()),
+                    isValid: cardNumberFrame.isFieldValid(),
+                    isPotentiallyValid: cardNumberFrame.isFieldPotentiallyValid(),
+                    isFocused: cardNumberFrame.isFieldFocused()
+                },
+                cardExpiryField: {
+                    isEmpty: isEmpty(cardExpiryFrame.getFieldValue()),
+                    isValid: cardExpiryFrame.isFieldValid(),
+                    isPotentiallyValid: cardExpiryFrame.isFieldPotentiallyValid(),
+                    isFocused: cardExpiryFrame.isFieldFocused()
+                },
+                cardCvvField: {
+                    isEmpty: isEmpty(cardCVVFrame.getFieldValue()),
+                    isValid: cardCVVFrame.isFieldValid(),
+                    isPotentiallyValid: cardCVVFrame.isFieldPotentiallyValid(),
+                    isFocused: cardCVVFrame.isFieldFocused()
+                }
+            })
+        };
+    }
+    var getFieldErrors_getFieldErrors = function(fields) {
+        var errors = [];
+        Object.keys(fields).forEach((function(field) {
+            if (fields[field] && !fields[field].isValid) switch (field) {
+              case kebabToCamelCase("card-name-field"):
+                errors.push("INVALID_NAME");
+                break;
+
+              case kebabToCamelCase("card-number-field"):
+                errors.push("INVALID_NUMBER");
+                break;
+
+              case kebabToCamelCase("card-expiry-field"):
+                errors.push("INVALID_EXPIRY");
+                break;
+
+              case kebabToCamelCase("card-cvv-field"):
+                errors.push("INVALID_CVV");
+                break;
+
+              case kebabToCamelCase("card-postal-field"):
+                errors.push("INVALID_POSTAL");
+            }
+        }));
+        return errors;
+    };
+    function gql_resetGQLErrors() {
+        var _getCardFrames = getCardFrames(), cardFrame = _getCardFrames.cardFrame, cardNumberFrame = _getCardFrames.cardNumberFrame, cardExpiryFrame = _getCardFrames.cardExpiryFrame, cardCVVFrame = _getCardFrames.cardCVVFrame;
+        cardFrame && cardFrame.resetGQLErrors();
+        cardNumberFrame && cardNumberFrame.resetGQLErrors();
+        cardExpiryFrame && cardExpiryFrame.resetGQLErrors();
+        cardCVVFrame && cardCVVFrame.resetGQLErrors();
+    }
+    function emitGqlErrors(errorsMap) {
+        var _getCardFrames2 = getCardFrames(), cardFrame = _getCardFrames2.cardFrame, cardNumberFrame = _getCardFrames2.cardNumberFrame, cardExpiryFrame = _getCardFrames2.cardExpiryFrame, cardCVVFrame = _getCardFrames2.cardCVVFrame;
+        var number = errorsMap.number, expiry = errorsMap.expiry, security_code = errorsMap.security_code;
+        if (cardFrame) {
+            var cardFieldError = {
+                field: "",
+                errors: []
+            };
+            number && (cardFieldError = {
+                field: "number",
+                errors: number
+            });
+            expiry && (cardFieldError = {
+                field: "expiry",
+                errors: expiry
+            });
+            security_code && (cardFieldError = {
+                field: "cvv",
+                errors: security_code
+            });
+            cardFrame.setGqlErrors(cardFieldError);
+        }
+        cardNumberFrame && number && cardNumberFrame.setGqlErrors({
+            field: "number",
+            errors: number
+        });
+        cardExpiryFrame && expiry && cardExpiryFrame.setGqlErrors({
+            field: "expiry",
+            errors: expiry
+        });
+        cardCVVFrame && security_code && cardCVVFrame.setGqlErrors({
+            field: "cvv",
+            errors: security_code
+        });
+    }
+    function hasCardFields() {
+        var _getCardFrames = getCardFrames();
+        return Boolean(_getCardFrames.cardFrame || _getCardFrames.cardNumberFrame && _getCardFrames.cardCVVFrame && _getCardFrames.cardExpiryFrame);
+    }
+    function reformatExpiry(expiry) {
+        if ("string" == typeof expiry) {
+            var _expiry$split = expiry.split("/");
+            return _expiry$split[1] + "-" + _expiry$split[0];
+        }
+    }
     var sdk_constants = __webpack_require__(5);
+    var zalgo_promise = __webpack_require__(13);
+    function getOnError(_ref) {
+        var onError = _ref.onError;
+        var onErrorHandler = onError ? (handler = onError, seenErrors = [], seenStringifiedErrors = {}, 
+        function(err) {
+            if (-1 === seenErrors.indexOf(err)) {
+                seenErrors.push(err);
+                var stringifiedError = stringifyError(err);
+                if (!seenStringifiedErrors[stringifiedError]) {
+                    seenStringifiedErrors[stringifiedError] = !0;
+                    return handler(err);
+                }
+            }
+        }) : src_util_noop;
+        var handler, seenErrors, seenStringifiedErrors;
+        return function(err) {
+            return promise_ZalgoPromise.try((function() {
+                return onErrorHandler(err);
+            }));
+        };
+    }
     function callRestAPI(_ref) {
         var _extends2;
         var accessToken = _ref.accessToken, method = _ref.method, url = _ref.url, data = _ref.data, headers = _ref.headers, eventName = _ref.eventName;
@@ -8325,26 +8799,6 @@ window.smartCard = function(modules) {
             return _ref2.smartWallet;
         }));
     }));
-    function getOnError(_ref) {
-        var onError = _ref.onError;
-        var onErrorHandler = onError ? (handler = onError, seenErrors = [], seenStringifiedErrors = {}, 
-        function(err) {
-            if (-1 === seenErrors.indexOf(err)) {
-                seenErrors.push(err);
-                var stringifiedError = stringifyError(err);
-                if (!seenStringifiedErrors[stringifiedError]) {
-                    seenStringifiedErrors[stringifiedError] = !0;
-                    return handler(err);
-                }
-            }
-        }) : src_util_noop;
-        var handler, seenErrors, seenStringifiedErrors;
-        return function(err) {
-            return promise_ZalgoPromise.try((function() {
-                return onErrorHandler(err);
-            }));
-        };
-    }
     function getCreateOrder(_ref5, _ref6) {
         var createOrder = _ref5.createOrder, currency = _ref5.currency;
         var createBillingAgreement = _ref6.createBillingAgreement, createSubscription = _ref6.createSubscription, enableOrdersApprovalSmartWallet = _ref6.enableOrdersApprovalSmartWallet, smartWalletOrderID = _ref6.smartWalletOrderID;
@@ -9714,6 +10168,7 @@ window.smartCard = function(modules) {
     function getCardProps(_ref) {
         var _fundingEligibility$c, _fundingEligibility$c2;
         var facilitatorAccessToken = _ref.facilitatorAccessToken, featureFlags = _ref.featureFlags;
+        var props = {};
         var xprops = window.xprops;
         var type = xprops.type, cardSessionID = xprops.cardSessionID, style = xprops.style, placeholder = xprops.placeholder, minLength = xprops.minLength, maxLength = xprops.maxLength, fundingEligibility = xprops.fundingEligibility, inputEvents = xprops.inputEvents, _xprops$branded = xprops.branded, branded = void 0 === _xprops$branded ? null == (_fundingEligibility$c = null == fundingEligibility || null == (_fundingEligibility$c2 = fundingEligibility.card) ? void 0 : _fundingEligibility$c2.branded) || _fundingEligibility$c : _xprops$branded, parent = xprops.parent, xport = xprops.export, action = xprops.action;
         var returnData = {
@@ -9853,14 +10308,14 @@ window.smartCard = function(modules) {
         }({
             branded: branded
         });
-        return action ? _extends({}, baseProps, function(xprops) {
+        return action ? _extends({}, baseProps, props = function(xprops) {
             disallowedPropsWithAction.forEach((function(prop) {
                 if (xprops[prop]) throw new Error("Do not pass " + prop + " with an action.");
             }));
             return {
                 action: xprops.action
             };
-        }(xprops), returnData) : _extends({}, baseProps, getLegacyProps({
+        }(xprops), returnData) : _extends({}, baseProps, props = getLegacyProps({
             paymentSource: null,
             partnerAttributionID: xprops.partnerAttributionID,
             merchantID: xprops.merchantID,
@@ -9892,154 +10347,73 @@ window.smartCard = function(modules) {
             fundingEligibility: fundingEligibility,
             inputEvents: inputEvents,
             export: parent ? parent.export : xport,
-            facilitatorAccessToken: facilitatorAccessToken
+            facilitatorAccessToken: facilitatorAccessToken,
+            action: (null == (_props = props) ? void 0 : _props.action) || (null == parent || null == (_parent$props = parent.props) ? void 0 : _parent$props.action)
         });
+        var _props, _parent$props;
     }
-    function getExportsByFrameName(name) {
+    function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
         try {
-            for (var _i2 = 0, _getAllFramesInWindow2 = function(win) {
-                var top = function(win) {
-                    void 0 === win && (win = window);
-                    try {
-                        if (win.top) return win.top;
-                    } catch (err) {}
-                    if (utils_getParent(win) === win) return win;
-                    try {
-                        if (isAncestorParent(window, win) && window.top) return window.top;
-                    } catch (err) {}
-                    try {
-                        if (isAncestorParent(win, window) && window.top) return window.top;
-                    } catch (err) {}
-                    for (var _i7 = 0, _getAllChildFrames4 = getAllChildFrames(win); _i7 < _getAllChildFrames4.length; _i7++) {
-                        var frame = _getAllChildFrames4[_i7];
-                        try {
-                            if (frame.top) return frame.top;
-                        } catch (err) {}
-                        if (utils_getParent(frame) === frame) return frame;
-                    }
-                }(win);
-                if (!top) throw new Error("Can not determine top window");
-                var result = [].concat(getAllChildFrames(top), [ top ]);
-                -1 === result.indexOf(win) && (result = [].concat(result, [ win ], getAllChildFrames(win)));
-                return result;
-            }(window); _i2 < _getAllFramesInWindow2.length; _i2++) {
-                var win = _getAllFramesInWindow2[_i2];
-                if (isSameDomain(win) && win.exports && win.exports.name === name) return win.exports;
-            }
-        } catch (err) {}
+            var info = gen[key](arg);
+            var value = info.value;
+        } catch (error) {
+            reject(error);
+            return;
+        }
+        info.done ? resolve(value) : Promise.resolve(value).then(_next, _throw);
     }
-    function getCardFrames() {
-        return {
-            cardFrame: getExportsByFrameName("card-field"),
-            cardNumberFrame: getExportsByFrameName("card-number-field"),
-            cardCVVFrame: getExportsByFrameName("card-cvv-field"),
-            cardExpiryFrame: getExportsByFrameName("card-expiry-field"),
-            cardNameFrame: getExportsByFrameName("card-name-field"),
-            cardPostalFrame: getExportsByFrameName("card-postal-field")
-        };
-    }
-    function isEmpty(value) {
-        return 0 === value.length;
-    }
-    function getCardFieldState() {
-        var _getCardFrames = getCardFrames(), cardNumberFrame = _getCardFrames.cardNumberFrame, cardCVVFrame = _getCardFrames.cardCVVFrame, cardExpiryFrame = _getCardFrames.cardExpiryFrame;
-        var optionalFields = {};
-        [ _getCardFrames.cardNameFrame, _getCardFrames.cardPostalFrame ].forEach((function(cardFrame) {
-            cardFrame && (optionalFields[kebabToCamelCase(cardFrame.name)] = {
-                isEmpty: isEmpty(null == cardFrame ? void 0 : cardFrame.getFieldValue()),
-                isValid: null == cardFrame ? void 0 : cardFrame.isFieldValid(),
-                isPotentiallyValid: cardFrame.isFieldPotentiallyValid(),
-                isFocused: cardFrame.isFieldFocused()
-            });
-        }));
-        return {
-            cards: parsedCardType(cardNumberFrame.getPotentialCardTypes()),
-            fields: _extends({}, optionalFields, {
-                cardNumberField: {
-                    isEmpty: isEmpty(cardNumberFrame.getFieldValue()),
-                    isValid: cardNumberFrame.isFieldValid(),
-                    isPotentiallyValid: cardNumberFrame.isFieldPotentiallyValid(),
-                    isFocused: cardNumberFrame.isFieldFocused()
-                },
-                cardExpiryField: {
-                    isEmpty: isEmpty(cardExpiryFrame.getFieldValue()),
-                    isValid: cardExpiryFrame.isFieldValid(),
-                    isPotentiallyValid: cardExpiryFrame.isFieldPotentiallyValid(),
-                    isFocused: cardExpiryFrame.isFieldFocused()
-                },
-                cardCvvField: {
-                    isEmpty: isEmpty(cardCVVFrame.getFieldValue()),
-                    isValid: cardCVVFrame.isFieldValid(),
-                    isPotentiallyValid: cardCVVFrame.isFieldPotentiallyValid(),
-                    isFocused: cardCVVFrame.isFieldFocused()
+    function _asyncToGenerator(fn) {
+        return function() {
+            var self = this, args = arguments;
+            return new Promise((function(resolve, reject) {
+                var gen = fn.apply(self, args);
+                function _next(value) {
+                    asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
                 }
-            })
+                function _throw(err) {
+                    asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
+                }
+                _next(void 0);
+            }));
         };
     }
-    function hasCardFields() {
-        var _getCardFrames2 = getCardFrames();
-        return !!(_getCardFrames2.cardFrame || _getCardFrames2.cardNumberFrame && _getCardFrames2.cardCVVFrame && _getCardFrames2.cardExpiryFrame);
+    function updateVaultSetupToken(_ref) {
+        var vaultSetupToken = _ref.vaultSetupToken;
+        return request({
+            method: "post",
+            url: "/v3/vault/setup-tokens/" + vaultSetupToken + "/update",
+            headers: {
+                Authorization: "Basic " + _ref.lowScopedAccessToken,
+                "Content-Type": "application/json"
+            },
+            data: {
+                payment_source: {
+                    card: _extends({}, _ref.paymentSourceDetails)
+                }
+            }
+        }).then((function(_ref2) {
+            var body = _ref2.body;
+            if (!body || "APPROVED" === !body.status) throw new Error("request was not approved");
+            return vaultSetupToken;
+        }));
     }
-    function getCardFields() {
-        var cardFrame = getExportsByFrameName("card-field");
-        if (cardFrame && cardFrame.isFieldValid()) return cardFrame.getFieldValue();
-        var _getCardFrames3 = getCardFrames(), cardNumberFrame = _getCardFrames3.cardNumberFrame, cardCVVFrame = _getCardFrames3.cardCVVFrame, cardExpiryFrame = _getCardFrames3.cardExpiryFrame, cardNameFrame = _getCardFrames3.cardNameFrame, cardPostalFrame = _getCardFrames3.cardPostalFrame;
-        if (cardNumberFrame && cardNumberFrame.isFieldValid() && cardCVVFrame && cardCVVFrame.isFieldValid() && cardExpiryFrame && cardExpiryFrame.isFieldValid() && (!cardNameFrame || cardNameFrame.isFieldValid()) && (!cardPostalFrame || cardPostalFrame.isFieldValid())) return {
-            number: cardNumberFrame.getFieldValue(),
-            cvv: cardCVVFrame.getFieldValue(),
-            expiry: cardExpiryFrame.getFieldValue(),
-            name: (null == cardNameFrame ? void 0 : cardNameFrame.getFieldValue()) || "",
-            postalCode: (null == cardPostalFrame ? void 0 : cardPostalFrame.getFieldValue()) || ""
-        };
-        throw new Error("Card fields not available to submit");
+    function vaultPaymentSource(_x) {
+        return _vaultPaymentSource.apply(this, arguments);
     }
-    function emitGqlErrors(errorsMap) {
-        var _getCardFrames4 = getCardFrames(), cardFrame = _getCardFrames4.cardFrame, cardNumberFrame = _getCardFrames4.cardNumberFrame, cardExpiryFrame = _getCardFrames4.cardExpiryFrame, cardCVVFrame = _getCardFrames4.cardCVVFrame;
-        var number = errorsMap.number, expiry = errorsMap.expiry, security_code = errorsMap.security_code;
-        if (cardFrame) {
-            var cardFieldError = {
-                field: "",
-                errors: []
-            };
-            number && (cardFieldError = {
-                field: "number",
-                errors: number
+    function _vaultPaymentSource() {
+        return (_vaultPaymentSource = _asyncToGenerator((function*(_ref) {
+            var action = _ref.action, lowScopedAccessToken = _ref.lowScopedAccessToken, paymentSourceDetails = _ref.paymentSourceDetails;
+            var createVaultSetupToken = action.createVaultSetupToken, onApprove = action.onApprove;
+            var vaultSetupToken = (yield createVaultSetupToken()).vaultSetupToken;
+            yield updateVaultSetupToken({
+                vaultSetupToken: vaultSetupToken,
+                lowScopedAccessToken: lowScopedAccessToken,
+                paymentSourceDetails: paymentSourceDetails
             });
-            expiry && (cardFieldError = {
-                field: "expiry",
-                errors: expiry
+            yield onApprove({
+                vaultSetupToken: vaultSetupToken
             });
-            security_code && (cardFieldError = {
-                field: "cvv",
-                errors: security_code
-            });
-            cardFrame.setGqlErrors(cardFieldError);
-        }
-        cardNumberFrame && number && cardNumberFrame.setGqlErrors({
-            field: "number",
-            errors: number
-        });
-        cardExpiryFrame && expiry && cardExpiryFrame.setGqlErrors({
-            field: "expiry",
-            errors: expiry
-        });
-        cardCVVFrame && security_code && cardCVVFrame.setGqlErrors({
-            field: "cvv",
-            errors: security_code
-        });
-    }
-    function interface_resetGQLErrors() {
-        var _getCardFrames5 = getCardFrames(), cardFrame = _getCardFrames5.cardFrame, cardNumberFrame = _getCardFrames5.cardNumberFrame, cardExpiryFrame = _getCardFrames5.cardExpiryFrame, cardCVVFrame = _getCardFrames5.cardCVVFrame;
-        cardFrame && cardFrame.resetGQLErrors();
-        cardNumberFrame && cardNumberFrame.resetGQLErrors();
-        cardExpiryFrame && cardExpiryFrame.resetGQLErrors();
-        cardCVVFrame && cardCVVFrame.resetGQLErrors();
-    }
-    function reformatExpiry(expiry) {
-        if ("string" == typeof expiry) {
-            var _expiry$split = expiry.split("/");
-            return _expiry$split[1] + "-" + _expiry$split[0];
-        }
+        }))).apply(this, arguments);
     }
     function submitCardFields(_ref) {
         var facilitatorAccessToken = _ref.facilitatorAccessToken, extraFields = _ref.extraFields;
@@ -10047,102 +10421,92 @@ window.smartCard = function(modules) {
             facilitatorAccessToken: facilitatorAccessToken,
             featureFlags: _ref.featureFlags
         });
-        interface_resetGQLErrors();
-        return promise_ZalgoPromise.try((function() {
+        gql_resetGQLErrors();
+        return zalgo_promise.ZalgoPromise.try((function() {
             if (!hasCardFields()) throw new Error("Card fields not available to submit");
             var card = getCardFields();
-            if (card) {
-                var restart = function() {
-                    throw new Error("Restart not implemented for card fields flow");
-                };
-                return cardProps.intent === sdk_constants.INTENT.TOKENIZE ? function(_ref24) {
-                    var card = _ref24.card;
-                    return promise_ZalgoPromise.try((function() {
-                        console.info("Card Tokenize GQL mutation not yet implemented", {
-                            card: card
-                        });
-                        return {
-                            paymentMethodToken: uniqueID()
-                        };
-                    }));
-                }({
-                    card: card
-                }).then((function(_ref2) {
-                    return cardProps.onApprove({
-                        paymentMethodToken: _ref2.paymentMethodToken
-                    }, {
-                        restart: restart
+            if (!card) throw new Error("Card not available to submit");
+            var restart = function() {
+                throw new Error("Restart not implemented for card fields flow");
+            };
+            if (void 0 !== cardProps.action) switch (cardProps.action.type) {
+              case "save":
+                try {
+                    return vaultPaymentSource({
+                        action: cardProps.action,
+                        lowScopedAccessToken: facilitatorAccessToken,
+                        paymentSourceDetails: card
                     });
-                })) : cardProps.intent === sdk_constants.INTENT.CAPTURE || cardProps.intent === sdk_constants.INTENT.AUTHORIZE ? cardProps.createOrder().then((function(orderID) {
-                    var cardObject = _extends({
-                        name: card.name,
-                        number: card.number,
-                        expiry: reformatExpiry(card.expiry),
-                        security_code: card.cvv
-                    }, extraFields);
-                    card.name && (cardObject.name = card.name);
-                    return function(orderID, data, _ref11) {
-                        var _headers14;
-                        return callRestAPI({
-                            accessToken: _ref11.facilitatorAccessToken,
-                            method: "post",
-                            eventName: "order_confirm_payment_source",
-                            url: ORDERS_API_URL + "/" + orderID + "/confirm-payment-source",
-                            data: data,
-                            headers: (_headers14 = {}, _headers14["paypal-partner-attribution-id"] = _ref11.partnerAttributionID || "", 
-                            _headers14.prefer = "return=representation", _headers14)
-                        }).then((function(_ref12) {
-                            return _ref12.data;
-                        }));
-                    }(orderID, {
-                        payment_source: {
-                            card: cardObject
-                        }
-                    }, {
-                        facilitatorAccessToken: facilitatorAccessToken,
-                        partnerAttributionID: ""
-                    }).catch((function(error) {
-                        getLogger().info("card_fields_payment_failed");
-                        cardProps.onError && cardProps.onError(error);
-                        throw error;
-                    }));
-                })).then((function(orderData) {
-                    return cardProps.onApprove(_extends({
-                        payerID: uniqueID(),
-                        buyerAccessToken: uniqueID()
-                    }, orderData), {
-                        restart: restart
-                    });
-                })) : void 0;
+                } catch (error) {
+                    getLogger().info("card_fields_vault_payment_source_failed");
+                    throw error;
+                }
+
+              default:
+                getLogger().info("card_fields_unsupported_action");
+                throw new Error("Action of type " + cardProps.action.type + " is not supported by Card Fields");
             }
+            return cardProps.intent === sdk_constants.INTENT.TOKENIZE ? function(_ref24) {
+                var card = _ref24.card;
+                return promise_ZalgoPromise.try((function() {
+                    console.info("Card Tokenize GQL mutation not yet implemented", {
+                        card: card
+                    });
+                    return {
+                        paymentMethodToken: uniqueID()
+                    };
+                }));
+            }({
+                card: card
+            }).then((function(_ref2) {
+                return cardProps.onApprove({
+                    paymentMethodToken: _ref2.paymentMethodToken
+                }, {
+                    restart: restart
+                });
+            })) : cardProps.intent === sdk_constants.INTENT.CAPTURE || cardProps.intent === sdk_constants.INTENT.AUTHORIZE ? cardProps.createOrder().then((function(orderID) {
+                var cardObject = _extends({
+                    name: card.name,
+                    number: card.number,
+                    expiry: reformatExpiry(card.expiry),
+                    security_code: card.cvv
+                }, extraFields);
+                card.name && (cardObject.name = card.name);
+                return function(orderID, data, _ref11) {
+                    var _headers14;
+                    return callRestAPI({
+                        accessToken: _ref11.facilitatorAccessToken,
+                        method: "post",
+                        eventName: "order_confirm_payment_source",
+                        url: ORDERS_API_URL + "/" + orderID + "/confirm-payment-source",
+                        data: data,
+                        headers: (_headers14 = {}, _headers14["paypal-partner-attribution-id"] = _ref11.partnerAttributionID || "", 
+                        _headers14.prefer = "return=representation", _headers14)
+                    }).then((function(_ref12) {
+                        return _ref12.data;
+                    }));
+                }(orderID, {
+                    payment_source: {
+                        card: cardObject
+                    }
+                }, {
+                    facilitatorAccessToken: facilitatorAccessToken,
+                    partnerAttributionID: ""
+                }).catch((function(error) {
+                    getLogger().info("card_fields_payment_failed");
+                    cardProps.onError && cardProps.onError(error);
+                    throw error;
+                }));
+            })).then((function(orderData) {
+                return cardProps.onApprove(_extends({
+                    payerID: Object(belter.uniqueID)(),
+                    buyerAccessToken: Object(belter.uniqueID)()
+                }, orderData), {
+                    restart: restart
+                });
+            })) : void 0;
         }));
     }
-    var interface_getFieldErrors = function(fields) {
-        var errors = [];
-        Object.keys(fields).forEach((function(field) {
-            if (fields[field] && !fields[field].isValid) switch (field) {
-              case kebabToCamelCase("card-name-field"):
-                errors.push("INVALID_NAME");
-                break;
-
-              case kebabToCamelCase("card-number-field"):
-                errors.push("INVALID_NUMBER");
-                break;
-
-              case kebabToCamelCase("card-expiry-field"):
-                errors.push("INVALID_EXPIRY");
-                break;
-
-              case kebabToCamelCase("card-cvv-field"):
-                errors.push("INVALID_CVV");
-                break;
-
-              case kebabToCamelCase("card-postal-field"):
-                errors.push("INVALID_POSTAL");
-            }
-        }));
-        return errors;
-    };
     function Icons() {
         return h("svg", {
             class: "card-icons"
@@ -10496,7 +10860,7 @@ window.smartCard = function(modules) {
             ariaMessageRef: ariaMessageRef
         }));
     }
-    var main = __webpack_require__(13);
+    var main = __webpack_require__(14);
     var main_default = __webpack_require__.n(main);
     function CardExpiry(_ref) {
         var _ref$name = _ref.name, name = void 0 === _ref$name ? "expiry" : _ref$name, _ref$autocomplete = _ref.autocomplete, autocomplete = void 0 === _ref$autocomplete ? "cc-exp" : _ref$autocomplete, _ref$navigation = _ref.navigation, navigation = void 0 === _ref$navigation ? defaultNavigation : _ref$navigation, state = _ref.state, type = _ref.type, style = _ref.style, maxLength = _ref.maxLength, onChange = _ref.onChange, onFocus = _ref.onFocus, onBlur = _ref.onBlur, onKeyDown = _ref.onKeyDown, onValidityChange = _ref.onValidityChange, _ref$allowNavigation = _ref.allowNavigation, allowNavigation = void 0 !== _ref$allowNavigation && _ref$allowNavigation;
@@ -11401,7 +11765,7 @@ window.smartCard = function(modules) {
         hooks_module_h((function() {
             if (initialRender.current && "" === fieldValue) initialRender.current = !1; else if (!initialRender.current && "function" == typeof onChange) {
                 var _getStateObject = getStateObject(), fields = _getStateObject.fields, potentialCardTypes = _getStateObject.potentialCardTypes;
-                var errors = interface_getFieldErrors(fields);
+                var errors = getFieldErrors_getFieldErrors(fields);
                 onChange({
                     fields: fields,
                     potentialCardTypes: potentialCardTypes,
@@ -11414,7 +11778,7 @@ window.smartCard = function(modules) {
         hooks_module_h((function() {
             if (initialRender.current && "" === fieldValue) initialRender.current = !1; else if (!initialRender.current && "function" == typeof onFocus) {
                 var _getStateObject2 = getStateObject(), fields = _getStateObject2.fields, potentialCardTypes = _getStateObject2.potentialCardTypes;
-                var errors = interface_getFieldErrors(fields);
+                var errors = getFieldErrors_getFieldErrors(fields);
                 var fieldStateObject = {
                     fields: fields,
                     potentialCardTypes: potentialCardTypes,
@@ -11428,7 +11792,7 @@ window.smartCard = function(modules) {
         hooks_module_h((function() {
             if (inputSubmit && "function" == typeof onInputSubmitRequest) {
                 var _getStateObject3 = getStateObject(), fields = _getStateObject3.fields, potentialCardTypes = _getStateObject3.potentialCardTypes;
-                var errors = interface_getFieldErrors(fields);
+                var errors = getFieldErrors_getFieldErrors(fields);
                 onInputSubmitRequest(_extends({}, {
                     fields: fields,
                     potentialCardTypes: potentialCardTypes,
