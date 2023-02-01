@@ -1,9 +1,12 @@
-name: build
+name: CI
 on:
   # run on push but only for the main branch
   push:
     branches:
       - main
+
+  # manually run this action using the GitHub UI
+  workflow_dispatch: {}
   # run for every pull request
   pull_request: {}
 jobs:
