@@ -104,6 +104,7 @@ type BaseCardProps = {|
 export type CardProps = {|
     ...BaseCardProps,
     ...LegacyProps,
+    action: Object,
 |};
 
 export type CardPropsWithAction = {|
@@ -218,6 +219,8 @@ export function getCardProps({ facilitatorAccessToken, featureFlags } : GetCardP
       inputEvents,
       export:   parent ? parent.export : xport,
       facilitatorAccessToken,
+      // $FlowIssue
+      action: props?.action || parent?.props?.action
     }
   }
 }
