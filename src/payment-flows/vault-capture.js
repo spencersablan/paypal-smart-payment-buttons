@@ -176,6 +176,7 @@ function initVaultCapture({ props, components, payment, serviceData, config } : 
     }
 
     if (userIDToken && merchantID && merchantID[0]) {
+        getLogger().info('vault_create_access_token', { merchantID: merchantID[0], clientID });
         createAccessTokenWithTargetSubject().then(accessTokenWithTargetSubject => {
             accessToken = accessTokenWithTargetSubject;
         });
@@ -188,6 +189,7 @@ function initVaultCapture({ props, components, payment, serviceData, config } : 
         }).then(({ validate, requireShipping }) => {
             if (requireShipping) {
                 if (fundingSource !== FUNDING.PAYPAL) {
+                    getLogger().error('vault_shipping_required');
                     throw new Error(`Shipping address requested for ${ fundingSource } payment`);
                 }
 
