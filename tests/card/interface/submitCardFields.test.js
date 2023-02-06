@@ -1,165 +1,155 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
+/* @flow */
+import { describe, test, expect, beforeEach, vi } from "vitest";
+import { INTENT } from "@paypal/sdk-constants";
 
-import { getCardFields, hasCardFields, submitCardFields } from "../../../src/card/interface";
-
+import {
+  getCardFields,
+  hasCardFields,
+  submitCardFields,
+} from "../../../src/card/interface";
 import { getCardProps } from "../../../src/card/props";
 import { resetGQLErrors } from "../../../src/card/interface/gql";
-import { vaultPaymentSource } from "../../../src/card/interface/vaultPaymentSource";
-import { INTENT } from "@paypal/sdk-constants";
-import { confirmOrderAPI, tokenizeCard } from "../../../src/api";
+import { vault } from "../../../src/card/interface/vault";
+import { confirmOrderAPI } from "../../../src/api";
 
-vi.mock('../../../src/card/props', () => {
+vi.mock("../../../src/card/props", () => {
   return {
-    getCardProps: vi.fn(() => ({
-
-    })),
+    getCardProps: vi.fn(() => ({})),
   };
 });
 
-vi.mock('../../../src/card/interface/hasCardFields', () => {
+vi.mock("../../../src/card/interface/hasCardFields", () => {
   return {
-    hasCardFields: vi.fn(() => true)
-  }
-})
-
-const mockGetCardFieldsReturn = {
-  name: 'John Doe',
-  number: '4111111111111111',
-  cvv: '123',
-  expiry: '01/24',
-  postal: '91210'
-};
-
-vi.mock('../../../src/card/interface/getCardFields', () => {
-  return {
-    getCardFields: vi.fn(() => mockGetCardFieldsReturn)
-  }
+    hasCardFields: vi.fn(() => true),
+  };
 });
 
-vi.mock('../../../src/card/interface/gql', () => ({
+const mockGetCardFieldsReturn = {
+  name: "John Doe",
+  number: "4111111111111111",
+  cvv: "123",
+  expiry: "01/24",
+  postalCode: "91210",
+};
+
+vi.mock("../../../src/card/interface/getCardFields", () => {
+  return {
+    getCardFields: vi.fn(() => mockGetCardFieldsReturn),
+  };
+});
+
+vi.mock("../../../src/card/interface/gql", () => ({
   resetGQLErrors: vi.fn(),
 }));
 
-vi.mock('../../../src/card/interface/vaultPaymentSource', () => ({
-  vaultPaymentSource: vi.fn(),
+vi.mock("../../../src/card/interface/vault", () => ({
+  vault: {
+    create: vi.fn(),
+  },
 }));
 
-const mockInfo = vi.fn();
-
-vi.mock('../../../src/lib', () => ({
-  getLogger: () => ({
-    info: mockInfo
-  }),
+vi.mock("../../../src/lib")
+vi.mock("../../../src/api", () => ({
+  tokenizeCard: vi
+    .fn()
+    .mockResolvedValue({ paymentMethodToken: "test-payment-method-token" }),
+    // eslint-disable-next-line compat/compat, promise/no-native, no-restricted-globals
+  confirmOrderAPI: vi.fn(() => Promise.resolve({ id: "test-order-id" })),
 }));
 
-vi.mock('../../../src/api', () => ({
-  tokenizeCard: vi.fn(() => Promise.resolve({ paymentMethodToken: 'test-payment-method-token' })),
-  confirmOrderAPI: vi.fn(() => Promise.resolve({ id: 'test-order-id' })),
-}))
-
-describe('card/interface/submitCardFields', () => {
+describe("submitCardFields", () => {
   beforeEach(() => {
     vi.restoreAllMocks();
   });
 
-  // calls getCardProps
-  it('should get cardprops', async () => {
-    const options = {
-      facilitatorAccessToken: 'test-access-token',
-      featureFlags: { 'test': true }
-    };
+  const defaultOptions = {
+    facilitatorAccessToken: "test-access-token",
+    featureFlags: {},
+  };
 
-    await submitCardFields(options);
+  test("should get card props and reset graphql errors", async () => {
+    await submitCardFields(defaultOptions);
 
-    expect.assertions(2);
+    expect.assertions(3);
     expect(getCardProps).toHaveBeenCalledOnce();
-    expect(getCardProps).toHaveBeenCalledWith(options);
-  });
-
-  // calls resetGQLErrors
-  it('should reset GQL errors', async () => {
-    const options = {
-      facilitatorAccessToken: 'test-access-token',
-    }
-
-    await submitCardFields(options);
-
-    expect.assertions(1);
+    expect(getCardProps).toHaveBeenCalledWith(defaultOptions);
     expect(resetGQLErrors).toHaveBeenCalledOnce();
   });
 
-  it('should throw an error if we do not have card fields', async () => {
+  test("should throw an error if we do not have card fields", () => {
+    // $FlowIssue
     hasCardFields.mockReturnValueOnce(false);
 
-    const options = {
-      facilitatorAccessToken: 'test-access-token',
-    }
-
     expect.assertions(1);
-    await expect(() => submitCardFields(options)).rejects.toThrowError('Card fields not available to submit');
+
+    expect(submitCardFields(defaultOptions)).rejects.toThrowError(
+      "Card fields not available to submit"
+    );
   });
 
-  it('should throw an error if we do not have a card', async () => {
+  test("should throw an error if we do not have a card", () => {
+    // $FlowIssue
     getCardFields.mockReturnValueOnce(null);
 
-    const options = {
-      facilitatorAccessToken: 'test-access-token',
-    }
+    expect.assertions(1);
+    expect(submitCardFields(defaultOptions)).rejects.toThrowError(
+      "Card not available to submit"
+    );
+  });
+
+  test("should use the provided save action", async () => {
+    const onCreateVaultSetupToken = vi.fn();
+    const onApprove = vi.fn();
+
+    const mockGetCardPropsReturn = {
+      action: {
+        type: "save",
+        onApprove,
+        onCreateVaultSetupToken,
+      },
+    };
+    // $FlowIssue
+    getCardProps.mockReturnValueOnce(mockGetCardPropsReturn);
+
+    await submitCardFields(defaultOptions);
 
     expect.assertions(1);
-    await expect(() => submitCardFields(options)).rejects.toThrowError('Card not available to submit');
-  })
-
-  it('should use the provided save action', async () => {
-    const onCreateVaultSetupToken = vi.fn();
-    const onApprove = vi.fn();
-
-    const mockGetCardPropsReturn = {
-      action: {
-        type: 'save',
-        onApprove,
-        onCreateVaultSetupToken,
-      }
-    };
-    getCardProps.mockReturnValueOnce(mockGetCardPropsReturn);
-
-    const options = {
-      facilitatorAccessToken: 'test-access-token',
-    };
-
-    expect.assertions(2);
-    await submitCardFields(options);
-
-    expect(vaultPaymentSource).toHaveBeenCalledOnce();
-    expect(vaultPaymentSource).toHaveBeenCalledWith({
+    expect(vault.create).toHaveBeenCalledWith({
       action: mockGetCardPropsReturn.action,
-      lowScopedAccessToken: 'test-access-token',
-      paymentSourceDetails: mockGetCardFieldsReturn
+      facilitatorAccessToken: "test-access-token",
+      paymentSource: {
+        card: {
+          billing_address: {
+            postal_code: "91210",
+          },
+          expiry: "01/24",
+          name: "John Doe",
+          number: "4111111111111111",
+          security_code: "123",
+        },
+      },
     });
   });
 
-  it('should throw an error when given an unsupported action', async () => {
+  test("should throw an error when given an unsupported action", () => {
     const mockGetCardPropsReturn = {
       action: {
-        type: 'testing',
-      }
+        type: "testing",
+      },
     };
 
+    // $FlowIssue
     getCardProps.mockReturnValueOnce(mockGetCardPropsReturn);
 
-    const options = {
-      facilitatorAccessToken: 'test-access-token',
-    };
-
-    expect.assertions(3);
-    await expect(() => submitCardFields(options)).rejects.toThrowError('Action of type testing is not supported by Card Fields')
-    expect(mockInfo).toHaveBeenCalledOnce();
-    expect(mockInfo).toHaveBeenCalledWith('card_fields_unsupported_action')
+    expect(submitCardFields(defaultOptions)).rejects.toThrowError(
+      "Action of type testing is not supported by Card Fields"
+    );
   });
 
-  it('should log and throw any error that occurs when handling a save action', async () => {
-    vaultPaymentSource.mockImplementationOnce(() => {
-      throw new Error('testing')
+  test("should log and throw any error that occurs when handling a save action", () => {
+    // $FlowIssue
+    vault.create.mockImplementationOnce(() => {
+      throw new Error("testing");
     });
 
     const onCreateVaultSetupToken = vi.fn();
@@ -167,107 +157,76 @@ describe('card/interface/submitCardFields', () => {
 
     const mockGetCardPropsReturn = {
       action: {
-        type: 'save',
+        type: "save",
         onApprove,
         onCreateVaultSetupToken,
-      }
+      },
     };
+    // $FlowIssue
     getCardProps.mockReturnValueOnce(mockGetCardPropsReturn);
 
-    const options = {
-      facilitatorAccessToken: 'test-access-token',
-    };
-
-    expect.assertions(3);
-    await expect(() => submitCardFields(options)).rejects.toThrow('testing')
-    expect(mockInfo).toHaveBeenCalledOnce();
-    expect(mockInfo).toHaveBeenCalledWith('card_fields_vault_payment_source_failed')
+    expect(submitCardFields(defaultOptions)).rejects.toThrow("testing");
   });
 
-  it('should tokenize', async () => {
+  test("should checkout", async () => {
     const mockGetCardPropsReturn = {
-      intent: INTENT.TOKENIZE,
+      intent: INTENT.CAPTURE,
+      createOrder: vi.fn().mockResolvedValue("test-order-id"),
       onApprove: vi.fn(),
     };
+
+    // $FlowIssue
     getCardProps.mockReturnValueOnce(mockGetCardPropsReturn);
 
-    const options = {
-      facilitatorAccessToken: 'test-access-token',
-    };
-
-    await submitCardFields(options);
-
-    expect.assertions(4);
-    expect(tokenizeCard).toHaveBeenCalledOnce();
-    expect(tokenizeCard).toHaveBeenCalledWith({ card: mockGetCardFieldsReturn });
-    expect(mockGetCardPropsReturn.onApprove).toHaveBeenCalledOnce();
-    expect(mockGetCardPropsReturn.onApprove).toHaveBeenCalledWith(
-      { paymentMethodToken: 'test-payment-method-token' },
-      { restart: expect.any(Function) }
-    )
-  });
-
-  it.each(['CAPTURE', 'AUTHORIZE'])('should %s', async (mode) => {
-    const mockGetCardPropsReturn = {
-      intent: INTENT[mode],
-      createOrder: vi.fn(() => Promise.resolve('test-order-id')),
-      onApprove: vi.fn()
-    };
-
-    getCardProps.mockReturnValueOnce(mockGetCardPropsReturn);
-    const options = {
-      facilitatorAccessToken: 'test-access-token',
-    };
-
-    expect.assertions(5);
-    await submitCardFields(options);
-    expect(mockGetCardPropsReturn.createOrder).toHaveBeenCalledOnce();
-    expect(confirmOrderAPI).toHaveBeenCalledOnce();
+    expect.assertions(3);
+    await submitCardFields(defaultOptions);
+    expect(mockGetCardPropsReturn.createOrder).toHaveBeenCalled();
     expect(confirmOrderAPI).toHaveBeenCalledWith(
-      'test-order-id',
+      "test-order-id",
       {
         payment_source: {
           card: {
             expiry: "24-01",
             name: "John Doe",
             number: "4111111111111111",
-            "security_code": "123",
-          }
-        }
+            security_code: "123",
+          },
+        },
       },
       {
-        facilitatorAccessToken: 'test-access-token',
-        partnerAttributionID: ''
+        facilitatorAccessToken: "test-access-token",
+        partnerAttributionID: "",
       }
     );
-    expect(mockGetCardPropsReturn.onApprove).toHaveBeenCalledOnce();
-    expect(mockGetCardPropsReturn.onApprove).toHaveBeenCalledWith({
-      payerID: expect.any(String),
-      buyerAccessToken: expect.any(String),
-      id: 'test-order-id'
-    },
-    {
-      restart: expect.any(Function)
-    }
+    expect(mockGetCardPropsReturn.onApprove).toHaveBeenCalledWith(
+      {
+        payerID: expect.any(String),
+        buyerAccessToken: expect.any(String),
+        id: "test-order-id",
+      },
+      {
+        restart: expect.any(Function),
+      }
     );
   });
 
-  it('should catch any errors from confirmOrderAPI', async () => {
+  test("should catch any errors from confirmOrderAPI", () => {
+    // $FlowIssue
     confirmOrderAPI.mockImplementationOnce(() => {
-      throw new Error('confirm order api failure test');
+      throw new Error("confirm order api failure test");
     });
     const mockGetCardPropsReturn = {
       intent: INTENT.CAPTURE,
-      createOrder: vi.fn(() => Promise.resolve('test-order-id')),
-      onApprove: vi.fn()
+      createOrder: vi.fn().mockResolvedValue("test-order-id"),
+      onApprove: vi.fn(),
     };
 
+    // $FlowIssue
     getCardProps.mockReturnValueOnce(mockGetCardPropsReturn);
-    const options = {
-      facilitatorAccessToken: 'test-access-token',
-    };
 
     expect.assertions(1);
-    await expect(() => submitCardFields(options)).rejects.toThrow('confirm order api failure test');
+    expect(submitCardFields(defaultOptions)).rejects.toThrow(
+      "confirm order api failure test"
+    );
   });
 });

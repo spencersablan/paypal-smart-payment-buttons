@@ -14,7 +14,7 @@ type RESTAPIParams<D> = {|
     url : string,
     data? : D,
     headers? : { [string] : string },
-    eventName : string
+    eventName? : string
 |};
 
 export function callRestAPI<D, T>({ accessToken, method, url, data, headers, eventName } : RESTAPIParams<D>) : ZalgoPromise<T> {
@@ -50,7 +50,9 @@ export function callRestAPI<D, T>({ accessToken, method, url, data, headers, eve
                 });
             }
 
-            getLogger().warn(`rest_api_${ eventName }_error`);
+            if (eventName) {
+                getLogger().warn(`rest_api_${ eventName }_error`);
+            }
             throw error;
         }
 

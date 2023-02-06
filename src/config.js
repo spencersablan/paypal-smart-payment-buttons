@@ -9,6 +9,8 @@ export const ORDERS_API_URL = '/v2/checkout/orders';
 export const PAYMENTS_API_URL = '/v1/payments/payment';
 export const CREATE_SUBSCRIPTIONS_API_URL = '/v1/billing/subscriptions';
 export const VALIDATE_PAYMENT_METHOD_API = 'validate-payment-method';
+export const VAULT_API_URL = '/v3/vault'
+export const VAULT_SETUP_TOKENS_API_URL = `${VAULT_API_URL}/setup-tokens`
 
 export const BASE_SMART_API_URL = '/smart/api';
 export const SMART_API_URI = {

@@ -21,7 +21,9 @@
     "testPathIgnorePatterns": [
       "/node_modules/",
       "/fixtures/",
-      "<rootDir>/src/button/logger.test.js"
+      "<rootDir>/src/button/logger.test.js",
+      "<rootDir>/src/props/",
+      "<rootDir>/src/card/props.test.js"
     ]
   },
   "files": [
@@ -117,6 +119,8 @@
   "lint-staged": {
     "vite.config.js": "prettier --write",
     "**/button/logger.test.js": "prettier --write",
+    "**/src/props/*.test.js": "prettier --write",
+    "**/src/card/props.test.js": "prettier --write",
     "**/tests/*.{js}": "prettier --write"
   },
   "license": "Apache-2.0"

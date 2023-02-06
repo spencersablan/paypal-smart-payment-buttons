@@ -1,11 +1,14 @@
 /* @flow */
+import { vi, describe, test, expect } from "vitest";
+import { INTENT, FUNDING } from "@paypal/sdk-constants/src";
 
-import { INTENT, FUNDING } from '@paypal/sdk-constants/src';
+import { getLegacyProps } from "./legacyProps";
 
-import { getLegacyProps } from "./legacyProps"
+// something in legacyProps is making an api request
+vi.mock("../api");
 
-describe('legacyProps', () => {
-  it('should return list of legacy props', () => {
+describe("legacyProps", () => {
+  test("should return list of legacy props", () => {
     const expectedProps = {
       createBillingAgreement: expect.any(Function),
       createSubscription: expect.any(Function),
@@ -17,7 +20,7 @@ describe('legacyProps', () => {
       onShippingAddressChange: expect.any(Function),
       onShippingOptionsChange: expect.any(Function),
       onAuth: expect.any(Function),
-    }
+    };
     const inputs = {
       paymentSource: FUNDING.CARD,
       partnerAttributionID: "a-partner-attribution-id",
@@ -32,19 +35,19 @@ describe('legacyProps', () => {
       vault: false,
       clientAccessToken: "some access token",
       featureFlags: {},
-      createBillingAgreement: jest.fn(),
-      createSubscription: jest.fn(),
-      createOrder: jest.fn(),
-      onError: jest.fn(),
-      onApprove: jest.fn(),
-      onComplete: jest.fn(),
-      onCancel: jest.fn(),
-      onShippingChange: jest.fn(),
-      onShippingAddressChange: jest.fn(),
-      onShippingOptionsChange: jest.fn(),
-    }
-    
-    const result = getLegacyProps(inputs)
-    expect(result).toEqual(expectedProps)
-  })
-})
+      createBillingAgreement: vi.fn(),
+      createSubscription: vi.fn(),
+      createOrder: vi.fn(),
+      onError: vi.fn(),
+      onApprove: vi.fn(),
+      onComplete: vi.fn(),
+      onCancel: vi.fn(),
+      onShippingChange: vi.fn(),
+      onShippingAddressChange: vi.fn(),
+      onShippingOptionsChange: vi.fn(),
+    };
+
+    const result = getLegacyProps(inputs);
+    expect(result).toEqual(expectedProps);
+  });
+});

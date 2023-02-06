@@ -579,3 +579,25 @@ export function getOnApprove({ intent, createBillingAgreement, createSubscriptio
 
     throw new Error(`Unsupported intent: ${ intent }`);
 }
+
+type SaveActionOnApproveData = {| vaultSetupToken: string |};
+type SaveActionOnApprove = (SaveActionOnApproveData) => ZalgoPromise<void>;
+
+export const getSaveActionOnApprove =
+  ({
+    onApprove,
+    onError,
+  }: {|
+    onApprove: SaveActionOnApprove,
+    onError: (error: mixed) => ZalgoPromise<void>,
+  |}): ((SaveActionOnApproveData) => ZalgoPromise<void>) =>
+  (data) => {
+    try {
+      return onApprove(data)?.catch((error) => {
+        return onError(error);
+      });
+    } catch (error) {
+      return onError(error);
+    }
+  };
+

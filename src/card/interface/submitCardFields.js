@@ -1,7 +1,7 @@
 /* @flow */
 
 import { INTENT } from "@paypal/sdk-constants"
-import { ZalgoPromise } from "@krakenjs/zalgo-promise"
+import { ZalgoPromise } from "@krakenjs/zalgo-promise/src"
 import { uniqueID } from "@krakenjs/belter"
 
 import { getCardProps } from "../props"
@@ -13,7 +13,7 @@ import type { FeatureFlags } from "../../types"
 import { resetGQLErrors } from "./gql"
 import { hasCardFields } from "./hasCardFields"
 import { getCardFields } from "./getCardFields"
-import { vaultPaymentSource } from "./vaultPaymentSource"
+import { vault } from "./vault"
 import { reformatExpiry } from "./reformatExpiry"
 
 type CardValues = {|
@@ -62,20 +62,31 @@ export function submitCardFields({
 
     if (cardProps.action !== undefined) {
       switch(cardProps.action.type) {
-        case 'save':
-          try {
-            return vaultPaymentSource({
+        case 'save': {
+            return vault.create({
               action: cardProps.action,
-              lowScopedAccessToken: facilitatorAccessToken,
-              paymentSourceDetails: card,
+              facilitatorAccessToken,
+              paymentSource: {
+                card: {
+                  // $FlowIssue
+                  name: card.name,
+                  // $FlowIssue
+                  number: card.number,
+                  // $FlowIssue
+                  expiry: card.expiry,
+                  // $FlowIssue
+                  security_code: card.cvv,
+                  billing_address: {
+                  // $FlowIssue
+                    postal_code: card.postalCode
+                  }
+                }
+              },
             })
-          } catch (error) {
-            getLogger().info("card_fields_vault_payment_source_failed")
-            throw error;
-          }
-        default:
-          getLogger().info("card_fields_unsupported_action")
+        }
+        default: {
           throw new Error(`Action of type ${cardProps.action.type} is not supported by Card Fields`)
+        }
       }
     }
 

@@ -8,5 +8,4 @@ export * from './hasCardFields';
 export * from './isEmpty';
 export * from './reformatExpiry';
 export * from './submitCardFields';
-export * from './updateVaultSetupToken';
-export * from './vaultPaymentSource';
+export * from './vault';

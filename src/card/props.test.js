@@ -1,72 +1,75 @@
 /* @flow */
 /* eslint import/no-namespace: off */
 /* eslint no-empty-function: off */
+import { describe, beforeEach, afterEach, test, expect, vi } from "vitest";
+import { INTENT } from "@paypal/sdk-constants/src";
 
-import { INTENT }from '@paypal/sdk-constants/src';
+import * as getPropsStuff from "../props/props";
+import * as getLegacyPropsStuff from "../props/legacyProps";
 
-import * as getPropsStuff from "../props/props"
-import * as getLegacyPropsStuff from "../props/legacyProps"
+import { getCardProps } from "./props";
 
-import { getCardProps } from "./props"
-
-describe('getCardProps', () => {
-  let getPropsSpy
-  let getLegacyPropsSpy
+describe("getCardProps", () => {
+  let getPropsSpy;
+  let getLegacyPropsSpy;
   const inputs = {
     facilitatorAccessToken: "some-facilitator-access-token",
     featureFlags: {},
-  }
-  
-  
+  };
+
   beforeEach(() => {
-    window.xprops = {}
-    getPropsSpy = jest.spyOn(getPropsStuff, "getProps")
-    getLegacyPropsSpy = jest.spyOn(getLegacyPropsStuff, "getLegacyProps")
-  })
-  
+    window.xprops = {};
+    getPropsSpy = vi.spyOn(getPropsStuff, "getProps");
+    getLegacyPropsSpy = vi.spyOn(getLegacyPropsStuff, "getLegacyProps");
+  });
+
   afterEach(() => {
-    jest.clearAllMocks()
-  })
-  
-  it('uses getProps and legacy props when no action is present', () => {
+    vi.clearAllMocks();
+  });
+
+  test("uses getProps and legacy props when no action is present", () => {
     window.xprops = {
-      intent: INTENT.TOKENIZE
-    }
+      intent: INTENT.TOKENIZE,
+    };
 
-    getCardProps(inputs)
-    expect(getPropsSpy).toBeCalled()
-    expect(getLegacyPropsSpy).toBeCalled()
-  })
+    getCardProps(inputs);
+    expect(getPropsSpy).toBeCalled();
+    expect(getLegacyPropsSpy).toBeCalled();
+  });
 
-  describe('Actions', () => {
+  describe("Actions", () => {
     const mockAction = {
-      type: "test-action",
-      save: () => {}
-    }
+      type: "SAVE",
+      createVaultSetupToken: vi.fn(),
+      onApprove: vi.fn(),
+    };
 
-    beforeEach(() => {
-      window.xprops = {}
-    })
+    afterEach(() => {
+      window.xprops = {};
+    });
 
-    it('supports passing of an action prop', () => {
-      window.xprops.action = mockAction
-      const result = getCardProps(inputs)
-      expect(result).toEqual(expect.objectContaining({ action: mockAction }))
-      expect(getPropsSpy).toBeCalled()
-    })
+    test("supports passing of an action prop", () => {
+      window.xprops.action = mockAction;
+      const result = getCardProps(inputs);
+      // $FlowIssue
+      expect(result.action.type).toEqual(mockAction.type);
+      expect(getPropsSpy).toBeCalled();
+    });
 
-    it.each([
+    test.each([
       ["onApprove", () => {}, "Do not pass onApprove with an action."],
       ["onCancel", () => {}, "Do not pass onCancel with an action."],
       ["createOrder", () => {}, "Do not pass createOrder with an action."],
-      ["intent", "some-intent", "Do not pass intent with an action."]
+      ["intent", "some-intent", "Do not pass intent with an action."],
     ])("errors when %s and an action are provided", (prop, propValue) => {
       window.xprops = {
         action: mockAction,
-        [prop]: propValue
-      }
+        [prop]: propValue,
+      };
 
-      expect(() => getCardProps(inputs)).toThrow(`Do not pass ${prop} with an action.`)
-    })
-  })
-})
+      expect(() => getCardProps(inputs)).toThrow(
+        `Do not pass ${prop} with an action.`
+      );
+    });
+  });
+});
