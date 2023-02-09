@@ -7229,283 +7229,6 @@ window.spb = function(modules) {
         }
         var TYPES = !0;
     },
-    "./node_modules/@krakenjs/zalgo-promise/dist/zalgo-promise.js": function(module, exports, __webpack_require__) {
-        "undefined" != typeof self && self, module.exports = function(e) {
-            var t = {};
-            function r(n) {
-                if (t[n]) return t[n].exports;
-                var o = t[n] = {
-                    i: n,
-                    l: !1,
-                    exports: {}
-                };
-                return e[n].call(o.exports, o, o.exports, r), o.l = !0, o.exports;
-            }
-            return r.m = e, r.c = t, r.d = function(e, t, n) {
-                r.o(e, t) || Object.defineProperty(e, t, {
-                    enumerable: !0,
-                    get: n
-                });
-            }, r.r = function(e) {
-                "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(e, Symbol.toStringTag, {
-                    value: "Module"
-                }), Object.defineProperty(e, "__esModule", {
-                    value: !0
-                });
-            }, r.t = function(e, t) {
-                if (1 & t && (e = r(e)), 8 & t) return e;
-                if (4 & t && "object" == typeof e && e && e.__esModule) return e;
-                var n = Object.create(null);
-                if (r.r(n), Object.defineProperty(n, "default", {
-                    enumerable: !0,
-                    value: e
-                }), 2 & t && "string" != typeof e) for (var o in e) r.d(n, o, function(t) {
-                    return e[t];
-                }.bind(null, o));
-                return n;
-            }, r.n = function(e) {
-                var t = e && e.__esModule ? function() {
-                    return e.default;
-                } : function() {
-                    return e;
-                };
-                return r.d(t, "a", t), t;
-            }, r.o = function(e, t) {
-                return {}.hasOwnProperty.call(e, t);
-            }, r.p = "", r(r.s = 0);
-        }([ function(e, t, r) {
-            "use strict";
-            function n(e) {
-                try {
-                    if (!e) return !1;
-                    if ("undefined" != typeof Promise && e instanceof Promise) return !0;
-                    if ("undefined" != typeof window && "function" == typeof window.Window && e instanceof window.Window) return !1;
-                    if ("undefined" != typeof window && "function" == typeof window.constructor && e instanceof window.constructor) return !1;
-                    var t = {}.toString;
-                    if (t) {
-                        var r = t.call(e);
-                        if ("[object Window]" === r || "[object global]" === r || "[object DOMWindow]" === r) return !1;
-                    }
-                    if ("function" == typeof e.then) return !0;
-                } catch (e) {
-                    return !1;
-                }
-                return !1;
-            }
-            r.r(t), r.d(t, "ZalgoPromise", (function() {
-                return a;
-            }));
-            var o, i = [], c = [], u = 0;
-            function s() {
-                if (!u && o) {
-                    var e = o;
-                    o = null, e.resolve();
-                }
-            }
-            function f() {
-                u += 1;
-            }
-            function l() {
-                u -= 1, s();
-            }
-            var a = function() {
-                function e(e) {
-                    var t = this;
-                    if (this.resolved = void 0, this.rejected = void 0, this.errorHandled = void 0, 
-                    this.value = void 0, this.error = void 0, this.handlers = void 0, this.dispatching = void 0, 
-                    this.stack = void 0, this.resolved = !1, this.rejected = !1, this.errorHandled = !1, 
-                    this.handlers = [], e) {
-                        var r, n, o = !1, i = !1, c = !1;
-                        f();
-                        try {
-                            e((function(e) {
-                                c ? t.resolve(e) : (o = !0, r = e);
-                            }), (function(e) {
-                                c ? t.reject(e) : (i = !0, n = e);
-                            }));
-                        } catch (e) {
-                            return l(), void this.reject(e);
-                        }
-                        l(), c = !0, o ? this.resolve(r) : i && this.reject(n);
-                    }
-                }
-                var t = e.prototype;
-                return t.resolve = function(e) {
-                    if (this.resolved || this.rejected) return this;
-                    if (n(e)) throw new Error("Can not resolve promise with another promise");
-                    return this.resolved = !0, this.value = e, this.dispatch(), this;
-                }, t.reject = function(e) {
-                    var t = this;
-                    if (this.resolved || this.rejected) return this;
-                    if (n(e)) throw new Error("Can not reject promise with another promise");
-                    if (!e) {
-                        var r = e && "function" == typeof e.toString ? e.toString() : {}.toString.call(e);
-                        e = new Error("Expected reject to be called with Error, got " + r);
-                    }
-                    return this.rejected = !0, this.error = e, this.errorHandled || setTimeout((function() {
-                        t.errorHandled || function(e, t) {
-                            if (-1 === i.indexOf(e)) {
-                                i.push(e), setTimeout((function() {
-                                    throw e;
-                                }), 1);
-                                for (var r = 0; r < c.length; r++) c[r](e, t);
-                            }
-                        }(e, t);
-                    }), 1), this.dispatch(), this;
-                }, t.asyncReject = function(e) {
-                    return this.errorHandled = !0, this.reject(e), this;
-                }, t.dispatch = function() {
-                    var t = this.resolved, r = this.rejected, o = this.handlers;
-                    if (!this.dispatching && (t || r)) {
-                        this.dispatching = !0, f();
-                        for (var i = function(e, t) {
-                            return e.then((function(e) {
-                                t.resolve(e);
-                            }), (function(e) {
-                                t.reject(e);
-                            }));
-                        }, c = 0; c < o.length; c++) {
-                            var u = o[c], s = u.onSuccess, a = u.onError, h = u.promise, d = void 0;
-                            if (t) try {
-                                d = s ? s(this.value) : this.value;
-                            } catch (e) {
-                                h.reject(e);
-                                continue;
-                            } else if (r) {
-                                if (!a) {
-                                    h.reject(this.error);
-                                    continue;
-                                }
-                                try {
-                                    d = a(this.error);
-                                } catch (e) {
-                                    h.reject(e);
-                                    continue;
-                                }
-                            }
-                            if (d instanceof e && (d.resolved || d.rejected)) {
-                                var v = d;
-                                v.resolved ? h.resolve(v.value) : h.reject(v.error), v.errorHandled = !0;
-                            } else n(d) ? d instanceof e && (d.resolved || d.rejected) ? d.resolved ? h.resolve(d.value) : h.reject(d.error) : i(d, h) : h.resolve(d);
-                        }
-                        o.length = 0, this.dispatching = !1, l();
-                    }
-                }, t.then = function(t, r) {
-                    if (t && "function" != typeof t && !t.call) throw new Error("Promise.then expected a function for success handler");
-                    if (r && "function" != typeof r && !r.call) throw new Error("Promise.then expected a function for error handler");
-                    var n = new e;
-                    return this.handlers.push({
-                        promise: n,
-                        onSuccess: t,
-                        onError: r
-                    }), this.errorHandled = !0, this.dispatch(), n;
-                }, t.catch = function(e) {
-                    return this.then(void 0, e);
-                }, t.finally = function(t) {
-                    if (t && "function" != typeof t && !t.call) throw new Error("Promise.finally expected a function");
-                    return this.then((function(r) {
-                        return e.try(t).then((function() {
-                            return r;
-                        }));
-                    }), (function(r) {
-                        return e.try(t).then((function() {
-                            throw r;
-                        }));
-                    }));
-                }, t.timeout = function(e, t) {
-                    var r = this;
-                    if (this.resolved || this.rejected) return this;
-                    var n = setTimeout((function() {
-                        r.resolved || r.rejected || r.reject(t || new Error("Promise timed out after " + e + "ms"));
-                    }), e);
-                    return this.then((function(e) {
-                        return clearTimeout(n), e;
-                    }));
-                }, t.toPromise = function() {
-                    if ("undefined" == typeof Promise) throw new TypeError("Could not find Promise");
-                    return Promise.resolve(this);
-                }, t.lazy = function() {
-                    return this.errorHandled = !0, this;
-                }, e.resolve = function(t) {
-                    return t instanceof e ? t : n(t) ? new e((function(e, r) {
-                        return t.then(e, r);
-                    })) : (new e).resolve(t);
-                }, e.reject = function(t) {
-                    return (new e).reject(t);
-                }, e.asyncReject = function(t) {
-                    return (new e).asyncReject(t);
-                }, e.all = function(t) {
-                    var r = new e, o = t.length, i = [].slice();
-                    if (!o) return r.resolve(i), r;
-                    for (var c = function(e, t, n) {
-                        return t.then((function(t) {
-                            i[e] = t, 0 == (o -= 1) && r.resolve(i);
-                        }), (function(e) {
-                            n.reject(e);
-                        }));
-                    }, u = 0; u < t.length; u++) {
-                        var s = t[u];
-                        if (s instanceof e) {
-                            if (s.resolved) {
-                                i[u] = s.value, o -= 1;
-                                continue;
-                            }
-                        } else if (!n(s)) {
-                            i[u] = s, o -= 1;
-                            continue;
-                        }
-                        c(u, e.resolve(s), r);
-                    }
-                    return 0 === o && r.resolve(i), r;
-                }, e.hash = function(t) {
-                    var r = {}, o = [], i = function(e) {
-                        if (t.hasOwnProperty(e)) {
-                            var i = t[e];
-                            n(i) ? o.push(i.then((function(t) {
-                                r[e] = t;
-                            }))) : r[e] = i;
-                        }
-                    };
-                    for (var c in t) i(c);
-                    return e.all(o).then((function() {
-                        return r;
-                    }));
-                }, e.map = function(t, r) {
-                    return e.all(t.map(r));
-                }, e.onPossiblyUnhandledException = function(e) {
-                    return function(e) {
-                        return c.push(e), {
-                            cancel: function() {
-                                c.splice(c.indexOf(e), 1);
-                            }
-                        };
-                    }(e);
-                }, e.try = function(t, r, n) {
-                    if (t && "function" != typeof t && !t.call) throw new Error("Promise.try expected a function");
-                    var o;
-                    f();
-                    try {
-                        o = t.apply(r, n || []);
-                    } catch (t) {
-                        return l(), e.reject(t);
-                    }
-                    return l(), e.resolve(o);
-                }, e.delay = function(t) {
-                    return new e((function(e) {
-                        setTimeout(e, t);
-                    }));
-                }, e.isPromise = function(t) {
-                    return !!(t && t instanceof e) || n(t);
-                }, e.flush = function() {
-                    return t = o = o || new e, s(), t;
-                    var t;
-                }, e;
-            }();
-        } ]);
-    },
-    "./node_modules/@krakenjs/zalgo-promise/index.js": function(module, exports, __webpack_require__) {
-        module.exports = __webpack_require__("./node_modules/@krakenjs/zalgo-promise/dist/zalgo-promise.js");
-    },
     "./node_modules/@krakenjs/zalgo-promise/src/index.js": function(module, __webpack_exports__, __webpack_require__) {
         "use strict";
         __webpack_require__.r(__webpack_exports__);
@@ -7982,9 +7705,9 @@ window.spb = function(modules) {
             })), S.d(N, "DEFAULT_COMPONENTS", (function() {
                 return U;
             })), S.d(N, "DEFAULT_DEBUG", (function() {
-                return B;
-            })), S.d(N, "ENV", (function() {
                 return s;
+            })), S.d(N, "ENV", (function() {
+                return B;
             })), S.d(N, "MOBILE_ENV", (function() {
                 return G;
             })), S.d(N, "ERROR_CODE", (function() {
@@ -8650,7 +8373,8 @@ window.spb = function(modules) {
                 VERSION: "version"
             }, D = {
                 BUTTONS: "buttons",
-                HOSTED_FIELDS: "hosted-fields"
+                HOSTED_FIELDS: "hosted-fields",
+                CARD_FIELDS: "card-fields"
             }, H = {
                 TRUE: !0,
                 FALSE: !1
@@ -8669,7 +8393,7 @@ window.spb = function(modules) {
                 SEARCH_RESULTS: "search-results",
                 PRODUCT_DETAILS: "product-details",
                 MINI_CART: "mini-cart"
-            }, C = 10, a = R.US, Z = r.USD, u = e.CAPTURE, P = n.TRUE, L = n.TRUE, d = n.TRUE, c = A.FALSE, U = D.BUTTONS, B = H.FALSE, s = {
+            }, C = 10, a = R.US, Z = r.USD, u = e.CAPTURE, P = n.TRUE, L = n.TRUE, d = n.TRUE, c = A.FALSE, U = D.BUTTONS, s = H.FALSE, B = {
                 LOCAL: "local",
                 STAGE: "stage",
                 SANDBOX: "sandbox",
@@ -9556,7 +9280,8 @@ window.spb = function(modules) {
         };
         var COMPONENTS = {
             BUTTONS: "buttons",
-            HOSTED_FIELDS: "hosted-fields"
+            HOSTED_FIELDS: "hosted-fields",
+            CARD_FIELDS: "card-fields"
         };
         var DEBUG = {
             TRUE: !0,
@@ -10367,6 +10092,148 @@ window.spb = function(modules) {
             }(cardNumber, pattern);
         };
     },
+    "./src/api/api.js": function(module, __webpack_exports__, __webpack_require__) {
+        "use strict";
+        __webpack_require__.r(__webpack_exports__);
+        __webpack_require__.d(__webpack_exports__, "callRestAPI", (function() {
+            return callRestAPI;
+        }));
+        __webpack_require__.d(__webpack_exports__, "callSmartAPI", (function() {
+            return callSmartAPI;
+        }));
+        __webpack_require__.d(__webpack_exports__, "callGraphQL", (function() {
+            return callGraphQL;
+        }));
+        __webpack_require__.d(__webpack_exports__, "getResponseCorrelationID", (function() {
+            return getResponseCorrelationID;
+        }));
+        __webpack_require__.d(__webpack_exports__, "getErrorResponseCorrelationID", (function() {
+            return getErrorResponseCorrelationID;
+        }));
+        var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/@babel/runtime/helpers/esm/extends.js");
+        var _paypal_sdk_constants_src__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("./node_modules/@paypal/sdk-constants/src/index.js");
+        __webpack_require__("./node_modules/@krakenjs/zalgo-promise/src/index.js");
+        var _krakenjs_belter_src__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("./node_modules/@krakenjs/belter/src/index.js");
+        var _config__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("./src/config.js");
+        var _constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("./src/constants.js");
+        var _lib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("./src/lib/index.js");
+        function callRestAPI(_ref) {
+            var _extends2;
+            var accessToken = _ref.accessToken, method = _ref.method, url = _ref.url, data = _ref.data, headers = _ref.headers, eventName = _ref.eventName;
+            if (!accessToken) throw new Error("No access token passed to " + url);
+            var requestHeaders = Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)(((_extends2 = {})[_constants__WEBPACK_IMPORTED_MODULE_5__.HEADERS.AUTHORIZATION] = "Bearer " + accessToken, 
+            _extends2[_constants__WEBPACK_IMPORTED_MODULE_5__.HEADERS.CONTENT_TYPE] = "application/json", 
+            _extends2), headers);
+            return Object(_krakenjs_belter_src__WEBPACK_IMPORTED_MODULE_3__.request)({
+                method: method,
+                url: url,
+                headers: requestHeaders,
+                json: data
+            }).then((function(_ref2) {
+                var status = _ref2.status, body = _ref2.body, responseHeaders = _ref2.headers;
+                if (status >= 300) {
+                    var error = new Error(url + " returned status " + status + " (Corr ID: " + responseHeaders[_constants__WEBPACK_IMPORTED_MODULE_5__.HEADERS.PAYPAL_DEBUG_ID] + ").\n\n" + JSON.stringify(body));
+                    error.response = {
+                        status: status,
+                        headers: responseHeaders,
+                        body: body
+                    };
+                    if (status === _constants__WEBPACK_IMPORTED_MODULE_5__.STATUS_CODES.TOO_MANY_REQUESTS) {
+                        var _getLogger$track;
+                        Object(_lib__WEBPACK_IMPORTED_MODULE_6__.getLogger)().track(((_getLogger$track = {})[_paypal_sdk_constants_src__WEBPACK_IMPORTED_MODULE_1__.FPTI_KEY.TRANSITION] = _constants__WEBPACK_IMPORTED_MODULE_5__.FPTI_TRANSITION.CALL_REST_API, 
+                        _getLogger$track[_constants__WEBPACK_IMPORTED_MODULE_5__.FPTI_CUSTOM_KEY.ERR_DESC] = "Error: " + status + " - " + body, 
+                        _getLogger$track[_constants__WEBPACK_IMPORTED_MODULE_5__.FPTI_CUSTOM_KEY.INFO_MSG] = "URL: " + url, 
+                        _getLogger$track));
+                    }
+                    eventName && Object(_lib__WEBPACK_IMPORTED_MODULE_6__.getLogger)().warn("rest_api_" + eventName + "_error");
+                    throw error;
+                }
+                return body;
+            }));
+        }
+        function callSmartAPI(_ref3) {
+            var accessToken = _ref3.accessToken, url = _ref3.url, _ref3$method = _ref3.method, method = void 0 === _ref3$method ? "get" : _ref3$method, _ref3$headers = _ref3.headers, reqHeaders = void 0 === _ref3$headers ? {} : _ref3$headers, json = _ref3.json, _ref3$authenticated = _ref3.authenticated, authenticated = void 0 === _ref3$authenticated || _ref3$authenticated, eventName = _ref3.eventName;
+            reqHeaders[_constants__WEBPACK_IMPORTED_MODULE_5__.HEADERS.REQUESTED_BY] = _constants__WEBPACK_IMPORTED_MODULE_5__.SMART_PAYMENT_BUTTONS;
+            if (authenticated && !accessToken) throw new Error("Buyer access token not present - can not call smart api: " + url);
+            accessToken && (reqHeaders[_constants__WEBPACK_IMPORTED_MODULE_5__.HEADERS.ACCESS_TOKEN] = accessToken);
+            return Object(_krakenjs_belter_src__WEBPACK_IMPORTED_MODULE_3__.request)({
+                url: url,
+                method: method,
+                headers: reqHeaders,
+                json: json
+            }).then((function(_ref4) {
+                var status = _ref4.status, body = _ref4.body, headers = _ref4.headers;
+                if ("contingency" === body.ack) {
+                    var err = new Error(body.contingency);
+                    err.response = {
+                        url: url,
+                        method: method,
+                        headers: reqHeaders,
+                        body: body
+                    };
+                    err.data = body.data;
+                    Object(_lib__WEBPACK_IMPORTED_MODULE_6__.getLogger)().warn("smart_api_" + eventName + "_contingency_error");
+                    throw err;
+                }
+                if (status === _constants__WEBPACK_IMPORTED_MODULE_5__.STATUS_CODES.TOO_MANY_REQUESTS) {
+                    var _getLogger$track2;
+                    Object(_lib__WEBPACK_IMPORTED_MODULE_6__.getLogger)().track(((_getLogger$track2 = {})[_paypal_sdk_constants_src__WEBPACK_IMPORTED_MODULE_1__.FPTI_KEY.TRANSITION] = _constants__WEBPACK_IMPORTED_MODULE_5__.FPTI_TRANSITION.CALL_REST_API, 
+                    _getLogger$track2[_constants__WEBPACK_IMPORTED_MODULE_5__.FPTI_CUSTOM_KEY.ERR_DESC] = "Error: " + status + " - " + body, 
+                    _getLogger$track2[_constants__WEBPACK_IMPORTED_MODULE_5__.FPTI_CUSTOM_KEY.INFO_MSG] = "URL: " + url, 
+                    _getLogger$track2));
+                }
+                if (status > 400) {
+                    Object(_lib__WEBPACK_IMPORTED_MODULE_6__.getLogger)().warn("smart_api_" + eventName + "_status_" + status + "_error");
+                    throw new Error("Api: " + url + " returned status code: " + status + " (Corr ID: " + headers[_constants__WEBPACK_IMPORTED_MODULE_5__.HEADERS.PAYPAL_DEBUG_ID] + ")\n\n" + JSON.stringify(body));
+                }
+                if ("success" !== body.ack) {
+                    Object(_lib__WEBPACK_IMPORTED_MODULE_6__.getLogger)().warn("smart_api_" + eventName + "_ack_error");
+                    throw new Error("Api: " + url + " returned ack: " + body.ack + " (Corr ID: " + headers[_constants__WEBPACK_IMPORTED_MODULE_5__.HEADERS.PAYPAL_DEBUG_ID] + ")\n\n" + JSON.stringify(body));
+                }
+                return {
+                    data: body.data,
+                    headers: headers
+                };
+            }));
+        }
+        function callGraphQL(_ref5) {
+            var name = _ref5.name, query = _ref5.query, _ref5$variables = _ref5.variables, variables = void 0 === _ref5$variables ? {} : _ref5$variables, _ref5$headers = _ref5.headers, headers = void 0 === _ref5$headers ? {} : _ref5$headers, _ref5$returnErrorObje = _ref5.returnErrorObject, returnErrorObject = void 0 !== _ref5$returnErrorObje && _ref5$returnErrorObje;
+            return Object(_krakenjs_belter_src__WEBPACK_IMPORTED_MODULE_3__.request)({
+                url: _config__WEBPACK_IMPORTED_MODULE_4__.GRAPHQL_URI + "?" + name,
+                method: "POST",
+                json: {
+                    query: query,
+                    variables: variables
+                },
+                headers: Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({
+                    "x-app-name": _constants__WEBPACK_IMPORTED_MODULE_5__.SMART_PAYMENT_BUTTONS
+                }, headers)
+            }).then((function(_ref6) {
+                var status = _ref6.status, body = _ref6.body;
+                var errors = body.errors || [];
+                if (errors.length) {
+                    var message = errors[0].message || JSON.stringify(errors[0]);
+                    Object(_lib__WEBPACK_IMPORTED_MODULE_6__.getLogger)().warn("graphql_" + name + "_error", {
+                        err: message
+                    });
+                    if (returnErrorObject) throw errors[0];
+                    throw new Error(message);
+                }
+                if (200 !== status) {
+                    Object(_lib__WEBPACK_IMPORTED_MODULE_6__.getLogger)().warn("graphql_" + name + "_status_" + status + "_error");
+                    throw new Error(_config__WEBPACK_IMPORTED_MODULE_4__.GRAPHQL_URI + " returned status " + status + "\n\n" + JSON.stringify(body));
+                }
+                return body.data;
+            }));
+        }
+        function getResponseCorrelationID(res) {
+            return res.headers[_constants__WEBPACK_IMPORTED_MODULE_5__.HEADERS.PAYPAL_DEBUG_ID];
+        }
+        function getErrorResponseCorrelationID(err) {
+            var res = null == err ? void 0 : err.response;
+            if (res) return getResponseCorrelationID(res);
+        }
+    },
     "./src/api/index.js": function(module, __webpack_exports__, __webpack_require__) {
         "use strict";
         __webpack_require__.r(__webpack_exports__);
@@ -10542,19 +10409,19 @@ window.spb = function(modules) {
             return getApplePayMerchantSession;
         }));
         __webpack_require__.d(__webpack_exports__, "callRestAPI", (function() {
-            return callRestAPI;
+            return api.callRestAPI;
         }));
         __webpack_require__.d(__webpack_exports__, "callSmartAPI", (function() {
-            return callSmartAPI;
+            return api.callSmartAPI;
         }));
         __webpack_require__.d(__webpack_exports__, "callGraphQL", (function() {
-            return callGraphQL;
+            return api.callGraphQL;
         }));
         __webpack_require__.d(__webpack_exports__, "getResponseCorrelationID", (function() {
-            return getResponseCorrelationID;
+            return api.getResponseCorrelationID;
         }));
         __webpack_require__.d(__webpack_exports__, "getErrorResponseCorrelationID", (function() {
-            return getErrorResponseCorrelationID;
+            return api.getErrorResponseCorrelationID;
         }));
         __webpack_require__.d(__webpack_exports__, "getApplepayConfig", (function() {
             return config_getApplepayConfig;
@@ -10565,120 +10432,7 @@ window.spb = function(modules) {
         var src_config = __webpack_require__("./src/config.js");
         var lib = __webpack_require__("./src/lib/index.js");
         var constants = __webpack_require__("./src/constants.js");
-        var esm_extends = __webpack_require__("./node_modules/@babel/runtime/helpers/esm/extends.js");
-        function callRestAPI(_ref) {
-            var _extends2;
-            var accessToken = _ref.accessToken, method = _ref.method, url = _ref.url, data = _ref.data, headers = _ref.headers, eventName = _ref.eventName;
-            if (!accessToken) throw new Error("No access token passed to " + url);
-            var requestHeaders = Object(esm_extends.default)(((_extends2 = {})[constants.HEADERS.AUTHORIZATION] = "Bearer " + accessToken, 
-            _extends2[constants.HEADERS.CONTENT_TYPE] = "application/json", _extends2), headers);
-            return Object(belter_src.request)({
-                method: method,
-                url: url,
-                headers: requestHeaders,
-                json: data
-            }).then((function(_ref2) {
-                var status = _ref2.status, body = _ref2.body, responseHeaders = _ref2.headers;
-                if (status >= 300) {
-                    var error = new Error(url + " returned status " + status + " (Corr ID: " + responseHeaders[constants.HEADERS.PAYPAL_DEBUG_ID] + ").\n\n" + JSON.stringify(body));
-                    error.response = {
-                        status: status,
-                        headers: responseHeaders,
-                        body: body
-                    };
-                    if (status === constants.STATUS_CODES.TOO_MANY_REQUESTS) {
-                        var _getLogger$track;
-                        Object(lib.getLogger)().track(((_getLogger$track = {})[sdk_constants_src.FPTI_KEY.TRANSITION] = constants.FPTI_TRANSITION.CALL_REST_API, 
-                        _getLogger$track[constants.FPTI_CUSTOM_KEY.ERR_DESC] = "Error: " + status + " - " + body, 
-                        _getLogger$track[constants.FPTI_CUSTOM_KEY.INFO_MSG] = "URL: " + url, _getLogger$track));
-                    }
-                    Object(lib.getLogger)().warn("rest_api_" + eventName + "_error");
-                    throw error;
-                }
-                return body;
-            }));
-        }
-        function callSmartAPI(_ref3) {
-            var accessToken = _ref3.accessToken, url = _ref3.url, _ref3$method = _ref3.method, method = void 0 === _ref3$method ? "get" : _ref3$method, _ref3$headers = _ref3.headers, reqHeaders = void 0 === _ref3$headers ? {} : _ref3$headers, json = _ref3.json, _ref3$authenticated = _ref3.authenticated, authenticated = void 0 === _ref3$authenticated || _ref3$authenticated, eventName = _ref3.eventName;
-            reqHeaders[constants.HEADERS.REQUESTED_BY] = constants.SMART_PAYMENT_BUTTONS;
-            if (authenticated && !accessToken) throw new Error("Buyer access token not present - can not call smart api: " + url);
-            accessToken && (reqHeaders[constants.HEADERS.ACCESS_TOKEN] = accessToken);
-            return Object(belter_src.request)({
-                url: url,
-                method: method,
-                headers: reqHeaders,
-                json: json
-            }).then((function(_ref4) {
-                var status = _ref4.status, body = _ref4.body, headers = _ref4.headers;
-                if ("contingency" === body.ack) {
-                    var err = new Error(body.contingency);
-                    err.response = {
-                        url: url,
-                        method: method,
-                        headers: reqHeaders,
-                        body: body
-                    };
-                    err.data = body.data;
-                    Object(lib.getLogger)().warn("smart_api_" + eventName + "_contingency_error");
-                    throw err;
-                }
-                if (status === constants.STATUS_CODES.TOO_MANY_REQUESTS) {
-                    var _getLogger$track2;
-                    Object(lib.getLogger)().track(((_getLogger$track2 = {})[sdk_constants_src.FPTI_KEY.TRANSITION] = constants.FPTI_TRANSITION.CALL_REST_API, 
-                    _getLogger$track2[constants.FPTI_CUSTOM_KEY.ERR_DESC] = "Error: " + status + " - " + body, 
-                    _getLogger$track2[constants.FPTI_CUSTOM_KEY.INFO_MSG] = "URL: " + url, _getLogger$track2));
-                }
-                if (status > 400) {
-                    Object(lib.getLogger)().warn("smart_api_" + eventName + "_status_" + status + "_error");
-                    throw new Error("Api: " + url + " returned status code: " + status + " (Corr ID: " + headers[constants.HEADERS.PAYPAL_DEBUG_ID] + ")\n\n" + JSON.stringify(body));
-                }
-                if ("success" !== body.ack) {
-                    Object(lib.getLogger)().warn("smart_api_" + eventName + "_ack_error");
-                    throw new Error("Api: " + url + " returned ack: " + body.ack + " (Corr ID: " + headers[constants.HEADERS.PAYPAL_DEBUG_ID] + ")\n\n" + JSON.stringify(body));
-                }
-                return {
-                    data: body.data,
-                    headers: headers
-                };
-            }));
-        }
-        function callGraphQL(_ref5) {
-            var name = _ref5.name, query = _ref5.query, _ref5$variables = _ref5.variables, variables = void 0 === _ref5$variables ? {} : _ref5$variables, _ref5$headers = _ref5.headers, headers = void 0 === _ref5$headers ? {} : _ref5$headers, _ref5$returnErrorObje = _ref5.returnErrorObject, returnErrorObject = void 0 !== _ref5$returnErrorObje && _ref5$returnErrorObje;
-            return Object(belter_src.request)({
-                url: src_config.GRAPHQL_URI + "?" + name,
-                method: "POST",
-                json: {
-                    query: query,
-                    variables: variables
-                },
-                headers: Object(esm_extends.default)({
-                    "x-app-name": constants.SMART_PAYMENT_BUTTONS
-                }, headers)
-            }).then((function(_ref6) {
-                var status = _ref6.status, body = _ref6.body;
-                var errors = body.errors || [];
-                if (errors.length) {
-                    var message = errors[0].message || JSON.stringify(errors[0]);
-                    Object(lib.getLogger)().warn("graphql_" + name + "_error", {
-                        err: message
-                    });
-                    if (returnErrorObject) throw errors[0];
-                    throw new Error(message);
-                }
-                if (200 !== status) {
-                    Object(lib.getLogger)().warn("graphql_" + name + "_status_" + status + "_error");
-                    throw new Error(src_config.GRAPHQL_URI + " returned status " + status + "\n\n" + JSON.stringify(body));
-                }
-                return body.data;
-            }));
-        }
-        function getResponseCorrelationID(res) {
-            return res.headers[constants.HEADERS.PAYPAL_DEBUG_ID];
-        }
-        function getErrorResponseCorrelationID(err) {
-            var res = null == err ? void 0 : err.response;
-            if (res) return getResponseCorrelationID(res);
-        }
+        var api = __webpack_require__("./src/api/api.js");
         function createAccessToken(clientID, _temp) {
             var targetSubject = (void 0 === _temp ? {} : _temp).targetSubject;
             return Object(belter_src.inlineMemoize)(createAccessToken, (function() {
@@ -10712,7 +10466,7 @@ window.spb = function(modules) {
             }), [ clientID, targetSubject ]);
         }
         function getFirebaseSessionToken(sessionUID) {
-            return callGraphQL({
+            return Object(api.callGraphQL)({
                 name: "GetFireBaseSessionToken",
                 query: "\n            query GetFireBaseSessionToken($sessionUID: String!) {\n                firebase {\n                    auth(sessionUID: $sessionUID) {\n                        sessionToken\n                    }\n                }\n            }\n        ",
                 variables: {
@@ -10744,7 +10498,7 @@ window.spb = function(modules) {
             var _headers;
             var buyerAccessToken = _ref3.buyerAccessToken, orderID = _ref3.orderID;
             onLsatUpgradeCalled();
-            return callGraphQL({
+            return Object(api.callGraphQL)({
                 name: "UpgradeFacilitatorAccessToken",
                 headers: (_headers = {}, _headers[constants.HEADERS.ACCESS_TOKEN] = buyerAccessToken, 
                 _headers[constants.HEADERS.CLIENT_CONTEXT] = orderID, _headers),
@@ -10760,7 +10514,7 @@ window.spb = function(modules) {
             }));
         }
         function exchangeAccessTokenForAuthCode(buyerAccessToken) {
-            return callGraphQL({
+            return Object(api.callGraphQL)({
                 name: "ExchangeAuthCode",
                 query: "\n            query ExchangeAuthCode(\n                $buyerAccessToken: String!\n            ) {\n                auth(\n                    accessToken: $buyerAccessToken\n                ) {\n                    authCode\n                }\n            }\n        ",
                 variables: {
@@ -10771,15 +10525,17 @@ window.spb = function(modules) {
             }));
         }
         function getConnectURL(_ref5) {
-            return callGraphQL({
+            var clientID = _ref5.clientID, orderID = _ref5.orderID, payerID = _ref5.payerID, fundingSource = _ref5.fundingSource;
+            var scopes = _ref5.connect.scopes;
+            return Object(api.callGraphQL)({
                 name: "GetConnectURL",
                 query: "\n            query GetConnectURL(\n                $clientID: String!\n                $orderID: String!\n                $scopes: [String]!\n                $fundingSource: String\n                $payerID: String\n            ) {\n                auth(\n                    clientId: $clientID\n                ) {\n                    connectUrl(\n                        token: $orderID\n                        scopes: $scopes\n                        fundingSource: $fundingSource\n                        payerId: $payerID\n                    ) {\n                        href\n                    }\n                }\n            }\n        ",
                 variables: {
-                    clientID: _ref5.clientID,
-                    orderID: _ref5.orderID,
-                    payerID: _ref5.payerID,
-                    scopes: _ref5.connect.scopes,
-                    fundingSource: _ref5.fundingSource
+                    clientID: clientID,
+                    orderID: orderID,
+                    payerID: payerID,
+                    scopes: scopes,
+                    fundingSource: fundingSource
                 }
             }).then((function(_ref6) {
                 return _ref6.auth.connectUrl.href;
@@ -10789,7 +10545,7 @@ window.spb = function(modules) {
             var _headers;
             var facilitatorAccessToken = _ref.facilitatorAccessToken, partnerAttributionID = _ref.partnerAttributionID;
             Object(lib.getLogger)().info("rest_api_create_order_id");
-            return callRestAPI({
+            return Object(api.callRestAPI)({
                 accessToken: facilitatorAccessToken,
                 method: "post",
                 url: "" + src_config.ORDERS_API_URL,
@@ -10817,7 +10573,7 @@ window.spb = function(modules) {
             });
             if (forceRestAPI && !getLsatUpgradeError()) {
                 var _headers2;
-                return callRestAPI({
+                return Object(api.callRestAPI)({
                     accessToken: facilitatorAccessToken,
                     url: src_config.ORDERS_API_URL + "/" + orderID,
                     eventName: "v2_checkout_orders_get",
@@ -10825,20 +10581,20 @@ window.spb = function(modules) {
                     _headers2[constants.HEADERS.PREFER] = constants.PREFER.REPRESENTATION, _headers2)
                 }).catch((function(err) {
                     var _headers3;
-                    var restCorrID = getErrorResponseCorrelationID(err);
+                    var restCorrID = Object(api.getErrorResponseCorrelationID)(err);
                     Object(lib.getLogger)().warn("get_order_call_rest_api_error", {
                         restCorrID: restCorrID,
                         orderID: orderID,
                         err: Object(belter_src.stringifyError)(err)
                     });
-                    return callSmartAPI({
+                    return Object(api.callSmartAPI)({
                         accessToken: buyerAccessToken,
                         url: src_config.SMART_API_URI.ORDER + "/" + orderID,
                         eventName: "order_get",
                         headers: (_headers3 = {}, _headers3[constants.HEADERS.CLIENT_CONTEXT] = orderID, 
                         _headers3)
                     }).then((function(res) {
-                        var smartCorrID = getResponseCorrelationID(res);
+                        var smartCorrID = Object(api.getResponseCorrelationID)(res);
                         Object(lib.getLogger)().info("get_order_smart_fallback_success", {
                             smartCorrID: smartCorrID,
                             restCorrID: restCorrID,
@@ -10846,7 +10602,7 @@ window.spb = function(modules) {
                         });
                         return res.data;
                     })).catch((function(smartErr) {
-                        var smartCorrID = getErrorResponseCorrelationID(err);
+                        var smartCorrID = Object(api.getErrorResponseCorrelationID)(err);
                         Object(lib.getLogger)().error("get_order_smart_fallback_error", {
                             smartCorrID: smartCorrID,
                             restCorrID: restCorrID,
@@ -10857,7 +10613,7 @@ window.spb = function(modules) {
                     }));
                 }));
             }
-            return callSmartAPI({
+            return Object(api.callSmartAPI)({
                 accessToken: buyerAccessToken,
                 url: src_config.SMART_API_URI.ORDER + "/" + orderID,
                 eventName: "order_get",
@@ -10889,7 +10645,7 @@ window.spb = function(modules) {
             });
             if (forceRestAPI && !getLsatUpgradeError()) {
                 var _headers5;
-                return callRestAPI({
+                return Object(api.callRestAPI)({
                     accessToken: facilitatorAccessToken,
                     method: "post",
                     eventName: "v2_checkout_orders_capture",
@@ -10899,14 +10655,14 @@ window.spb = function(modules) {
                     _headers5)
                 }).catch((function(err) {
                     var _headers6;
-                    var restCorrID = getErrorResponseCorrelationID(err);
+                    var restCorrID = Object(api.getErrorResponseCorrelationID)(err);
                     Object(lib.getLogger)().warn("capture_order_call_rest_api_error", {
                         restCorrID: restCorrID,
                         orderID: orderID,
                         err: Object(belter_src.stringifyError)(err)
                     });
                     if (isProcessorDeclineError(err) || isUnprocessableEntityError(err)) throw err;
-                    return callSmartAPI({
+                    return Object(api.callSmartAPI)({
                         accessToken: buyerAccessToken,
                         method: "post",
                         eventName: "order_capture",
@@ -10914,7 +10670,7 @@ window.spb = function(modules) {
                         headers: (_headers6 = {}, _headers6[constants.HEADERS.CLIENT_CONTEXT] = orderID, 
                         _headers6)
                     }).then((function(res) {
-                        var smartCorrID = getResponseCorrelationID(res);
+                        var smartCorrID = Object(api.getResponseCorrelationID)(res);
                         Object(lib.getLogger)().info("capture_order_smart_fallback_success", {
                             smartCorrID: smartCorrID,
                             restCorrID: restCorrID,
@@ -10922,7 +10678,7 @@ window.spb = function(modules) {
                         });
                         return res.data;
                     })).catch((function(smartErr) {
-                        var smartCorrID = getErrorResponseCorrelationID(err);
+                        var smartCorrID = Object(api.getErrorResponseCorrelationID)(err);
                         Object(lib.getLogger)().info("capture_order_smart_fallback_error", {
                             smartCorrID: smartCorrID,
                             restCorrID: restCorrID,
@@ -10933,7 +10689,7 @@ window.spb = function(modules) {
                     }));
                 }));
             }
-            return callSmartAPI({
+            return Object(api.callSmartAPI)({
                 accessToken: buyerAccessToken,
                 method: "post",
                 eventName: "order_capture",
@@ -10953,7 +10709,7 @@ window.spb = function(modules) {
             });
             if (forceRestAPI && !getLsatUpgradeError()) {
                 var _headers8;
-                return callRestAPI({
+                return Object(api.callRestAPI)({
                     accessToken: facilitatorAccessToken,
                     method: "post",
                     eventName: "v2_checkout_orders_authorize",
@@ -10962,14 +10718,14 @@ window.spb = function(modules) {
                     _headers8[constants.HEADERS.PREFER] = constants.PREFER.REPRESENTATION, _headers8)
                 }).catch((function(err) {
                     var _headers9;
-                    var restCorrID = getErrorResponseCorrelationID(err);
+                    var restCorrID = Object(api.getErrorResponseCorrelationID)(err);
                     Object(lib.getLogger)().warn("authorize_order_call_rest_api_error", {
                         restCorrID: restCorrID,
                         orderID: orderID,
                         err: Object(belter_src.stringifyError)(err)
                     });
                     if (isProcessorDeclineError(err)) throw err;
-                    return callSmartAPI({
+                    return Object(api.callSmartAPI)({
                         accessToken: buyerAccessToken,
                         method: "post",
                         eventName: "order_authorize",
@@ -10977,7 +10733,7 @@ window.spb = function(modules) {
                         headers: (_headers9 = {}, _headers9[constants.HEADERS.CLIENT_CONTEXT] = orderID, 
                         _headers9)
                     }).then((function(res) {
-                        var smartCorrID = getResponseCorrelationID(res);
+                        var smartCorrID = Object(api.getResponseCorrelationID)(res);
                         Object(lib.getLogger)().info("authorize_order_smart_fallback_success", {
                             smartCorrID: smartCorrID,
                             restCorrID: restCorrID,
@@ -10985,7 +10741,7 @@ window.spb = function(modules) {
                         });
                         return res.data;
                     })).catch((function(smartErr) {
-                        var smartCorrID = getErrorResponseCorrelationID(err);
+                        var smartCorrID = Object(api.getErrorResponseCorrelationID)(err);
                         Object(lib.getLogger)().info("authorize_order_smart_fallback_error", {
                             smartCorrID: smartCorrID,
                             restCorrID: restCorrID,
@@ -10997,7 +10753,7 @@ window.spb = function(modules) {
                 }));
             }
             Object(lib.getLogger)().info("lsat_upgrade_false");
-            return callSmartAPI({
+            return Object(api.callSmartAPI)({
                 accessToken: buyerAccessToken,
                 method: "post",
                 eventName: "order_authorize",
@@ -11017,7 +10773,7 @@ window.spb = function(modules) {
             });
             if (forceRestAPI && !getLsatUpgradeError()) {
                 var _headers11;
-                return callRestAPI({
+                return Object(api.callRestAPI)({
                     accessToken: facilitatorAccessToken,
                     method: "PATCH",
                     eventName: "v2_checkout_orders_patch",
@@ -11027,13 +10783,13 @@ window.spb = function(modules) {
                     _headers11[constants.HEADERS.PREFER] = constants.PREFER.REPRESENTATION, _headers11)
                 }).catch((function(err) {
                     var _headers12;
-                    var restCorrID = getErrorResponseCorrelationID(err);
+                    var restCorrID = Object(api.getErrorResponseCorrelationID)(err);
                     Object(lib.getLogger)().warn("patch_order_call_rest_api_error", {
                         restCorrID: restCorrID,
                         orderID: orderID,
                         err: Object(belter_src.stringifyError)(err)
                     });
-                    return callSmartAPI({
+                    return Object(api.callSmartAPI)({
                         accessToken: buyerAccessToken,
                         method: "post",
                         eventName: "order_patch",
@@ -11046,7 +10802,7 @@ window.spb = function(modules) {
                         headers: (_headers12 = {}, _headers12[constants.HEADERS.CLIENT_CONTEXT] = orderID, 
                         _headers12)
                     }).then((function(res) {
-                        var smartCorrID = getResponseCorrelationID(res);
+                        var smartCorrID = Object(api.getResponseCorrelationID)(res);
                         Object(lib.getLogger)().info("patch_order_smart_fallback_success", {
                             smartCorrID: smartCorrID,
                             restCorrID: restCorrID,
@@ -11054,7 +10810,7 @@ window.spb = function(modules) {
                         });
                         return res.data;
                     })).catch((function(smartErr) {
-                        var smartCorrID = getErrorResponseCorrelationID(err);
+                        var smartCorrID = Object(api.getErrorResponseCorrelationID)(err);
                         Object(lib.getLogger)().info("patch_order_smart_fallback_error", {
                             smartCorrID: smartCorrID,
                             restCorrID: restCorrID,
@@ -11066,7 +10822,7 @@ window.spb = function(modules) {
                 }));
             }
             Object(lib.getLogger)().info("lsat_upgrade_false");
-            return callSmartAPI({
+            return Object(api.callSmartAPI)({
                 accessToken: buyerAccessToken,
                 method: "post",
                 eventName: "order_patch",
@@ -11083,25 +10839,27 @@ window.spb = function(modules) {
             }));
         }
         function patchShipping(_ref10) {
-            return callGraphQL({
+            var clientID = _ref10.clientID, orderID = _ref10.orderID, data = _ref10.data;
+            return Object(api.callGraphQL)({
                 name: "UpdateShipping",
                 query: "\n            mutation UpdateShipping(\n                $clientID: String!\n                $patch: [JSON]!\n                $token: String!\n            ) {\n                updateShipping(\n                    clientID: $clientID,\n                    patch: $patch,\n                    token: $token,\n                )\n            }\n        ",
                 variables: {
-                    clientID: _ref10.clientID,
-                    patch: _ref10.data,
-                    token: _ref10.orderID
+                    clientID: clientID,
+                    patch: data,
+                    token: orderID
                 }
             });
         }
         function confirmOrderAPI(orderID, data, _ref11) {
             var _headers14;
-            return callRestAPI({
-                accessToken: _ref11.facilitatorAccessToken,
+            var facilitatorAccessToken = _ref11.facilitatorAccessToken, partnerAttributionID = _ref11.partnerAttributionID;
+            return Object(api.callRestAPI)({
+                accessToken: facilitatorAccessToken,
                 method: "post",
                 eventName: "order_confirm_payment_source",
                 url: src_config.ORDERS_API_URL + "/" + orderID + "/confirm-payment-source",
                 data: data,
-                headers: (_headers14 = {}, _headers14[constants.HEADERS.PARTNER_ATTRIBUTION_ID] = _ref11.partnerAttributionID || "", 
+                headers: (_headers14 = {}, _headers14[constants.HEADERS.PARTNER_ATTRIBUTION_ID] = partnerAttributionID || "", 
                 _headers14[constants.HEADERS.PREFER] = constants.PREFER.REPRESENTATION, _headers14)
             }).then((function(_ref12) {
                 return _ref12.data;
@@ -11121,7 +10879,7 @@ window.spb = function(modules) {
             Object(lib.getLogger)().info("rest_api_create_order_token");
             var headers = ((_headers15 = {})[constants.HEADERS.AUTHORIZATION] = "Bearer " + accessToken, 
             _headers15[constants.HEADERS.PARTNER_ATTRIBUTION_ID] = partnerAttributionID, _headers15[constants.HEADERS.CLIENT_METADATA_ID] = clientMetadataID, 
-            _headers15[constants.HEADERS.APP_NAME] = constants.SMART_PAYMENT_BUTTONS, _headers15[constants.HEADERS.APP_VERSION] = "5.0.126", 
+            _headers15[constants.HEADERS.APP_NAME] = constants.SMART_PAYMENT_BUTTONS, _headers15[constants.HEADERS.APP_VERSION] = "5.0.127", 
             _headers15);
             var paymentSource = {
                 token: {
@@ -11147,7 +10905,7 @@ window.spb = function(modules) {
             });
         }
         function billingTokenToOrderID(billingToken) {
-            return callSmartAPI({
+            return Object(api.callSmartAPI)({
                 authenticated: !1,
                 method: "post",
                 eventName: "payment_ectoken",
@@ -11157,7 +10915,7 @@ window.spb = function(modules) {
             }));
         }
         function subscriptionIdToCartId(subscriptionID) {
-            return callSmartAPI({
+            return Object(api.callSmartAPI)({
                 authenticated: !1,
                 method: "post",
                 eventName: "billagmt_subscriptions_cartid",
@@ -11168,49 +10926,51 @@ window.spb = function(modules) {
         }
         function enableVault(_ref16) {
             var _headers16;
-            var orderID = _ref16.orderID;
-            return callGraphQL({
+            var orderID = _ref16.orderID, clientAccessToken = _ref16.clientAccessToken;
+            var clientConfig = {
+                fundingSource: _ref16.fundingSource,
+                integrationArtifact: _ref16.integrationArtifact,
+                userExperienceFlow: _ref16.userExperienceFlow,
+                productFlow: _ref16.productFlow,
+                buttonSessionID: _ref16.buttonSessionID
+            };
+            return Object(api.callGraphQL)({
                 name: "EnableVault",
                 query: "\n            mutation EnableVault(\n                $orderID : String!,\n                $clientConfig: ClientConfigInput!\n            ) {\n                enableVault(\n                    token: $orderID,\n                    clientConfig: $clientConfig\n                )\n            }\n        ",
                 variables: {
                     orderID: orderID,
-                    clientConfig: {
-                        fundingSource: _ref16.fundingSource,
-                        integrationArtifact: _ref16.integrationArtifact,
-                        userExperienceFlow: _ref16.userExperienceFlow,
-                        productFlow: _ref16.productFlow,
-                        buttonSessionID: _ref16.buttonSessionID
-                    }
+                    clientConfig: clientConfig
                 },
-                headers: (_headers16 = {}, _headers16[constants.HEADERS.ACCESS_TOKEN] = _ref16.clientAccessToken, 
+                headers: (_headers16 = {}, _headers16[constants.HEADERS.ACCESS_TOKEN] = clientAccessToken, 
                 _headers16[constants.HEADERS.CLIENT_CONTEXT] = orderID, _headers16)
             });
         }
         function deleteVault(_ref17) {
             var _headers17;
-            return callGraphQL({
+            var paymentMethodID = _ref17.paymentMethodID, clientAccessToken = _ref17.clientAccessToken;
+            return Object(api.callGraphQL)({
                 name: "DeleteVault",
                 query: "\n            mutation DeleteVault(\n                $paymentMethodID : String!\n            ) {\n                deleteVault(\n                    paymentMethodID: $paymentMethodID\n                )\n            }\n        ",
                 variables: {
-                    paymentMethodID: _ref17.paymentMethodID
+                    paymentMethodID: paymentMethodID
                 },
-                headers: (_headers17 = {}, _headers17[constants.HEADERS.ACCESS_TOKEN] = _ref17.clientAccessToken, 
+                headers: (_headers17 = {}, _headers17[constants.HEADERS.ACCESS_TOKEN] = clientAccessToken, 
                 _headers17)
             });
         }
         function updateClientConfig(_ref18) {
             var _headers18;
-            var orderID = _ref18.orderID;
-            return callGraphQL({
+            var orderID = _ref18.orderID, fundingSource = _ref18.fundingSource, integrationArtifact = _ref18.integrationArtifact, userExperienceFlow = _ref18.userExperienceFlow, productFlow = _ref18.productFlow, buttonSessionID = _ref18.buttonSessionID;
+            return Object(api.callGraphQL)({
                 name: "UpdateClientConfig",
                 query: "\n            mutation UpdateClientConfig(\n                $orderID : String!,\n                $fundingSource : ButtonFundingSourceType!,\n                $integrationArtifact : IntegrationArtifactType!,\n                $userExperienceFlow : UserExperienceFlowType!,\n                $productFlow : ProductFlowType!,\n                $buttonSessionID : String\n            ) {\n                updateClientConfig(\n                    token: $orderID,\n                    fundingSource: $fundingSource,\n                    integrationArtifact: $integrationArtifact,\n                    userExperienceFlow: $userExperienceFlow,\n                    productFlow: $productFlow,\n                    buttonSessionID: $buttonSessionID\n                )\n            }\n        ",
                 variables: {
                     orderID: orderID,
-                    fundingSource: _ref18.fundingSource,
-                    integrationArtifact: _ref18.integrationArtifact,
-                    userExperienceFlow: _ref18.userExperienceFlow,
-                    productFlow: _ref18.productFlow,
-                    buttonSessionID: _ref18.buttonSessionID
+                    fundingSource: fundingSource,
+                    integrationArtifact: integrationArtifact,
+                    userExperienceFlow: userExperienceFlow,
+                    productFlow: productFlow,
+                    buttonSessionID: buttonSessionID
                 },
                 headers: (_headers18 = {}, _headers18[constants.HEADERS.CLIENT_CONTEXT] = orderID, 
                 _headers18)
@@ -11218,15 +10978,15 @@ window.spb = function(modules) {
         }
         function approveOrder(_ref19) {
             var _headers19;
-            var orderID = _ref19.orderID;
-            return callGraphQL({
+            var orderID = _ref19.orderID, planID = _ref19.planID, buyerAccessToken = _ref19.buyerAccessToken;
+            return Object(api.callGraphQL)({
                 name: "ApproveOrder",
                 query: "\n            mutation ApproveOrder(\n                $orderID : String!\n                $planID : String!\n            ) {\n                approvePayment(\n                    token: $orderID\n                    selectedPlanId: $planID\n                ) {\n                    buyer {\n                        userId\n                        auth {\n                            accessToken\n                        }\n                    }\n                }\n            }\n        ",
                 variables: {
                     orderID: orderID,
-                    planID: _ref19.planID
+                    planID: planID
                 },
-                headers: (_headers19 = {}, _headers19[constants.HEADERS.ACCESS_TOKEN] = _ref19.buyerAccessToken, 
+                headers: (_headers19 = {}, _headers19[constants.HEADERS.ACCESS_TOKEN] = buyerAccessToken, 
                 _headers19[constants.HEADERS.CLIENT_CONTEXT] = orderID, _headers19)
             }).then((function(_ref20) {
                 var _approvePayment$buyer, _approvePayment$buyer2;
@@ -11239,18 +10999,18 @@ window.spb = function(modules) {
         }
         function oneClickApproveOrder(_ref21) {
             var _headers20;
-            var orderID = _ref21.orderID, clientMetadataID = _ref21.clientMetadataID, _ref21$useExistingPla = _ref21.useExistingPlanning;
-            return callGraphQL({
+            var orderID = _ref21.orderID, instrumentType = _ref21.instrumentType, instrumentID = _ref21.instrumentID, buyerAccessToken = _ref21.buyerAccessToken, clientMetadataID = _ref21.clientMetadataID, planID = _ref21.planID, _ref21$useExistingPla = _ref21.useExistingPlanning, useExistingPlanning = void 0 !== _ref21$useExistingPla && _ref21$useExistingPla, enableOrdersApprovalSmartWallet = _ref21.enableOrdersApprovalSmartWallet;
+            return Object(api.callGraphQL)({
                 name: "OneClickApproveOrder",
-                query: "\n            mutation OneClickApproveOrder(\n                $orderID : String!\n                $instrumentType : String!\n                $instrumentID : String!\n                $planID: String\n                $useExistingPlanning: Boolean\n            ) {\n                oneClickPayment(\n                    token: $orderID\n                    selectedInstrumentType : $instrumentType\n                    selectedInstrumentId : $instrumentID\n                    selectedPlanId: $planID\n                    useExistingPlanning: $useExistingPlanning\n                ) {\n                    userId\n                    " + (_ref21.enableOrdersApprovalSmartWallet ? "" : "auth {\n        accessToken\n    }") + "\n                }\n            }\n        ",
+                query: "\n            mutation OneClickApproveOrder(\n                $orderID : String!\n                $instrumentType : String!\n                $instrumentID : String!\n                $planID: String\n                $useExistingPlanning: Boolean\n            ) {\n                oneClickPayment(\n                    token: $orderID\n                    selectedInstrumentType : $instrumentType\n                    selectedInstrumentId : $instrumentID\n                    selectedPlanId: $planID\n                    useExistingPlanning: $useExistingPlanning\n                ) {\n                    userId\n                    " + (enableOrdersApprovalSmartWallet ? "" : "auth {\n        accessToken\n    }") + "\n                }\n            }\n        ",
                 variables: {
                     orderID: orderID,
-                    instrumentType: _ref21.instrumentType,
-                    instrumentID: _ref21.instrumentID,
-                    planID: _ref21.planID,
-                    useExistingPlanning: void 0 !== _ref21$useExistingPla && _ref21$useExistingPla
+                    instrumentType: instrumentType,
+                    instrumentID: instrumentID,
+                    planID: planID,
+                    useExistingPlanning: useExistingPlanning
                 },
-                headers: (_headers20 = {}, _headers20[constants.HEADERS.ACCESS_TOKEN] = _ref21.buyerAccessToken, 
+                headers: (_headers20 = {}, _headers20[constants.HEADERS.ACCESS_TOKEN] = buyerAccessToken, 
                 _headers20[constants.HEADERS.CLIENT_CONTEXT] = orderID, _headers20[constants.HEADERS.CLIENT_METADATA_ID] = clientMetadataID || orderID, 
                 _headers20)
             }).then((function(_ref22) {
@@ -11264,7 +11024,7 @@ window.spb = function(modules) {
         }
         var getSupplementalOrderInfo = Object(belter_src.memoize)((function(orderID) {
             var _headers21;
-            return callGraphQL({
+            return Object(api.callGraphQL)({
                 name: "GetCheckoutDetails",
                 query: "\n        query GetCheckoutDetails($orderID: String!) {\n            checkoutSession(token: $orderID) {\n                cart {\n                    billingType\n                    intent\n                    paymentId\n                    billingToken\n                    amounts {\n                        total {\n                            currencyValue\n                            currencyCode\n                            currencyFormatSymbolISOCurrency\n                        }\n                    }\n                    supplementary {\n                        initiationIntent\n                    }\n                    category\n                }\n                flags {\n                    isChangeShippingAddressAllowed\n                }\n                payees {\n                    merchantId\n                    email {\n                        stringValue\n                    }\n                }\n            }\n        }\n        ",
                 variables: {
@@ -11276,7 +11036,7 @@ window.spb = function(modules) {
         }));
         var order_getShippingOrderInfo = function(orderID) {
             var _headers22;
-            return callGraphQL({
+            return Object(api.callGraphQL)({
                 name: "GetCheckoutDetails",
                 query: "\n            query GetCheckoutDetails($orderID: String!) {\n                checkoutSession(token: $orderID) {\n                    cart {\n                        billingType\n                        intent\n                        paymentId\n                        billingToken\n                        amounts {\n                            total {\n                                currencyValue\n                                currencyCode\n                                currencyFormatSymbolISOCurrency\n                            }\n                        }\n                        supplementary {\n                            initiationIntent\n                        }\n                        category\n                        shippingAddress {\n                            firstName\n                            lastName\n                            line1\n                            line2\n                            city\n                            state\n                            postalCode\n                            country\n                        }\n                        shippingMethods {\n                            id\n                            amount {\n                                currencyCode\n                                currencyValue\n                            }\n                            label\n                            selected\n                            type\n                        }\n                    }\n                    flags {\n                        isChangeShippingAddressAllowed\n                    }\n                    payees {\n                        merchantId\n                        email {\n                            stringValue\n                        }\n                    }\n                }\n            }\n        ",
                 variables: {
@@ -11288,7 +11048,7 @@ window.spb = function(modules) {
         };
         var order_getDetailedOrderInfo = function(orderID, country) {
             var _headers23;
-            return callGraphQL({
+            return Object(api.callGraphQL)({
                 name: "GetCheckoutDetails",
                 query: "\n            query GetCheckoutDetails($orderID: String!, $country: CountryCodes!) {\n                checkoutSession(token: $orderID) {\n                    merchant{\n                        name\n                    }\n                    flags{\n                        isShippingAddressRequired,\n                        isDigitalGoodsIntegration,\n                        isChangeShippingAddressAllowed\n                    }\n                    allowedCardIssuers(country: $country)\n                    cart {\n                        amounts {\n                            shippingAndHandling {\n                                currencyValue\n                                currencySymbol\n                                currencyFormat\n                            }\n                            tax {\n                                currencyValue\n                                currencySymbol\n                                currencyFormat\n                            }\n                            subtotal {\n                                currencyValue\n                                currencySymbol\n                                currencyFormat\n                            }\n                            total {\n                                currencyValue\n                                currencyCode\n                                currencyFormatSymbolISOCurrency\n                            }\n                        }\n                        shippingAddress {\n                            firstName\n                            lastName\n                            line1\n                            line2\n                            city\n                            state\n                            postalCode\n                            country\n                        }\n                        shippingMethods {\n                            id\n                            amount {\n                                currencyCode\n                                currencyValue\n                            }\n                            label\n                            selected\n                            type\n                        }\n                    }\n                }\n            }\n        ",
                 variables: {
@@ -11322,14 +11082,15 @@ window.spb = function(modules) {
             }));
         }
         function approveCardPayment(_ref25) {
-            return callGraphQL({
+            var card = _ref25.card, orderID = _ref25.orderID, clientID = _ref25.clientID, branded = _ref25.branded;
+            return Object(api.callGraphQL)({
                 name: "ProcessPayment",
                 query: '\n            mutation ProcessPayment(\n                $orderID: String!\n                $clientID: String!\n                $card: CardInput!\n                $branded: Boolean!\n            ) {\n                processPayment(\n                    clientID: $clientID\n                    paymentMethod: { type: CARD, card: $card }\n                    branded: $branded\n                    orderID: $orderID\n                    buttonSessionID: "f7r7367r4"\n                )\n            }\n        ',
                 variables: {
-                    orderID: _ref25.orderID,
-                    clientID: _ref25.clientID,
-                    card: _ref25.card,
-                    branded: _ref25.branded
+                    orderID: orderID,
+                    clientID: clientID,
+                    card: card,
+                    branded: branded
                 },
                 returnErrorObject: !0
             }).then((function(gqlResult) {
@@ -11341,7 +11102,7 @@ window.spb = function(modules) {
             var _headers;
             var facilitatorAccessToken = _ref.facilitatorAccessToken, partnerAttributionID = _ref.partnerAttributionID;
             Object(lib.getLogger)().info("rest_api_create_payment_id");
-            return callRestAPI({
+            return Object(api.callRestAPI)({
                 accessToken: facilitatorAccessToken,
                 method: "post",
                 eventName: "v1_payments_payment_create",
@@ -11382,22 +11143,24 @@ window.spb = function(modules) {
         }
         function getPayment(paymentID, _ref4) {
             var _headers2;
-            return callRestAPI({
-                accessToken: _ref4.facilitatorAccessToken,
+            var facilitatorAccessToken = _ref4.facilitatorAccessToken, partnerAttributionID = _ref4.partnerAttributionID;
+            return Object(api.callRestAPI)({
+                accessToken: facilitatorAccessToken,
                 eventName: "v1_payments_payment_get",
                 url: src_config.PAYMENTS_API_URL + "/" + paymentID,
-                headers: (_headers2 = {}, _headers2[constants.HEADERS.PARTNER_ATTRIBUTION_ID] = _ref4.partnerAttributionID || "", 
+                headers: (_headers2 = {}, _headers2[constants.HEADERS.PARTNER_ATTRIBUTION_ID] = partnerAttributionID || "", 
                 _headers2)
             });
         }
         function executePayment(paymentID, payerID, _ref5) {
             var _headers3;
-            return callRestAPI({
-                accessToken: _ref5.facilitatorAccessToken,
+            var facilitatorAccessToken = _ref5.facilitatorAccessToken, partnerAttributionID = _ref5.partnerAttributionID;
+            return Object(api.callRestAPI)({
+                accessToken: facilitatorAccessToken,
                 method: "post",
                 eventName: "v1_payments_payment_execute",
                 url: src_config.PAYMENTS_API_URL + "/" + paymentID + "/execute",
-                headers: (_headers3 = {}, _headers3[constants.HEADERS.PARTNER_ATTRIBUTION_ID] = _ref5.partnerAttributionID || "", 
+                headers: (_headers3 = {}, _headers3[constants.HEADERS.PARTNER_ATTRIBUTION_ID] = partnerAttributionID || "", 
                 _headers3),
                 data: {
                     payer_id: payerID
@@ -11410,7 +11173,7 @@ window.spb = function(modules) {
             var patchData = Array.isArray(data) ? {
                 patch: data
             } : data;
-            return callRestAPI({
+            return Object(api.callRestAPI)({
                 accessToken: facilitatorAccessToken,
                 method: "patch",
                 eventName: "v1_payments_payment_patch",
@@ -11421,15 +11184,16 @@ window.spb = function(modules) {
             });
         }
         function approveApplePayPayment(orderID, clientID, applePayPayment) {
-            return callGraphQL({
+            var token = applePayPayment.token, billingContact = applePayPayment.billingContact, shippingContact = applePayPayment.shippingContact;
+            return Object(api.callGraphQL)({
                 name: "ApproveApplePayPayment",
                 query: "\n            mutation ApproveApplePayPayment(\n                $token: ApplePayPaymentToken!\n                $orderID: String!\n                $clientID : String!\n                $billingContact: ApplePayPaymentContact!\n                $shippingContact: ApplePayPaymentContact\n            ) {\n                approveApplePayPayment(\n                    token: $token\n                    orderID: $orderID\n                    clientID: $clientID\n                    billingContact: $billingContact\n                    shippingContact: $shippingContact\n                )\n            }\n        ",
                 variables: {
-                    token: applePayPayment.token,
+                    token: token,
                     orderID: orderID,
                     clientID: clientID,
-                    billingContact: applePayPayment.billingContact,
-                    shippingContact: applePayPayment.shippingContact
+                    billingContact: billingContact,
+                    shippingContact: shippingContact
                 }
             }).then((function(gqlResult) {
                 if (!gqlResult || !gqlResult.approveApplePayPayment) throw new Error("GraphQL GetApplePayPayment returned no applePayment object");
@@ -11506,8 +11270,9 @@ window.spb = function(modules) {
             return reviseRequest(accessToken, subscriptionID, subscriptionPayload, partnerAttributionID, "v1_billing_subscriptions_revise_create");
         }
         function activateSubscription(subscriptionID, _ref5) {
-            return callSmartAPI({
-                accessToken: _ref5.buyerAccessToken,
+            var buyerAccessToken = _ref5.buyerAccessToken;
+            return Object(api.callSmartAPI)({
+                accessToken: buyerAccessToken,
                 method: "post",
                 eventName: "billagmt_subscriptions_activate",
                 url: src_config.SMART_API_URI.SUBSCRIPTION + "/" + subscriptionID + "/activate"
@@ -11516,14 +11281,16 @@ window.spb = function(modules) {
             }));
         }
         function getSubscription(subscriptionID, _ref7) {
-            return callSmartAPI({
-                accessToken: _ref7.buyerAccessToken,
+            var buyerAccessToken = _ref7.buyerAccessToken;
+            return Object(api.callSmartAPI)({
+                accessToken: buyerAccessToken,
                 eventName: "billagmt_subscriptions_get",
                 url: src_config.SMART_API_URI.SUBSCRIPTION + "/" + subscriptionID
             }).then((function(_ref8) {
                 return _ref8.data;
             }));
         }
+        var esm_extends = __webpack_require__("./node_modules/@babel/runtime/helpers/esm/extends.js");
         var util = __webpack_require__("./src/lib/util.js");
         function messageSocket(_ref) {
             var sessionUID = _ref.sessionUID, driver = _ref.driver, sourceApp = _ref.sourceApp, sourceAppVersion = _ref.sourceAppVersion, targetApp = _ref.targetApp, _ref$retry = _ref.retry, retry = void 0 === _ref$retry || _ref$retry;
@@ -11908,22 +11675,22 @@ window.spb = function(modules) {
         }));
         var getSmartWallet = Object(belter_src.memoize)((function(_ref) {
             var _headers;
-            var _ref$amount = _ref.amount, _ref$vetted = _ref.vetted, _ref$allowBillingPaym = _ref.allowBillingPayments;
-            return callGraphQL({
+            var clientID = _ref.clientID, merchantID = _ref.merchantID, currency = _ref.currency, _ref$amount = _ref.amount, amount = void 0 === _ref$amount ? "0.00" : _ref$amount, clientMetadataID = _ref.clientMetadataID, userIDToken = _ref.userIDToken, _ref$vetted = _ref.vetted, vetted = void 0 === _ref$vetted || _ref$vetted, paymentMethodToken = _ref.paymentMethodToken, branded = _ref.branded, _ref$allowBillingPaym = _ref.allowBillingPayments, allowBillingPayments = void 0 === _ref$allowBillingPaym || _ref$allowBillingPaym;
+            return Object(api.callGraphQL)({
                 name: "GetSmartWallet",
                 query: "\n            query GetSmartWallet(\n                $clientID: String!\n                $merchantID: [String!]\n                $currency: String\n                $amount: String\n                $userIDToken: String\n                $vetted: Boolean\n                $paymentMethodToken: String\n                $branded: Boolean,\n                $allowBillingPayments: Boolean\n            ) {\n                smartWallet(\n                    clientId: $clientID\n                    merchantId: $merchantID\n                    currency: $currency\n                    amount: $amount\n                    userIdToken: $userIDToken\n                    vetted: $vetted\n                    paymentMethodNonce: $paymentMethodToken\n                    branded: $branded,\n                    allowBillingPayments: $allowBillingPayments\n                ) {\n                    paypal {\n                        instruments {\n                            type\n                            label\n                            logoUrl\n                            instrumentID\n                            tokenID\n                            vendor\n                            oneClick\n                            accessToken\n                        }\n                    }\n                    credit {\n                        instruments {\n                            type\n                            label\n                            logoUrl\n                            instrumentID\n                            tokenID\n                            vendor\n                            oneClick\n                            accessToken\n                        }\n                    }\n                    card {\n                        instruments {\n                            type\n                            label\n                            logoUrl\n                            instrumentID\n                            tokenID\n                            vendor\n                            oneClick\n                        }\n                    }\n                    venmo {\n                        instruments {\n                            type\n                            label\n                            logoUrl\n                            instrumentID\n                            tokenID\n                            oneClick\n                        }\n                    }\n                }\n            }\n        ",
                 variables: {
-                    clientID: _ref.clientID,
-                    merchantID: _ref.merchantID,
-                    currency: _ref.currency,
-                    amount: void 0 === _ref$amount ? "0.00" : _ref$amount,
-                    userIDToken: _ref.userIDToken,
-                    vetted: void 0 === _ref$vetted || _ref$vetted,
-                    paymentMethodToken: _ref.paymentMethodToken,
-                    branded: _ref.branded,
-                    allowBillingPayments: void 0 === _ref$allowBillingPaym || _ref$allowBillingPaym
+                    clientID: clientID,
+                    merchantID: merchantID,
+                    currency: currency,
+                    amount: amount,
+                    userIDToken: userIDToken,
+                    vetted: vetted,
+                    paymentMethodToken: paymentMethodToken,
+                    branded: branded,
+                    allowBillingPayments: allowBillingPayments
                 },
-                headers: (_headers = {}, _headers[constants.HEADERS.CLIENT_METADATA_ID] = _ref.clientMetadataID, 
+                headers: (_headers = {}, _headers[constants.HEADERS.CLIENT_METADATA_ID] = clientMetadataID, 
                 _headers)
             }).then((function(_ref2) {
                 return _ref2.smartWallet;
@@ -11931,17 +11698,17 @@ window.spb = function(modules) {
         }));
         function getFundingEligibility(query, _ref) {
             var _headers;
-            var accessToken = _ref.accessToken, intent = _ref.intent, disableFunding = _ref.disableFunding, disableCard = _ref.disableCard;
-            return callGraphQL({
+            var accessToken = _ref.accessToken, clientID = _ref.clientID, merchantID = _ref.merchantID, currency = _ref.currency, buyerCountry = _ref.buyerCountry, intent = _ref.intent, commit = _ref.commit, vault = _ref.vault, disableFunding = _ref.disableFunding, disableCard = _ref.disableCard;
+            return Object(api.callGraphQL)({
                 name: "GetFundingEligibility",
                 query: "\n            query GetFundingEligibility(\n                $clientID:String,\n                $merchantID:[ String ],\n                $buyerCountry:CountryCodes,\n                $currency:SupportedCountryCurrencies,\n                $intent:FundingEligibilityIntent,\n                $commit:Boolean,\n                $vault:Boolean,\n                $disableFunding:[ SupportedPaymentMethodsType ],\n                $disableCard:[ SupportedCardsType ]\n            ) {\n            fundingEligibility(\n                clientId: $clientID,\n                buyerCountry: $buyerCountry,\n                currency: $currency,\n                intent: $intent,\n                commit: $commit,\n                vault: $vault,\n                disableFunding: $disableFunding,\n                disableCard: $disableCard,\n                merchantId: $merchantID\n            ) {\n                " + query + "\n            }\n          }\n        ",
                 variables: {
-                    clientID: _ref.clientID,
-                    merchantID: _ref.merchantID,
-                    buyerCountry: _ref.buyerCountry,
-                    currency: _ref.currency,
-                    commit: _ref.commit,
-                    vault: _ref.vault,
+                    clientID: clientID,
+                    merchantID: merchantID,
+                    buyerCountry: buyerCountry,
+                    currency: currency,
+                    commit: commit,
+                    vault: vault,
                     intent: intent ? intent.toUpperCase() : intent,
                     disableFunding: disableFunding ? disableFunding.map((function(f) {
                         return f && f.toUpperCase();
@@ -11958,7 +11725,7 @@ window.spb = function(modules) {
             }));
         }
         function getGuestEnabledStatus(merchantID) {
-            return callGraphQL({
+            return Object(api.callGraphQL)({
                 name: "GetFundingEligibility",
                 query: "\n            query GetFundingEligibility(\n                $merchantID:[ String ]\n            ) {\n            fundingEligibility(\n                merchantId: $merchantID\n            ) {\n                card {\n                    guestEnabled\n                }\n            }\n          }\n        ",
                 variables: {
@@ -11970,18 +11737,19 @@ window.spb = function(modules) {
             }));
         }
         function getNativeEligibility(_ref2) {
-            var buttonSessionID = _ref2.buttonSessionID, cookies = _ref2.cookies, orderID = _ref2.orderID, enableFunding = _ref2.enableFunding, stickinessID = _ref2.stickinessID, domain = _ref2.domain, _ref2$skipElmo = _ref2.skipElmo, skipElmo = void 0 !== _ref2$skipElmo && _ref2$skipElmo;
-            return callGraphQL({
+            var vault = _ref2.vault, shippingCallbackEnabled = _ref2.shippingCallbackEnabled, merchantID = _ref2.merchantID, clientID = _ref2.clientID, buyerCountry = _ref2.buyerCountry, currency = _ref2.currency, buttonSessionID = _ref2.buttonSessionID, cookies = _ref2.cookies, orderID = _ref2.orderID, enableFunding = _ref2.enableFunding, stickinessID = _ref2.stickinessID, domain = _ref2.domain, _ref2$skipElmo = _ref2.skipElmo, skipElmo = void 0 !== _ref2$skipElmo && _ref2$skipElmo;
+            var userAgent = Object(belter_src.getUserAgent)();
+            return Object(api.callGraphQL)({
                 name: "GetNativeEligibility",
                 query: "\n            query GetNativeEligibility(\n                $vault : Boolean,\n                $shippingCallbackEnabled : Boolean,\n                $merchantID : String,\n                $clientID : String,\n                $buyerCountry : String,\n                $currency : String,\n                $userAgent : String,\n                $buttonSessionID : String,\n                $cookies : String,\n                $orderID : String,\n                $enableFunding : [String],\n                $stickinessID : String,\n                $domain : String,\n                $skipElmo : Boolean\n            ) {\n                mobileSDKEligibility(\n                    vault: $vault,\n                    shippingCallbackEnabled: $shippingCallbackEnabled,\n                    merchantID: $merchantID,\n                    facilitatorClientID: $clientID,\n                    buyerCountry: $buyerCountry,\n                    currency: $currency,\n                    userAgent: $userAgent,\n                    buttonSessionID: $buttonSessionID,\n                    cookies: $cookies,\n                    token: $orderID,\n                    enableFunding: $enableFunding,\n                    stickinessID: $stickinessID,\n                    domain: $domain,\n                    skipElmo: $skipElmo\n                ) {\n                    paypal {\n                        eligibility\n                        ineligibilityReason\n                    }\n                    venmo {\n                        eligibility\n                        ineligibilityReason\n                    }\n                }\n            }\n        ",
                 variables: {
-                    vault: _ref2.vault,
-                    shippingCallbackEnabled: _ref2.shippingCallbackEnabled,
-                    merchantID: _ref2.merchantID,
-                    clientID: _ref2.clientID,
-                    buyerCountry: _ref2.buyerCountry,
-                    currency: _ref2.currency,
-                    userAgent: Object(belter_src.getUserAgent)(),
+                    vault: vault,
+                    shippingCallbackEnabled: shippingCallbackEnabled,
+                    merchantID: merchantID,
+                    clientID: clientID,
+                    buyerCountry: buyerCountry,
+                    currency: currency,
+                    userAgent: userAgent,
                     buttonSessionID: buttonSessionID,
                     cookies: cookies,
                     orderID: orderID,
@@ -11996,15 +11764,16 @@ window.spb = function(modules) {
             }));
         }
         function getApplePayMerchantSession(_ref3) {
-            var merchantDomain = _ref3.merchantDomain;
-            return callGraphQL({
+            var url = _ref3.url, clientID = _ref3.clientID, orderID = _ref3.orderID, merchantDomain = _ref3.merchantDomain;
+            var domain = -1 !== merchantDomain.indexOf("://") ? merchantDomain.split("://")[1] : merchantDomain;
+            return Object(api.callGraphQL)({
                 name: "GetApplePayMerchantSession",
                 query: "\n            query GetApplePayMerchantSession(\n                $url : String!\n                $orderID : String!\n                $clientID : String!\n                $merchantDomain : String!\n            ) {\n                applePayMerchantSession(\n                    url: $url\n                    orderID: $orderID\n                    clientID: $clientID\n                    merchantDomain: $merchantDomain\n                ) {\n                    session\n                }\n            }\n        ",
                 variables: {
-                    url: _ref3.url,
-                    clientID: _ref3.clientID,
-                    orderID: _ref3.orderID,
-                    merchantDomain: -1 !== merchantDomain.indexOf("://") ? merchantDomain.split("://")[1] : merchantDomain
+                    url: url,
+                    clientID: clientID,
+                    orderID: orderID,
+                    merchantDomain: domain
                 }
             }).then((function(gqlResult) {
                 if (!gqlResult || !gqlResult.applePayMerchantSession) throw new Error("GraphQL GetApplePayMerchantSession returned no applePayMerchantSession object");
@@ -12012,13 +11781,14 @@ window.spb = function(modules) {
             }));
         }
         var config_getApplepayConfig = function(_ref) {
-            return callGraphQL({
+            var buyerCountry = _ref.buyerCountry, clientId = _ref.clientId, merchantId = _ref.merchantId;
+            return Object(api.callGraphQL)({
                 name: "GetApplepayConfig",
                 query: "\n        query GetApplepayConfig(\n            $buyerCountry: CountryCodes!\n            $clientId: String!\n            $merchantId: [String]!\n          ) {\n            applepayConfig(\n              buyerCountry: $buyerCountry\n              clientId: $clientId\n              merchantId: $merchantId\n            ) {\n              merchantCountry,\n              supportedNetworks\n            }\n          }\n        ",
                 variables: {
-                    buyerCountry: _ref.buyerCountry,
-                    clientId: _ref.clientId,
-                    merchantId: _ref.merchantId
+                    buyerCountry: buyerCountry,
+                    clientId: clientId,
+                    merchantId: merchantId
                 }
             });
         };
@@ -13827,68 +13597,8 @@ window.spb = function(modules) {
             }
         }
         var sdk_constants = __webpack_require__("./node_modules/@paypal/sdk-constants/index.js");
-        var zalgo_promise = __webpack_require__("./node_modules/@krakenjs/zalgo-promise/index.js");
         var disallowedPropsWithAction = [ "onApprove", "onCancel", "onComplete", "createOrder", "intent" ];
-        function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
-            try {
-                var info = gen[key](arg);
-                var value = info.value;
-            } catch (error) {
-                reject(error);
-                return;
-            }
-            info.done ? resolve(value) : Promise.resolve(value).then(_next, _throw);
-        }
-        function _asyncToGenerator(fn) {
-            return function() {
-                var self = this, args = arguments;
-                return new Promise((function(resolve, reject) {
-                    var gen = fn.apply(self, args);
-                    function _next(value) {
-                        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
-                    }
-                    function _throw(err) {
-                        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
-                    }
-                    _next(void 0);
-                }));
-            };
-        }
-        function updateVaultSetupToken(_ref) {
-            var vaultSetupToken = _ref.vaultSetupToken, lowScopedAccessToken = _ref.lowScopedAccessToken, paymentSourceDetails = _ref.paymentSourceDetails;
-            return Object(src.request)({
-                method: "post",
-                url: "/v3/vault/setup-tokens/" + vaultSetupToken + "/update",
-                headers: {
-                    Authorization: "Basic " + lowScopedAccessToken,
-                    "Content-Type": "application/json"
-                },
-                data: {
-                    payment_source: {
-                        card: Object(esm_extends.default)({}, paymentSourceDetails)
-                    }
-                }
-            }).then((function(_ref2) {
-                var body = _ref2.body;
-                if (!body || "APPROVED" === !body.status) throw new Error("request was not approved");
-                return vaultSetupToken;
-            }));
-        }
-        function _vaultPaymentSource() {
-            return (_vaultPaymentSource = _asyncToGenerator((function*(_ref) {
-                var action = _ref.action, lowScopedAccessToken = _ref.lowScopedAccessToken, paymentSourceDetails = _ref.paymentSourceDetails;
-                var createVaultSetupToken = action.createVaultSetupToken, onApprove = action.onApprove;
-                var vaultSetupToken = (yield createVaultSetupToken()).vaultSetupToken;
-                yield updateVaultSetupToken({
-                    vaultSetupToken: vaultSetupToken,
-                    lowScopedAccessToken: lowScopedAccessToken,
-                    paymentSourceDetails: paymentSourceDetails
-                });
-                yield onApprove({
-                    vaultSetupToken: vaultSetupToken
-                });
-            }))).apply(this, arguments);
-        }
+        var api_api = __webpack_require__("./src/api/api.js");
         var cardField = {
             name: "card_field",
             setup: function() {},
@@ -13911,11 +13621,10 @@ window.spb = function(modules) {
                         return function(_ref) {
                             var facilitatorAccessToken = _ref.facilitatorAccessToken, extraFields = _ref.extraFields;
                             var cardProps = function(_ref) {
-                                var _fundingEligibility$c, _fundingEligibility$c2;
+                                var _fundingEligibility$c, _fundingEligibility$c2, _xprops$parent2;
                                 var facilitatorAccessToken = _ref.facilitatorAccessToken, featureFlags = _ref.featureFlags;
-                                var props = {};
                                 var xprops = window.xprops;
-                                var type = xprops.type, cardSessionID = xprops.cardSessionID, style = xprops.style, placeholder = xprops.placeholder, minLength = xprops.minLength, maxLength = xprops.maxLength, fundingEligibility = xprops.fundingEligibility, inputEvents = xprops.inputEvents, _xprops$branded = xprops.branded, branded = void 0 === _xprops$branded ? null == (_fundingEligibility$c = null == fundingEligibility || null == (_fundingEligibility$c2 = fundingEligibility.card) ? void 0 : _fundingEligibility$c2.branded) || _fundingEligibility$c : _xprops$branded, parent = xprops.parent, xport = xprops.export, action = xprops.action;
+                                var type = xprops.type, cardSessionID = xprops.cardSessionID, style = xprops.style, placeholder = xprops.placeholder, minLength = xprops.minLength, maxLength = xprops.maxLength, fundingEligibility = xprops.fundingEligibility, inputEvents = xprops.inputEvents, _xprops$branded = xprops.branded, branded = void 0 === _xprops$branded ? null == (_fundingEligibility$c = null == fundingEligibility || null == (_fundingEligibility$c2 = fundingEligibility.card) ? void 0 : _fundingEligibility$c2.branded) || _fundingEligibility$c : _xprops$branded, parent = xprops.parent, xport = xprops.export;
                                 var returnData = {
                                     type: type,
                                     branded: branded,
@@ -13932,19 +13641,40 @@ window.spb = function(modules) {
                                 var baseProps = Object(props_props.getProps)({
                                     branded: branded
                                 });
-                                if (action) {
-                                    props = function(xprops) {
+                                if (xprops.action || (null == (_xprops$parent2 = xprops.parent) ? void 0 : _xprops$parent2.action)) {
+                                    var props = function(xprops, baseProps) {
+                                        var _xprops$parent;
                                         disallowedPropsWithAction.forEach((function(prop) {
                                             if (xprops[prop]) throw new Error("Do not pass " + prop + " with an action.");
                                         }));
-                                        return {
-                                            action: xprops.action
-                                        };
-                                    }(xprops);
+                                        var action = xprops.action || (null == (_xprops$parent = xprops.parent) ? void 0 : _xprops$parent.action);
+                                        switch (action.type) {
+                                          case "SAVE":
+                                            return {
+                                                action: Object(esm_extends.default)({}, action, {
+                                                    createVaultSetupToken: (_ref = {
+                                                        createVaultSetupToken: action.createVaultSetupToken
+                                                    }, createVaultSetupToken = _ref.createVaultSetupToken, function() {
+                                                        return createVaultSetupToken({}).then((function(vaultSetupToken) {
+                                                            if (!vaultSetupToken || "string" != typeof vaultSetupToken) throw new Error("Expected a vault setup token to be passed to createVaultSetupToken");
+                                                            return vaultSetupToken;
+                                                        }));
+                                                    }),
+                                                    onApprove: Object(props_onApprove.getSaveActionOnApprove)({
+                                                        onApprove: action.onApprove,
+                                                        onError: baseProps.onError
+                                                    })
+                                                })
+                                            };
+
+                                          default:
+                                            throw new Error("Unsupported type for action: " + action.type);
+                                        }
+                                        var _ref, createVaultSetupToken;
+                                    }(xprops, baseProps);
                                     return Object(esm_extends.default)({}, baseProps, props, returnData);
                                 }
-                                var _props, _parent$props;
-                                props = getLegacyProps({
+                                var _props = getLegacyProps({
                                     paymentSource: null,
                                     partnerAttributionID: xprops.partnerAttributionID,
                                     merchantID: xprops.merchantID,
@@ -13966,7 +13696,7 @@ window.spb = function(modules) {
                                     createOrder: xprops.createOrder,
                                     createBillingAgreement: xprops.createBillingAgreement
                                 });
-                                return Object(esm_extends.default)({}, baseProps, props, {
+                                return Object(esm_extends.default)({}, baseProps, _props, {
                                     type: type,
                                     branded: branded,
                                     style: style,
@@ -13977,8 +13707,7 @@ window.spb = function(modules) {
                                     fundingEligibility: fundingEligibility,
                                     inputEvents: inputEvents,
                                     export: parent ? parent.export : xport,
-                                    facilitatorAccessToken: facilitatorAccessToken,
-                                    action: (null == (_props = props) ? void 0 : _props.action) || (null == parent || null == (_parent$props = parent.props) ? void 0 : _parent$props.action)
+                                    facilitatorAccessToken: facilitatorAccessToken
                                 });
                             }({
                                 facilitatorAccessToken: facilitatorAccessToken,
@@ -13991,7 +13720,7 @@ window.spb = function(modules) {
                                 cardExpiryFrame && cardExpiryFrame.resetGQLErrors();
                                 cardCVVFrame && cardCVVFrame.resetGQLErrors();
                             }();
-                            return zalgo_promise.ZalgoPromise.try((function() {
+                            return zalgo_promise_src.ZalgoPromise.try((function() {
                                 if (!hasCardFields()) throw new Error("Card fields not available to submit");
                                 var card = getCardFields();
                                 if (!card) throw new Error("Card not available to submit");
@@ -14000,21 +13729,52 @@ window.spb = function(modules) {
                                 };
                                 if (void 0 !== cardProps.action) switch (cardProps.action.type) {
                                   case "save":
-                                    try {
-                                        return function(_x) {
-                                            return _vaultPaymentSource.apply(this, arguments);
-                                        }({
-                                            action: cardProps.action,
-                                            lowScopedAccessToken: facilitatorAccessToken,
-                                            paymentSourceDetails: card
-                                        });
-                                    } catch (error) {
-                                        Object(lib.getLogger)().info("card_fields_vault_payment_source_failed");
-                                        throw error;
-                                    }
+                                    return function(_ref) {
+                                        var action = _ref.action, facilitatorAccessToken = _ref.facilitatorAccessToken, paymentSource = _ref.paymentSource;
+                                        var onApprove = action.onApprove;
+                                        return (0, action.createVaultSetupToken)().then((function(vaultSetupToken) {
+                                            return function(_ref3) {
+                                                var _ref4, _extends3;
+                                                var vaultSetupToken = _ref3.vaultSetupToken, facilitatorAccessToken = _ref3.facilitatorAccessToken, partnerAttributionID = _ref3.partnerAttributionID, paymentSource = _ref3.paymentSource;
+                                                return Object(api_api.callRestAPI)({
+                                                    accessToken: facilitatorAccessToken,
+                                                    method: "post",
+                                                    url: src_config.VAULT_SETUP_TOKENS_API_URL + "/" + vaultSetupToken + "/update",
+                                                    headers: Object(esm_extends.default)({}, partnerAttributionID ? (_ref4 = {}, _ref4[constants.HEADERS.PARTNER_ATTRIBUTION_ID] = partnerAttributionID, 
+                                                    _ref4) : void 0, (_extends3 = {}, _extends3[constants.HEADERS.PREFER] = constants.PREFER.REPRESENTATION, 
+                                                    _extends3)),
+                                                    data: {
+                                                        payment_source: paymentSource
+                                                    }
+                                                });
+                                            }({
+                                                vaultSetupToken: vaultSetupToken,
+                                                facilitatorAccessToken: facilitatorAccessToken,
+                                                paymentSource: paymentSource,
+                                                partnerAttributionID: ""
+                                            }).then((function() {
+                                                return onApprove({
+                                                    vaultSetupToken: vaultSetupToken
+                                                });
+                                            }));
+                                        }));
+                                    }({
+                                        action: cardProps.action,
+                                        facilitatorAccessToken: facilitatorAccessToken,
+                                        paymentSource: {
+                                            card: {
+                                                name: card.name,
+                                                number: card.number,
+                                                expiry: card.expiry,
+                                                security_code: card.cvv,
+                                                billing_address: {
+                                                    postal_code: card.postalCode
+                                                }
+                                            }
+                                        }
+                                    });
 
                                   default:
-                                    Object(lib.getLogger)().info("card_fields_unsupported_action");
                                     throw new Error("Action of type " + cardProps.action.type + " is not supported by Card Fields");
                                 }
                                 return cardProps.intent === sdk_constants.INTENT.TOKENIZE ? Object(api.tokenizeCard)({
@@ -14116,18 +13876,24 @@ window.spb = function(modules) {
                         return !!order.checkoutSession.flags.isChangeShippingAddressAllowed;
                     }));
                 };
-                userIDToken && merchantID && merchantID[0] && zalgo_promise_src.ZalgoPromise.try((function() {
-                    return Object(api.createAccessToken)(clientID, {
-                        targetSubject: merchantID[0]
-                    }).catch((function(err) {
-                        Object(lib.getLogger)().warn("vault_access_token_with_target_subject_failure", {
-                            error: Object(src.stringifyError)(err)
-                        });
-                        throw err;
+                if (userIDToken && merchantID && merchantID[0]) {
+                    Object(lib.getLogger)().info("vault_create_access_token", {
+                        merchantID: merchantID[0],
+                        clientID: clientID
+                    });
+                    zalgo_promise_src.ZalgoPromise.try((function() {
+                        return Object(api.createAccessToken)(clientID, {
+                            targetSubject: merchantID[0]
+                        }).catch((function(err) {
+                            Object(lib.getLogger)().warn("vault_access_token_with_target_subject_failure", {
+                                error: Object(src.stringifyError)(err)
+                            });
+                            throw err;
+                        }));
+                    })).then((function(accessTokenWithTargetSubject) {
+                        accessToken = accessTokenWithTargetSubject;
                     }));
-                })).then((function(accessTokenWithTargetSubject) {
-                    accessToken = accessTokenWithTargetSubject;
-                }));
+                }
                 var startPaymentFlow = function(orderID, installmentPlan) {
                     return zalgo_promise_src.ZalgoPromise.hash({
                         validate: Object(api.validatePaymentMethod)({
@@ -14143,7 +13909,10 @@ window.spb = function(modules) {
                     }).then((function(_ref9) {
                         var validate = _ref9.validate;
                         if (_ref9.requireShipping) {
-                            if (fundingSource !== sdk_constants_src.FUNDING.PAYPAL) throw new Error("Shipping address requested for " + fundingSource + " payment");
+                            if (fundingSource !== sdk_constants_src.FUNDING.PAYPAL) {
+                                Object(lib.getLogger)().error("vault_shipping_required");
+                                throw new Error("Shipping address requested for " + fundingSource + " payment");
+                            }
                             return function() {
                                 Object(lib.getLogger)().info("web_checkout_fallback").flush();
                                 return checkout.init({
@@ -16951,7 +16720,7 @@ window.spb = function(modules) {
                     var _ref3;
                     return (_ref3 = {})[sdk_constants_src.FPTI_KEY.CONTEXT_TYPE] = constants.FPTI_CONTEXT_TYPE.BUTTON_SESSION_ID, 
                     _ref3[sdk_constants_src.FPTI_KEY.CONTEXT_ID] = buttonSessionID, _ref3[sdk_constants_src.FPTI_KEY.BUTTON_SESSION_UID] = buttonSessionID, 
-                    _ref3[sdk_constants_src.FPTI_KEY.BUTTON_VERSION] = "5.0.126", _ref3[constants.FPTI_BUTTON_KEY.BUTTON_CORRELATION_ID] = buttonCorrelationID, 
+                    _ref3[sdk_constants_src.FPTI_KEY.BUTTON_VERSION] = "5.0.127", _ref3[constants.FPTI_BUTTON_KEY.BUTTON_CORRELATION_ID] = buttonCorrelationID, 
                     _ref3[sdk_constants_src.FPTI_KEY.STICKINESS_ID] = Object(lib.isAndroidChrome)() ? stickinessID : null, 
                     _ref3[sdk_constants_src.FPTI_KEY.PARTNER_ATTRIBUTION_ID] = partnerAttributionID, 
                     _ref3[sdk_constants_src.FPTI_KEY.USER_ACTION] = commit ? sdk_constants_src.FPTI_USER_ACTION.COMMIT : sdk_constants_src.FPTI_USER_ACTION.CONTINUE, 
@@ -17225,6 +16994,12 @@ window.spb = function(modules) {
         __webpack_require__.d(__webpack_exports__, "VALIDATE_PAYMENT_METHOD_API", (function() {
             return VALIDATE_PAYMENT_METHOD_API;
         }));
+        __webpack_require__.d(__webpack_exports__, "VAULT_API_URL", (function() {
+            return VAULT_API_URL;
+        }));
+        __webpack_require__.d(__webpack_exports__, "VAULT_SETUP_TOKENS_API_URL", (function() {
+            return VAULT_SETUP_TOKENS_API_URL;
+        }));
         __webpack_require__.d(__webpack_exports__, "BASE_SMART_API_URL", (function() {
             return BASE_SMART_API_URL;
         }));
@@ -17260,6 +17035,8 @@ window.spb = function(modules) {
         var PAYMENTS_API_URL = "/v1/payments/payment";
         var CREATE_SUBSCRIPTIONS_API_URL = "/v1/billing/subscriptions";
         var VALIDATE_PAYMENT_METHOD_API = "validate-payment-method";
+        var VAULT_API_URL = "/v3/vault";
+        var VAULT_SETUP_TOKENS_API_URL = VAULT_API_URL + "/setup-tokens";
         var BASE_SMART_API_URL = "/smart/api";
         var SMART_API_URI = {
             AUTH: BASE_SMART_API_URL + "/auth",
@@ -18566,6 +18343,9 @@ window.spb = function(modules) {
         __webpack_require__.d(__webpack_exports__, "getOnApprove", (function() {
             return _onApprove__WEBPACK_IMPORTED_MODULE_5__.getOnApprove;
         }));
+        __webpack_require__.d(__webpack_exports__, "getSaveActionOnApprove", (function() {
+            return _onApprove__WEBPACK_IMPORTED_MODULE_5__.getSaveActionOnApprove;
+        }));
         var _onComplete__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("./src/props/onComplete.js");
         __webpack_require__.d(__webpack_exports__, "getOnComplete", (function() {
             return _onComplete__WEBPACK_IMPORTED_MODULE_6__.getOnComplete;
@@ -18664,7 +18444,7 @@ window.spb = function(modules) {
         }));
         __webpack_require__("./src/props/getQueriedEligibleFunding.js");
         var _paymentRequest__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__("./src/props/paymentRequest.js");
-        for (var __WEBPACK_IMPORT_KEY__ in _paymentRequest__WEBPACK_IMPORTED_MODULE_19__) [ "default", "TYPES", "getProps", "buildXCreateOrderData", "buildOrderActions", "buildPaymentActions", "buildXCreateOrderActions", "getCreateOrder", "getConfirmOrder", "buildXCreateBillingAgreementData", "buildXCreateBillingAgreementActions", "getCreateBillingAgreement", "buildXCreateSubscriptionData", "buildXCreateSubscriptionActions", "getCreateSubscription", "getOnApproveOrder", "getOnApproveBilling", "getOnApproveTokenize", "getOnApproveSubscription", "getOnApprove", "getOnComplete", "buildXOnInitActions", "getOnInit", "buildXOnCancelData", "buildXOnCancelActions", "getOnCancel", "ON_SHIPPING_CHANGE_PATHS", "SHIPPING_ADDRESS_ERROR_MESSAGES", "SHIPPING_OPTIONS_ERROR_MESSAGES", "GENERIC_REJECT_ADDRESS_MESSAGE", "buildXOnShippingChangeData", "buildXShippingChangeActions", "getOnShippingChange", "buildXOnShippingAddressChangeData", "buildXOnShippingAddressChangeActions", "getOnShippingAddressChange", "buildXOnShippingOptionsChangeData", "buildXOnShippingOptionsChangeActions", "getOnShippingOptionsChange", "CLICK_VALID", "buildXOnClickData", "buildXOnClickActions", "getOnClick", "getOnError", "POPUP_BRIDGE_OPTYPE", "getRememberFunding", "getGetPageUrl", "getOnAuth" ].indexOf(__WEBPACK_IMPORT_KEY__) < 0 && function(key) {
+        for (var __WEBPACK_IMPORT_KEY__ in _paymentRequest__WEBPACK_IMPORTED_MODULE_19__) [ "default", "TYPES", "getProps", "buildXCreateOrderData", "buildOrderActions", "buildPaymentActions", "buildXCreateOrderActions", "getCreateOrder", "getConfirmOrder", "buildXCreateBillingAgreementData", "buildXCreateBillingAgreementActions", "getCreateBillingAgreement", "buildXCreateSubscriptionData", "buildXCreateSubscriptionActions", "getCreateSubscription", "getOnApproveOrder", "getOnApproveBilling", "getOnApproveTokenize", "getOnApproveSubscription", "getOnApprove", "getSaveActionOnApprove", "getOnComplete", "buildXOnInitActions", "getOnInit", "buildXOnCancelData", "buildXOnCancelActions", "getOnCancel", "ON_SHIPPING_CHANGE_PATHS", "SHIPPING_ADDRESS_ERROR_MESSAGES", "SHIPPING_OPTIONS_ERROR_MESSAGES", "GENERIC_REJECT_ADDRESS_MESSAGE", "buildXOnShippingChangeData", "buildXShippingChangeActions", "getOnShippingChange", "buildXOnShippingAddressChangeData", "buildXOnShippingAddressChangeActions", "getOnShippingAddressChange", "buildXOnShippingOptionsChangeData", "buildXOnShippingOptionsChangeActions", "getOnShippingOptionsChange", "CLICK_VALID", "buildXOnClickData", "buildXOnClickActions", "getOnClick", "getOnError", "POPUP_BRIDGE_OPTYPE", "getRememberFunding", "getGetPageUrl", "getOnAuth" ].indexOf(__WEBPACK_IMPORT_KEY__) < 0 && function(key) {
             __webpack_require__.d(__webpack_exports__, key, (function() {
                 return _paymentRequest__WEBPACK_IMPORTED_MODULE_19__[key];
             }));
@@ -18687,6 +18467,9 @@ window.spb = function(modules) {
         }));
         __webpack_require__.d(__webpack_exports__, "getOnApprove", (function() {
             return getOnApprove;
+        }));
+        __webpack_require__.d(__webpack_exports__, "getSaveActionOnApprove", (function() {
+            return getSaveActionOnApprove;
         }));
         var _krakenjs_zalgo_promise_src__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/@krakenjs/zalgo-promise/src/index.js");
         var _krakenjs_belter_src__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("./node_modules/@krakenjs/belter/src/index.js");
@@ -19055,6 +18838,19 @@ window.spb = function(modules) {
             });
             throw new Error("Unsupported intent: " + intent);
         }
+        var getSaveActionOnApprove = function(_ref20) {
+            var onApprove = _ref20.onApprove, onError = _ref20.onError;
+            return function(data) {
+                try {
+                    var _onApprove;
+                    return null == (_onApprove = onApprove(data)) ? void 0 : _onApprove.catch((function(error) {
+                        return onError(error);
+                    }));
+                } catch (error) {
+                    return onError(error);
+                }
+            };
+        };
     },
     "./src/props/onAuth.js": function(module, __webpack_exports__, __webpack_require__) {
         "use strict";

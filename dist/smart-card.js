@@ -55,7 +55,7 @@ window.smartCard = function(modules) {
         return {}.hasOwnProperty.call(object, property);
     };
     __webpack_require__.p = "";
-    return __webpack_require__(__webpack_require__.s = 48);
+    return __webpack_require__(__webpack_require__.s = 46);
 }([ function(module, exports, __webpack_require__) {
     "use strict";
     var __createBinding = this && this.__createBinding || (Object.create ? function(o, m, k, k2) {
@@ -85,13 +85,13 @@ window.smartCard = function(modules) {
         __setModuleDefault(result, mod);
         return result;
     })(__webpack_require__(7));
-    var cardholder_name_1 = __webpack_require__(20);
-    var card_number_1 = __webpack_require__(21);
-    var expiration_date_1 = __webpack_require__(23);
+    var cardholder_name_1 = __webpack_require__(19);
+    var card_number_1 = __webpack_require__(20);
+    var expiration_date_1 = __webpack_require__(22);
     var expiration_month_1 = __webpack_require__(9);
     var expiration_year_1 = __webpack_require__(6);
-    var cvv_1 = __webpack_require__(26);
-    var postal_code_1 = __webpack_require__(27);
+    var cvv_1 = __webpack_require__(25);
+    var postal_code_1 = __webpack_require__(26);
     module.exports = {
         creditCardType: creditCardType,
         cardholderName: cardholder_name_1.cardholderName,
@@ -103,7 +103,7 @@ window.smartCard = function(modules) {
         postalCode: postal_code_1.postalCode
     };
 }, function(module, exports, __webpack_require__) {
-    module.exports = __webpack_require__(28);
+    module.exports = __webpack_require__(27);
 }, function(module, exports, __webpack_require__) {
     "use strict";
     module.exports = {
@@ -125,8 +125,8 @@ window.smartCard = function(modules) {
     var getSelection = __webpack_require__(2).get;
     var setSelection = __webpack_require__(2).set;
     var isBackspace = __webpack_require__(11);
-    var isDelete = __webpack_require__(42);
-    var Formatter = __webpack_require__(43);
+    var isDelete = __webpack_require__(40);
+    var Formatter = __webpack_require__(41);
     function BaseStrategy(options) {
         this.isFormatted = !1;
         this.inputElement = options.element;
@@ -294,7 +294,7 @@ window.smartCard = function(modules) {
         }
     };
 }, function(module, exports, __webpack_require__) {
-    module.exports = __webpack_require__(29);
+    module.exports = __webpack_require__(28);
 }, function(module, exports, __webpack_require__) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
@@ -343,10 +343,10 @@ window.smartCard = function(modules) {
             return t;
         }).apply(this, arguments);
     };
-    var cardTypes = __webpack_require__(15);
-    var add_matching_cards_to_results_1 = __webpack_require__(16);
-    var is_valid_input_type_1 = __webpack_require__(18);
-    var find_best_match_1 = __webpack_require__(19);
+    var cardTypes = __webpack_require__(14);
+    var add_matching_cards_to_results_1 = __webpack_require__(15);
+    var is_valid_input_type_1 = __webpack_require__(17);
+    var find_best_match_1 = __webpack_require__(18);
     var clone_1 = __webpack_require__(8);
     var customCards = {};
     var cardNames = {
@@ -453,10 +453,10 @@ window.smartCard = function(modules) {
 }, function(module, exports, __webpack_require__) {
     "use strict";
     var UA = window.navigator && window.navigator.userAgent;
-    var isAndroid = __webpack_require__(32);
-    var isChrome = __webpack_require__(33);
-    var isIos = __webpack_require__(36);
-    var isIE9 = __webpack_require__(37);
+    var isAndroid = __webpack_require__(30);
+    var isChrome = __webpack_require__(31);
+    var isIos = __webpack_require__(34);
+    var isIE9 = __webpack_require__(35);
     var KITKAT_WEBVIEW_REGEX = /Version\/\d\.\d* Chrome\/\d*\.0\.0\.0/;
     module.exports = {
         isIE9: isIE9,
@@ -518,9 +518,7 @@ window.smartCard = function(modules) {
     };
     module.exports = AndroidChromeStrategy;
 }, function(module, exports, __webpack_require__) {
-    module.exports = __webpack_require__(30);
-}, function(module, exports, __webpack_require__) {
-    module.exports = __webpack_require__(31);
+    module.exports = __webpack_require__(29);
 }, function(module, exports, __webpack_require__) {
     "use strict";
     module.exports = {
@@ -664,7 +662,7 @@ window.smartCard = function(modules) {
     });
     exports.addMatchingCardsToResults = void 0;
     var clone_1 = __webpack_require__(8);
-    var matches_1 = __webpack_require__(17);
+    var matches_1 = __webpack_require__(16);
     exports.addMatchingCardsToResults = function(cardNumber, cardConfiguration, results) {
         var i, patternLength;
         for (i = 0; i < cardConfiguration.patterns.length; i++) {
@@ -743,7 +741,7 @@ window.smartCard = function(modules) {
         value: !0
     });
     exports.cardNumber = void 0;
-    var luhn10 = __webpack_require__(22);
+    var luhn10 = __webpack_require__(21);
     var getCardTypes = __webpack_require__(7);
     function verification(card, isPotentiallyValid, isValid) {
         return {
@@ -800,7 +798,7 @@ window.smartCard = function(modules) {
         value: !0
     });
     exports.expirationDate = void 0;
-    var parse_date_1 = __webpack_require__(24);
+    var parse_date_1 = __webpack_require__(23);
     var expiration_month_1 = __webpack_require__(9);
     var expiration_year_1 = __webpack_require__(6);
     function verification(isValid, isPotentiallyValid, month, year) {
@@ -842,7 +840,7 @@ window.smartCard = function(modules) {
     });
     exports.parseDate = void 0;
     var expiration_year_1 = __webpack_require__(6);
-    var is_array_1 = __webpack_require__(25);
+    var is_array_1 = __webpack_require__(24);
     exports.parseDate = function(datestring) {
         var date;
         /^\d{4}-\d{1,2}$/.test(datestring) ? date = datestring.split("-").reverse() : /\//.test(datestring) ? date = datestring.split(/\s*\/\s*/g) : /\s/.test(datestring) && (date = datestring.split(/ +/g));
@@ -4358,9 +4356,9 @@ window.smartCard = function(modules) {
         })), S.d(N, "DEFAULT_COMPONENTS", (function() {
             return U;
         })), S.d(N, "DEFAULT_DEBUG", (function() {
-            return B;
-        })), S.d(N, "ENV", (function() {
             return s;
+        })), S.d(N, "ENV", (function() {
+            return B;
         })), S.d(N, "MOBILE_ENV", (function() {
             return G;
         })), S.d(N, "ERROR_CODE", (function() {
@@ -5026,7 +5024,8 @@ window.smartCard = function(modules) {
             VERSION: "version"
         }, D = {
             BUTTONS: "buttons",
-            HOSTED_FIELDS: "hosted-fields"
+            HOSTED_FIELDS: "hosted-fields",
+            CARD_FIELDS: "card-fields"
         }, H = {
             TRUE: !0,
             FALSE: !1
@@ -5045,7 +5044,7 @@ window.smartCard = function(modules) {
             SEARCH_RESULTS: "search-results",
             PRODUCT_DETAILS: "product-details",
             MINI_CART: "mini-cart"
-        }, C = 10, a = R.US, Z = r.USD, u = e.CAPTURE, P = n.TRUE, L = n.TRUE, d = n.TRUE, c = A.FALSE, U = D.BUTTONS, B = H.FALSE, s = {
+        }, C = 10, a = R.US, Z = r.USD, u = e.CAPTURE, P = n.TRUE, L = n.TRUE, d = n.TRUE, c = A.FALSE, U = D.BUTTONS, s = H.FALSE, B = {
             LOCAL: "local",
             STAGE: "stage",
             SANDBOX: "sandbox",
@@ -5190,290 +5189,17 @@ window.smartCard = function(modules) {
         }, k = !0, g = [ m.IDEAL, m.BANCONTACT, m.GIROPAY, m.SOFORT, m.EPS, m.MYBANK, m.P24, m.PAYU, m.BLIK, m.TRUSTLY, m.ZIMPLER, m.MAXIMA, m.OXXO, m.BOLETO, m.BOLETOBANCARIO, m.WECHATPAY, m.MERCADOPAGO, m.MULTIBANCO, m.SATISPAY, m.PAIDY ];
     } ]);
 }, function(module, exports, __webpack_require__) {
-    "undefined" != typeof self && self, module.exports = function(e) {
-        var t = {};
-        function r(n) {
-            if (t[n]) return t[n].exports;
-            var o = t[n] = {
-                i: n,
-                l: !1,
-                exports: {}
-            };
-            return e[n].call(o.exports, o, o.exports, r), o.l = !0, o.exports;
-        }
-        return r.m = e, r.c = t, r.d = function(e, t, n) {
-            r.o(e, t) || Object.defineProperty(e, t, {
-                enumerable: !0,
-                get: n
-            });
-        }, r.r = function(e) {
-            "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(e, Symbol.toStringTag, {
-                value: "Module"
-            }), Object.defineProperty(e, "__esModule", {
-                value: !0
-            });
-        }, r.t = function(e, t) {
-            if (1 & t && (e = r(e)), 8 & t) return e;
-            if (4 & t && "object" == typeof e && e && e.__esModule) return e;
-            var n = Object.create(null);
-            if (r.r(n), Object.defineProperty(n, "default", {
-                enumerable: !0,
-                value: e
-            }), 2 & t && "string" != typeof e) for (var o in e) r.d(n, o, function(t) {
-                return e[t];
-            }.bind(null, o));
-            return n;
-        }, r.n = function(e) {
-            var t = e && e.__esModule ? function() {
-                return e.default;
-            } : function() {
-                return e;
-            };
-            return r.d(t, "a", t), t;
-        }, r.o = function(e, t) {
-            return {}.hasOwnProperty.call(e, t);
-        }, r.p = "", r(r.s = 0);
-    }([ function(e, t, r) {
-        "use strict";
-        function n(e) {
-            try {
-                if (!e) return !1;
-                if ("undefined" != typeof Promise && e instanceof Promise) return !0;
-                if ("undefined" != typeof window && "function" == typeof window.Window && e instanceof window.Window) return !1;
-                if ("undefined" != typeof window && "function" == typeof window.constructor && e instanceof window.constructor) return !1;
-                var t = {}.toString;
-                if (t) {
-                    var r = t.call(e);
-                    if ("[object Window]" === r || "[object global]" === r || "[object DOMWindow]" === r) return !1;
-                }
-                if ("function" == typeof e.then) return !0;
-            } catch (e) {
-                return !1;
-            }
-            return !1;
-        }
-        r.r(t), r.d(t, "ZalgoPromise", (function() {
-            return a;
-        }));
-        var o, i = [], c = [], u = 0;
-        function s() {
-            if (!u && o) {
-                var e = o;
-                o = null, e.resolve();
-            }
-        }
-        function f() {
-            u += 1;
-        }
-        function l() {
-            u -= 1, s();
-        }
-        var a = function() {
-            function e(e) {
-                var t = this;
-                if (this.resolved = void 0, this.rejected = void 0, this.errorHandled = void 0, 
-                this.value = void 0, this.error = void 0, this.handlers = void 0, this.dispatching = void 0, 
-                this.stack = void 0, this.resolved = !1, this.rejected = !1, this.errorHandled = !1, 
-                this.handlers = [], e) {
-                    var r, n, o = !1, i = !1, c = !1;
-                    f();
-                    try {
-                        e((function(e) {
-                            c ? t.resolve(e) : (o = !0, r = e);
-                        }), (function(e) {
-                            c ? t.reject(e) : (i = !0, n = e);
-                        }));
-                    } catch (e) {
-                        return l(), void this.reject(e);
-                    }
-                    l(), c = !0, o ? this.resolve(r) : i && this.reject(n);
-                }
-            }
-            var t = e.prototype;
-            return t.resolve = function(e) {
-                if (this.resolved || this.rejected) return this;
-                if (n(e)) throw new Error("Can not resolve promise with another promise");
-                return this.resolved = !0, this.value = e, this.dispatch(), this;
-            }, t.reject = function(e) {
-                var t = this;
-                if (this.resolved || this.rejected) return this;
-                if (n(e)) throw new Error("Can not reject promise with another promise");
-                if (!e) {
-                    var r = e && "function" == typeof e.toString ? e.toString() : {}.toString.call(e);
-                    e = new Error("Expected reject to be called with Error, got " + r);
-                }
-                return this.rejected = !0, this.error = e, this.errorHandled || setTimeout((function() {
-                    t.errorHandled || function(e, t) {
-                        if (-1 === i.indexOf(e)) {
-                            i.push(e), setTimeout((function() {
-                                throw e;
-                            }), 1);
-                            for (var r = 0; r < c.length; r++) c[r](e, t);
-                        }
-                    }(e, t);
-                }), 1), this.dispatch(), this;
-            }, t.asyncReject = function(e) {
-                return this.errorHandled = !0, this.reject(e), this;
-            }, t.dispatch = function() {
-                var t = this.resolved, r = this.rejected, o = this.handlers;
-                if (!this.dispatching && (t || r)) {
-                    this.dispatching = !0, f();
-                    for (var i = function(e, t) {
-                        return e.then((function(e) {
-                            t.resolve(e);
-                        }), (function(e) {
-                            t.reject(e);
-                        }));
-                    }, c = 0; c < o.length; c++) {
-                        var u = o[c], s = u.onSuccess, a = u.onError, h = u.promise, d = void 0;
-                        if (t) try {
-                            d = s ? s(this.value) : this.value;
-                        } catch (e) {
-                            h.reject(e);
-                            continue;
-                        } else if (r) {
-                            if (!a) {
-                                h.reject(this.error);
-                                continue;
-                            }
-                            try {
-                                d = a(this.error);
-                            } catch (e) {
-                                h.reject(e);
-                                continue;
-                            }
-                        }
-                        if (d instanceof e && (d.resolved || d.rejected)) {
-                            var v = d;
-                            v.resolved ? h.resolve(v.value) : h.reject(v.error), v.errorHandled = !0;
-                        } else n(d) ? d instanceof e && (d.resolved || d.rejected) ? d.resolved ? h.resolve(d.value) : h.reject(d.error) : i(d, h) : h.resolve(d);
-                    }
-                    o.length = 0, this.dispatching = !1, l();
-                }
-            }, t.then = function(t, r) {
-                if (t && "function" != typeof t && !t.call) throw new Error("Promise.then expected a function for success handler");
-                if (r && "function" != typeof r && !r.call) throw new Error("Promise.then expected a function for error handler");
-                var n = new e;
-                return this.handlers.push({
-                    promise: n,
-                    onSuccess: t,
-                    onError: r
-                }), this.errorHandled = !0, this.dispatch(), n;
-            }, t.catch = function(e) {
-                return this.then(void 0, e);
-            }, t.finally = function(t) {
-                if (t && "function" != typeof t && !t.call) throw new Error("Promise.finally expected a function");
-                return this.then((function(r) {
-                    return e.try(t).then((function() {
-                        return r;
-                    }));
-                }), (function(r) {
-                    return e.try(t).then((function() {
-                        throw r;
-                    }));
-                }));
-            }, t.timeout = function(e, t) {
-                var r = this;
-                if (this.resolved || this.rejected) return this;
-                var n = setTimeout((function() {
-                    r.resolved || r.rejected || r.reject(t || new Error("Promise timed out after " + e + "ms"));
-                }), e);
-                return this.then((function(e) {
-                    return clearTimeout(n), e;
-                }));
-            }, t.toPromise = function() {
-                if ("undefined" == typeof Promise) throw new TypeError("Could not find Promise");
-                return Promise.resolve(this);
-            }, t.lazy = function() {
-                return this.errorHandled = !0, this;
-            }, e.resolve = function(t) {
-                return t instanceof e ? t : n(t) ? new e((function(e, r) {
-                    return t.then(e, r);
-                })) : (new e).resolve(t);
-            }, e.reject = function(t) {
-                return (new e).reject(t);
-            }, e.asyncReject = function(t) {
-                return (new e).asyncReject(t);
-            }, e.all = function(t) {
-                var r = new e, o = t.length, i = [].slice();
-                if (!o) return r.resolve(i), r;
-                for (var c = function(e, t, n) {
-                    return t.then((function(t) {
-                        i[e] = t, 0 == (o -= 1) && r.resolve(i);
-                    }), (function(e) {
-                        n.reject(e);
-                    }));
-                }, u = 0; u < t.length; u++) {
-                    var s = t[u];
-                    if (s instanceof e) {
-                        if (s.resolved) {
-                            i[u] = s.value, o -= 1;
-                            continue;
-                        }
-                    } else if (!n(s)) {
-                        i[u] = s, o -= 1;
-                        continue;
-                    }
-                    c(u, e.resolve(s), r);
-                }
-                return 0 === o && r.resolve(i), r;
-            }, e.hash = function(t) {
-                var r = {}, o = [], i = function(e) {
-                    if (t.hasOwnProperty(e)) {
-                        var i = t[e];
-                        n(i) ? o.push(i.then((function(t) {
-                            r[e] = t;
-                        }))) : r[e] = i;
-                    }
-                };
-                for (var c in t) i(c);
-                return e.all(o).then((function() {
-                    return r;
-                }));
-            }, e.map = function(t, r) {
-                return e.all(t.map(r));
-            }, e.onPossiblyUnhandledException = function(e) {
-                return function(e) {
-                    return c.push(e), {
-                        cancel: function() {
-                            c.splice(c.indexOf(e), 1);
-                        }
-                    };
-                }(e);
-            }, e.try = function(t, r, n) {
-                if (t && "function" != typeof t && !t.call) throw new Error("Promise.try expected a function");
-                var o;
-                f();
-                try {
-                    o = t.apply(r, n || []);
-                } catch (t) {
-                    return l(), e.reject(t);
-                }
-                return l(), e.resolve(o);
-            }, e.delay = function(t) {
-                return new e((function(e) {
-                    setTimeout(e, t);
-                }));
-            }, e.isPromise = function(t) {
-                return !!(t && t instanceof e) || n(t);
-            }, e.flush = function() {
-                return t = o = o || new e, s(), t;
-                var t;
-            }, e;
-        }();
-    } ]);
-}, function(module, exports, __webpack_require__) {
     "use strict";
     var device = __webpack_require__(10);
-    var supportsInputFormatting = __webpack_require__(38);
-    var constants = __webpack_require__(39);
-    var isValidElement = __webpack_require__(40);
-    var IosStrategy = __webpack_require__(41);
+    var supportsInputFormatting = __webpack_require__(36);
+    var constants = __webpack_require__(37);
+    var isValidElement = __webpack_require__(38);
+    var IosStrategy = __webpack_require__(39);
     var AndroidChromeStrategy = __webpack_require__(12);
-    var KitKatChromiumBasedWebViewStrategy = __webpack_require__(45);
-    var IE9Strategy = __webpack_require__(46);
+    var KitKatChromiumBasedWebViewStrategy = __webpack_require__(43);
+    var IE9Strategy = __webpack_require__(44);
     var BaseStrategy = __webpack_require__(3);
-    var NoopStrategy = __webpack_require__(47);
+    var NoopStrategy = __webpack_require__(45);
     function RestrictedInput(options) {
         if (!isValidElement((options = options || {}).element)) throw new Error(constants.errors.INVALID_ELEMENT);
         if (!options.pattern) throw new Error(constants.errors.PATTERN_MISSING);
@@ -5497,8 +5223,8 @@ window.smartCard = function(modules) {
     };
 }, function(module, exports, __webpack_require__) {
     "use strict";
-    var isEdge = __webpack_require__(34);
-    var isSamsung = __webpack_require__(35);
+    var isEdge = __webpack_require__(32);
+    var isSamsung = __webpack_require__(33);
     module.exports = function(ua) {
         return !(-1 === (ua = ua || navigator.userAgent).indexOf("Chrome") && -1 === ua.indexOf("CriOS") || isEdge(ua) || isSamsung(ua));
     };
@@ -5602,7 +5328,7 @@ window.smartCard = function(modules) {
     };
 }, function(module, exports, __webpack_require__) {
     "use strict";
-    var parsePattern = __webpack_require__(44);
+    var parsePattern = __webpack_require__(42);
     var isBackspace = __webpack_require__(11);
     function Formatter(pattern) {
         this.setPattern(pattern);
@@ -5876,11 +5602,8 @@ window.smartCard = function(modules) {
     __webpack_require__.d(__webpack_exports__, "submitCardFields", (function() {
         return submitCardFields;
     }));
-    __webpack_require__.d(__webpack_exports__, "updateVaultSetupToken", (function() {
-        return updateVaultSetupToken;
-    }));
-    __webpack_require__.d(__webpack_exports__, "vaultPaymentSource", (function() {
-        return vaultPaymentSource;
+    __webpack_require__.d(__webpack_exports__, "vault", (function() {
+        return vault_vault;
     }));
     function _extends() {
         return (_extends = Object.assign || function(target) {
@@ -5891,28 +5614,28 @@ window.smartCard = function(modules) {
             return target;
         }).apply(this, arguments);
     }
-    var n, l, preact_module_u, preact_module_t, preact_module_o, f = {}, preact_module_e = [], c = /acit|ex(?:s|g|n|p|$)|rph|grid|ows|mnc|ntw|ine[ch]|zoo|^ord|itera/i;
-    function preact_module_s(n, l) {
+    var n, l, preact_module_u, preact_module_t, preact_module_r, preact_module_o, f, c = {}, preact_module_s = [], preact_module_a = /acit|ex(?:s|g|n|p|$)|rph|grid|ows|mnc|ntw|ine[ch]|zoo|^ord|itera/i;
+    function h(n, l) {
         for (var u in l) n[u] = l[u];
         return n;
     }
-    function preact_module_a(n) {
+    function v(n) {
         var l = n.parentNode;
         l && l.removeChild(n);
     }
-    function h(l, u, i) {
-        var t, o, r, f = {};
-        for (r in u) "key" == r ? t = u[r] : "ref" == r ? o = u[r] : f[r] = u[r];
+    function y(l, u, i) {
+        var t, r, o, f = {};
+        for (o in u) "key" == o ? t = u[o] : "ref" == o ? r = u[o] : f[o] = u[o];
         if (arguments.length > 2 && (f.children = arguments.length > 3 ? n.call(arguments, 2) : i), 
-        "function" == typeof l && null != l.defaultProps) for (r in l.defaultProps) void 0 === f[r] && (f[r] = l.defaultProps[r]);
-        return v(l, f, t, o, null);
+        "function" == typeof l && null != l.defaultProps) for (o in l.defaultProps) void 0 === f[o] && (f[o] = l.defaultProps[o]);
+        return p(l, f, t, r, null);
     }
-    function v(n, i, t, o, r) {
+    function p(n, i, t, r, o) {
         var f = {
             type: n,
             props: i,
             key: t,
-            ref: o,
+            ref: r,
             __k: null,
             __: null,
             __b: 0,
@@ -5921,148 +5644,170 @@ window.smartCard = function(modules) {
             __c: null,
             __h: null,
             constructor: void 0,
-            __v: null == r ? ++preact_module_u : r
+            __v: null == o ? ++preact_module_u : o
         };
-        return null == r && null != l.vnode && l.vnode(f), f;
+        return null == o && null != l.vnode && l.vnode(f), f;
     }
-    function p(n) {
+    function _(n) {
         return n.children;
     }
-    function preact_module_d(n, l) {
-        this.props = n, this.context = l;
+    function b(n, l, u) {
+        "-" === l[0] ? n.setProperty(l, null == u ? "" : u) : n[l] = null == u ? "" : "number" != typeof u || preact_module_a.test(l) ? u : u + "px";
     }
-    function _(n, l) {
-        if (null == l) return n.__ ? _(n.__, n.__.__k.indexOf(n) + 1) : null;
-        for (var u; l < n.__k.length; l++) if (null != (u = n.__k[l]) && null != u.__e) return u.__e;
-        return "function" == typeof n.type ? _(n) : null;
-    }
-    function k(n) {
-        var l, u;
-        if (null != (n = n.__) && null != n.__c) {
-            for (n.__e = n.__c.base = null, l = 0; l < n.__k.length; l++) if (null != (u = n.__k[l]) && null != u.__e) {
-                n.__e = n.__c.base = u.__e;
-                break;
-            }
-            return k(n);
-        }
-    }
-    function b(n) {
-        (!n.__d && (n.__d = !0) && preact_module_t.push(n) && !g.__r++ || preact_module_o !== l.debounceRendering) && ((preact_module_o = l.debounceRendering) || setTimeout)(g);
-    }
-    function g() {
-        for (var n; g.__r = preact_module_t.length; ) n = preact_module_t.sort((function(n, l) {
-            return n.__v.__b - l.__v.__b;
-        })), preact_module_t = [], n.some((function(n) {
-            var l, u, i, t, o, r;
-            n.__d && (o = (t = (l = n).__v).__e, (r = l.__P) && (u = [], (i = preact_module_s({}, t)).__v = t.__v + 1, 
-            j(r, t, i, l.__n, void 0 !== r.ownerSVGElement, null != t.__h ? [ o ] : null, u, null == o ? _(t) : o, t.__h), 
-            z(u, t), t.__e != o && k(t)));
-        }));
-    }
-    function w(n, l, u, i, t, o, r, c, s, a) {
-        var h, y, d, k, b, g, w, x = i && i.__k || preact_module_e, C = x.length;
-        for (u.__k = [], h = 0; h < l.length; h++) if (null != (k = u.__k[h] = null == (k = l[h]) || "boolean" == typeof k ? null : "string" == typeof k || "number" == typeof k || "bigint" == typeof k ? v(null, k, null, null, k) : Array.isArray(k) ? v(p, {
-            children: k
-        }, null, null, null) : k.__b > 0 ? v(k.type, k.props, k.key, k.ref ? k.ref : null, k.__v) : k)) {
-            if (k.__ = u, k.__b = u.__b + 1, null === (d = x[h]) || d && k.key == d.key && k.type === d.type) x[h] = void 0; else for (y = 0; y < C; y++) {
-                if ((d = x[y]) && k.key == d.key && k.type === d.type) {
-                    x[y] = void 0;
-                    break;
-                }
-                d = null;
-            }
-            j(n, k, d = d || f, t, o, r, c, s, a), b = k.__e, (y = k.ref) && d.ref != y && (w || (w = []), 
-            d.ref && w.push(d.ref, null, k), w.push(y, k.__c || b, k)), null != b ? (null == g && (g = b), 
-            "function" == typeof k.type && k.__k === d.__k ? k.__d = s = m(k, s, n) : s = A(n, k, d, x, b, s), 
-            "function" == typeof u.type && (u.__d = s)) : s && d.__e == s && s.parentNode != n && (s = _(d));
-        }
-        for (u.__e = g, h = C; h--; ) null != x[h] && N(x[h], x[h]);
-        if (w) for (h = 0; h < w.length; h++) M(w[h], w[++h], w[++h]);
-    }
-    function m(n, l, u) {
-        for (var i, t = n.__k, o = 0; t && o < t.length; o++) (i = t[o]) && (i.__ = n, l = "function" == typeof i.type ? m(i, l, u) : A(u, i, i, t, i.__e, l));
-        return l;
-    }
-    function A(n, l, u, i, t, o) {
-        var r, f, e;
-        if (void 0 !== l.__d) r = l.__d, l.__d = void 0; else if (null == u || t != o || null == t.parentNode) n: if (null == o || o.parentNode !== n) n.appendChild(t), 
-        r = null; else {
-            for (f = o, e = 0; (f = f.nextSibling) && e < i.length; e += 1) if (f == t) break n;
-            n.insertBefore(t, o), r = o;
-        }
-        return void 0 !== r ? r : t.nextSibling;
-    }
-    function $(n, l, u) {
-        "-" === l[0] ? n.setProperty(l, u) : n[l] = null == u ? "" : "number" != typeof u || c.test(l) ? u : u + "px";
-    }
-    function H(n, l, u, i, t) {
-        var o;
+    function g(n, l, u, i, t) {
+        var r;
         n: if ("style" === l) if ("string" == typeof u) n.style.cssText = u; else {
-            if ("string" == typeof i && (n.style.cssText = i = ""), i) for (l in i) u && l in u || $(n.style, l, "");
-            if (u) for (l in u) i && u[l] === i[l] || $(n.style, l, u[l]);
-        } else if ("o" === l[0] && "n" === l[1]) o = l !== (l = l.replace(/Capture$/, "")), 
+            if ("string" == typeof i && (n.style.cssText = i = ""), i) for (l in i) u && l in u || b(n.style, l, "");
+            if (u) for (l in u) i && u[l] === i[l] || b(n.style, l, u[l]);
+        } else if ("o" === l[0] && "n" === l[1]) r = l !== (l = l.replace(/Capture$/, "")), 
         l = l.toLowerCase() in n ? l.toLowerCase().slice(2) : l.slice(2), n.l || (n.l = {}), 
-        n.l[l + o] = u, u ? i || n.addEventListener(l, o ? T : I, o) : n.removeEventListener(l, o ? T : I, o); else if ("dangerouslySetInnerHTML" !== l) {
-            if (t) l = l.replace(/xlink(H|:h)/, "h").replace(/sName$/, "s"); else if ("href" !== l && "list" !== l && "form" !== l && "tabIndex" !== l && "download" !== l && l in n) try {
+        n.l[l + r] = u, u ? i || n.addEventListener(l, r ? w : m, r) : n.removeEventListener(l, r ? w : m, r); else if ("dangerouslySetInnerHTML" !== l) {
+            if (t) l = l.replace(/xlink(H|:h)/, "h").replace(/sName$/, "s"); else if ("width" !== l && "height" !== l && "href" !== l && "list" !== l && "form" !== l && "tabIndex" !== l && "download" !== l && l in n) try {
                 n[l] = null == u ? "" : u;
                 break n;
             } catch (n) {}
             "function" == typeof u || (null == u || !1 === u && -1 == l.indexOf("-") ? n.removeAttribute(l) : n.setAttribute(l, u));
         }
     }
-    function I(n) {
-        this.l[n.type + !1](l.event ? l.event(n) : n);
+    function m(n) {
+        preact_module_t = !0;
+        try {
+            return this.l[n.type + !1](l.event ? l.event(n) : n);
+        } finally {
+            preact_module_t = !1;
+        }
+    }
+    function w(n) {
+        preact_module_t = !0;
+        try {
+            return this.l[n.type + !0](l.event ? l.event(n) : n);
+        } finally {
+            preact_module_t = !1;
+        }
+    }
+    function x(n, l) {
+        this.props = n, this.context = l;
+    }
+    function A(n, l) {
+        if (null == l) return n.__ ? A(n.__, n.__.__k.indexOf(n) + 1) : null;
+        for (var u; l < n.__k.length; l++) if (null != (u = n.__k[l]) && null != u.__e) return u.__e;
+        return "function" == typeof n.type ? A(n) : null;
+    }
+    function P(n) {
+        var l, u;
+        if (null != (n = n.__) && null != n.__c) {
+            for (n.__e = n.__c.base = null, l = 0; l < n.__k.length; l++) if (null != (u = n.__k[l]) && null != u.__e) {
+                n.__e = n.__c.base = u.__e;
+                break;
+            }
+            return P(n);
+        }
+    }
+    function C(n) {
+        preact_module_t ? setTimeout(n) : f(n);
     }
     function T(n) {
-        this.l[n.type + !0](l.event ? l.event(n) : n);
+        (!n.__d && (n.__d = !0) && preact_module_r.push(n) && !$.__r++ || preact_module_o !== l.debounceRendering) && ((preact_module_o = l.debounceRendering) || C)($);
     }
-    function j(n, u, i, t, o, r, f, e, c) {
-        var a, h, v, y, _, k, b, g, m, x, A, C, $, H, I, T = u.type;
+    function $() {
+        var n, l, u, i, t, o, f, e;
+        for (preact_module_r.sort((function(n, l) {
+            return n.__v.__b - l.__v.__b;
+        })); n = preact_module_r.shift(); ) n.__d && (l = preact_module_r.length, i = void 0, 
+        t = void 0, f = (o = (u = n).__v).__e, (e = u.__P) && (i = [], (t = h({}, o)).__v = o.__v + 1, 
+        M(e, o, t, u.__n, void 0 !== e.ownerSVGElement, null != o.__h ? [ f ] : null, i, null == f ? A(o) : f, o.__h), 
+        N(i, o), o.__e != f && P(o)), preact_module_r.length > l && preact_module_r.sort((function(n, l) {
+            return n.__v.__b - l.__v.__b;
+        })));
+        $.__r = 0;
+    }
+    function H(n, l, u, i, t, r, o, f, e, a) {
+        var h, v, y, d, k, b, g, m = i && i.__k || preact_module_s, w = m.length;
+        for (u.__k = [], h = 0; h < l.length; h++) if (null != (d = u.__k[h] = null == (d = l[h]) || "boolean" == typeof d ? null : "string" == typeof d || "number" == typeof d || "bigint" == typeof d ? p(null, d, null, null, d) : Array.isArray(d) ? p(_, {
+            children: d
+        }, null, null, null) : d.__b > 0 ? p(d.type, d.props, d.key, d.ref ? d.ref : null, d.__v) : d)) {
+            if (d.__ = u, d.__b = u.__b + 1, null === (y = m[h]) || y && d.key == y.key && d.type === y.type) m[h] = void 0; else for (v = 0; v < w; v++) {
+                if ((y = m[v]) && d.key == y.key && d.type === y.type) {
+                    m[v] = void 0;
+                    break;
+                }
+                y = null;
+            }
+            M(n, d, y = y || c, t, r, o, f, e, a), k = d.__e, (v = d.ref) && y.ref != v && (g || (g = []), 
+            y.ref && g.push(y.ref, null, d), g.push(v, d.__c || k, d)), null != k ? (null == b && (b = k), 
+            "function" == typeof d.type && d.__k === y.__k ? d.__d = e = I(d, e, n) : e = z(n, d, y, m, k, e), 
+            "function" == typeof u.type && (u.__d = e)) : e && y.__e == e && e.parentNode != n && (e = A(y));
+        }
+        for (u.__e = b, h = w; h--; ) null != m[h] && ("function" == typeof u.type && null != m[h].__e && m[h].__e == u.__d && (u.__d = L(i).nextSibling), 
+        q(m[h], m[h]));
+        if (g) for (h = 0; h < g.length; h++) S(g[h], g[++h], g[++h]);
+    }
+    function I(n, l, u) {
+        for (var i, t = n.__k, r = 0; t && r < t.length; r++) (i = t[r]) && (i.__ = n, l = "function" == typeof i.type ? I(i, l, u) : z(u, i, i, t, i.__e, l));
+        return l;
+    }
+    function z(n, l, u, i, t, r) {
+        var o, f, e;
+        if (void 0 !== l.__d) o = l.__d, l.__d = void 0; else if (null == u || t != r || null == t.parentNode) n: if (null == r || r.parentNode !== n) n.appendChild(t), 
+        o = null; else {
+            for (f = r, e = 0; (f = f.nextSibling) && e < i.length; e += 1) if (f == t) break n;
+            n.insertBefore(t, r), o = r;
+        }
+        return void 0 !== o ? o : t.nextSibling;
+    }
+    function L(n) {
+        var l, u, i;
+        if (null == n.type || "string" == typeof n.type) return n.__e;
+        if (n.__k) for (l = n.__k.length - 1; l >= 0; l--) if ((u = n.__k[l]) && (i = L(u))) return i;
+        return null;
+    }
+    function M(n, u, i, t, r, o, f, e, c) {
+        var s, a, v, y, p, d, k, b, g, m, w, A, P, C, T, $ = u.type;
         if (void 0 !== u.constructor) return null;
-        null != i.__h && (c = i.__h, e = u.__e = i.__e, u.__h = null, r = [ e ]), (a = l.__b) && a(u);
+        null != i.__h && (c = i.__h, e = u.__e = i.__e, u.__h = null, o = [ e ]), (s = l.__b) && s(u);
         try {
-            n: if ("function" == typeof T) {
-                if (g = u.props, m = (a = T.contextType) && t[a.__c], x = a ? m ? m.props.value : a.__ : t, 
-                i.__c ? b = (h = u.__c = i.__c).__ = h.__E : ("prototype" in T && T.prototype.render ? u.__c = h = new T(g, x) : (u.__c = h = new preact_module_d(g, x), 
-                h.constructor = T, h.render = O), m && m.sub(h), h.props = g, h.state || (h.state = {}), 
-                h.context = x, h.__n = t, v = h.__d = !0, h.__h = [], h._sb = []), null == h.__s && (h.__s = h.state), 
-                null != T.getDerivedStateFromProps && (h.__s == h.state && (h.__s = preact_module_s({}, h.__s)), 
-                preact_module_s(h.__s, T.getDerivedStateFromProps(g, h.__s))), y = h.props, _ = h.state, 
-                v) null == T.getDerivedStateFromProps && null != h.componentWillMount && h.componentWillMount(), 
-                null != h.componentDidMount && h.__h.push(h.componentDidMount); else {
-                    if (null == T.getDerivedStateFromProps && g !== y && null != h.componentWillReceiveProps && h.componentWillReceiveProps(g, x), 
-                    !h.__e && null != h.shouldComponentUpdate && !1 === h.shouldComponentUpdate(g, h.__s, x) || u.__v === i.__v) {
-                        for (h.props = g, h.state = h.__s, u.__v !== i.__v && (h.__d = !1), h.__v = u, u.__e = i.__e, 
+            n: if ("function" == typeof $) {
+                if (b = u.props, g = (s = $.contextType) && t[s.__c], m = s ? g ? g.props.value : s.__ : t, 
+                i.__c ? k = (a = u.__c = i.__c).__ = a.__E : ("prototype" in $ && $.prototype.render ? u.__c = a = new $(b, m) : (u.__c = a = new x(b, m), 
+                a.constructor = $, a.render = B), g && g.sub(a), a.props = b, a.state || (a.state = {}), 
+                a.context = m, a.__n = t, v = a.__d = !0, a.__h = [], a._sb = []), null == a.__s && (a.__s = a.state), 
+                null != $.getDerivedStateFromProps && (a.__s == a.state && (a.__s = h({}, a.__s)), 
+                h(a.__s, $.getDerivedStateFromProps(b, a.__s))), y = a.props, p = a.state, a.__v = u, 
+                v) null == $.getDerivedStateFromProps && null != a.componentWillMount && a.componentWillMount(), 
+                null != a.componentDidMount && a.__h.push(a.componentDidMount); else {
+                    if (null == $.getDerivedStateFromProps && b !== y && null != a.componentWillReceiveProps && a.componentWillReceiveProps(b, m), 
+                    !a.__e && null != a.shouldComponentUpdate && !1 === a.shouldComponentUpdate(b, a.__s, m) || u.__v === i.__v) {
+                        for (u.__v !== i.__v && (a.props = b, a.state = a.__s, a.__d = !1), u.__e = i.__e, 
                         u.__k = i.__k, u.__k.forEach((function(n) {
                             n && (n.__ = u);
-                        })), A = 0; A < h._sb.length; A++) h.__h.push(h._sb[A]);
-                        h._sb = [], h.__h.length && f.push(h);
+                        })), w = 0; w < a._sb.length; w++) a.__h.push(a._sb[w]);
+                        a._sb = [], a.__h.length && f.push(a);
                         break n;
                     }
-                    null != h.componentWillUpdate && h.componentWillUpdate(g, h.__s, x), null != h.componentDidUpdate && h.__h.push((function() {
-                        h.componentDidUpdate(y, _, k);
+                    null != a.componentWillUpdate && a.componentWillUpdate(b, a.__s, m), null != a.componentDidUpdate && a.__h.push((function() {
+                        a.componentDidUpdate(y, p, d);
                     }));
                 }
-                if (h.context = x, h.props = g, h.__v = u, h.__P = n, C = l.__r, $ = 0, "prototype" in T && T.prototype.render) {
-                    for (h.state = h.__s, h.__d = !1, C && C(u), a = h.render(h.props, h.state, h.context), 
-                    H = 0; H < h._sb.length; H++) h.__h.push(h._sb[H]);
-                    h._sb = [];
+                if (a.context = m, a.props = b, a.__P = n, A = l.__r, P = 0, "prototype" in $ && $.prototype.render) {
+                    for (a.state = a.__s, a.__d = !1, A && A(u), s = a.render(a.props, a.state, a.context), 
+                    C = 0; C < a._sb.length; C++) a.__h.push(a._sb[C]);
+                    a._sb = [];
                 } else do {
-                    h.__d = !1, C && C(u), a = h.render(h.props, h.state, h.context), h.state = h.__s;
-                } while (h.__d && ++$ < 25);
-                h.state = h.__s, null != h.getChildContext && (t = preact_module_s(preact_module_s({}, t), h.getChildContext())), 
-                v || null == h.getSnapshotBeforeUpdate || (k = h.getSnapshotBeforeUpdate(y, _)), 
-                I = null != a && a.type === p && null == a.key ? a.props.children : a, w(n, Array.isArray(I) ? I : [ I ], u, i, t, o, r, f, e, c), 
-                h.base = u.__e, u.__h = null, h.__h.length && f.push(h), b && (h.__E = h.__ = null), 
-                h.__e = !1;
-            } else null == r && u.__v === i.__v ? (u.__k = i.__k, u.__e = i.__e) : u.__e = L(i.__e, u, i, t, o, r, f, c);
-            (a = l.diffed) && a(u);
+                    a.__d = !1, A && A(u), s = a.render(a.props, a.state, a.context), a.state = a.__s;
+                } while (a.__d && ++P < 25);
+                a.state = a.__s, null != a.getChildContext && (t = h(h({}, t), a.getChildContext())), 
+                v || null == a.getSnapshotBeforeUpdate || (d = a.getSnapshotBeforeUpdate(y, p)), 
+                T = null != s && s.type === _ && null == s.key ? s.props.children : s, H(n, Array.isArray(T) ? T : [ T ], u, i, t, r, o, f, e, c), 
+                a.base = u.__e, u.__h = null, a.__h.length && f.push(a), k && (a.__E = a.__ = null), 
+                a.__e = !1;
+            } else null == o && u.__v === i.__v ? (u.__k = i.__k, u.__e = i.__e) : u.__e = O(i.__e, u, i, t, r, o, f, c);
+            (s = l.diffed) && s(u);
         } catch (n) {
-            u.__v = null, (c || null != r) && (u.__e = e, u.__h = !!c, r[r.indexOf(e)] = null), 
+            u.__v = null, (c || null != o) && (u.__e = e, u.__h = !!c, o[o.indexOf(e)] = null), 
             l.__e(n, u, i);
         }
     }
-    function z(n, u) {
+    function N(n, u) {
         l.__c && l.__c(u, n), n.some((function(u) {
             try {
                 n = u.__h, u.__h = [], n.some((function(n) {
@@ -6073,44 +5818,44 @@ window.smartCard = function(modules) {
             }
         }));
     }
-    function L(l, u, i, t, o, r, e, c) {
-        var s, h, v, y = i.props, p = u.props, d = u.type, k = 0;
-        if ("svg" === d && (o = !0), null != r) for (;k < r.length; k++) if ((s = r[k]) && "setAttribute" in s == !!d && (d ? s.localName === d : 3 === s.nodeType)) {
-            l = s, r[k] = null;
+    function O(l, u, i, t, r, o, f, e) {
+        var s, a, h, y = i.props, p = u.props, d = u.type, _ = 0;
+        if ("svg" === d && (r = !0), null != o) for (;_ < o.length; _++) if ((s = o[_]) && "setAttribute" in s == !!d && (d ? s.localName === d : 3 === s.nodeType)) {
+            l = s, o[_] = null;
             break;
         }
         if (null == l) {
             if (null === d) return document.createTextNode(p);
-            l = o ? document.createElementNS("http://www.w3.org/2000/svg", d) : document.createElement(d, p.is && p), 
-            r = null, c = !1;
+            l = r ? document.createElementNS("http://www.w3.org/2000/svg", d) : document.createElement(d, p.is && p), 
+            o = null, e = !1;
         }
-        if (null === d) y === p || c && l.data === p || (l.data = p); else {
-            if (r = r && n.call(l.childNodes), h = (y = i.props || f).dangerouslySetInnerHTML, 
-            v = p.dangerouslySetInnerHTML, !c) {
-                if (null != r) for (y = {}, k = 0; k < l.attributes.length; k++) y[l.attributes[k].name] = l.attributes[k].value;
-                (v || h) && (v && (h && v.__html == h.__html || v.__html === l.innerHTML) || (l.innerHTML = v && v.__html || ""));
+        if (null === d) y === p || e && l.data === p || (l.data = p); else {
+            if (o = o && n.call(l.childNodes), a = (y = i.props || c).dangerouslySetInnerHTML, 
+            h = p.dangerouslySetInnerHTML, !e) {
+                if (null != o) for (y = {}, _ = 0; _ < l.attributes.length; _++) y[l.attributes[_].name] = l.attributes[_].value;
+                (h || a) && (h && (a && h.__html == a.__html || h.__html === l.innerHTML) || (l.innerHTML = h && h.__html || ""));
             }
             if (function(n, l, u, i, t) {
-                var o;
-                for (o in u) "children" === o || "key" === o || o in l || H(n, o, null, u[o], i);
-                for (o in l) t && "function" != typeof l[o] || "children" === o || "key" === o || "value" === o || "checked" === o || u[o] === l[o] || H(n, o, l[o], u[o], i);
-            }(l, p, y, o, c), v) u.__k = []; else if (k = u.props.children, w(l, Array.isArray(k) ? k : [ k ], u, i, t, o && "foreignObject" !== d, r, e, r ? r[0] : i.__k && _(i, 0), c), 
-            null != r) for (k = r.length; k--; ) null != r[k] && preact_module_a(r[k]);
-            c || ("value" in p && void 0 !== (k = p.value) && (k !== l.value || "progress" === d && !k || "option" === d && k !== y.value) && H(l, "value", k, y.value, !1), 
-            "checked" in p && void 0 !== (k = p.checked) && k !== l.checked && H(l, "checked", k, y.checked, !1));
+                var r;
+                for (r in u) "children" === r || "key" === r || r in l || g(n, r, null, u[r], i);
+                for (r in l) t && "function" != typeof l[r] || "children" === r || "key" === r || "value" === r || "checked" === r || u[r] === l[r] || g(n, r, l[r], u[r], i);
+            }(l, p, y, r, e), h) u.__k = []; else if (_ = u.props.children, H(l, Array.isArray(_) ? _ : [ _ ], u, i, t, r && "foreignObject" !== d, o, f, o ? o[0] : i.__k && A(i, 0), e), 
+            null != o) for (_ = o.length; _--; ) null != o[_] && v(o[_]);
+            e || ("value" in p && void 0 !== (_ = p.value) && (_ !== l.value || "progress" === d && !_ || "option" === d && _ !== y.value) && g(l, "value", _, y.value, !1), 
+            "checked" in p && void 0 !== (_ = p.checked) && _ !== l.checked && g(l, "checked", _, y.checked, !1));
         }
         return l;
     }
-    function M(n, u, i) {
+    function S(n, u, i) {
         try {
             "function" == typeof n ? n(u) : n.current = u;
         } catch (n) {
             l.__e(n, i);
         }
     }
-    function N(n, u, i) {
-        var t, o;
-        if (l.unmount && l.unmount(n), (t = n.ref) && (t.current && t.current !== n.__e || M(t, null, u)), 
+    function q(n, u, i) {
+        var t, r;
+        if (l.unmount && l.unmount(n), (t = n.ref) && (t.current && t.current !== n.__e || S(t, null, u)), 
         null != (t = n.__c)) {
             if (t.componentWillUnmount) try {
                 t.componentWillUnmount();
@@ -6119,31 +5864,32 @@ window.smartCard = function(modules) {
             }
             t.base = t.__P = null, n.__c = void 0;
         }
-        if (t = n.__k) for (o = 0; o < t.length; o++) t[o] && N(t[o], u, i || "function" != typeof n.type);
-        i || null == n.__e || preact_module_a(n.__e), n.__ = n.__e = n.__d = void 0;
+        if (t = n.__k) for (r = 0; r < t.length; r++) t[r] && q(t[r], u, i || "function" != typeof n.type);
+        i || null == n.__e || v(n.__e), n.__ = n.__e = n.__d = void 0;
     }
-    function O(n, l, u) {
+    function B(n, l, u) {
         return this.constructor(n, u);
     }
-    n = preact_module_e.slice, l = {
+    n = preact_module_s.slice, l = {
         __e: function(n, l, u, i) {
-            for (var t, o, r; l = l.__; ) if ((t = l.__c) && !t.__) try {
-                if ((o = t.constructor) && null != o.getDerivedStateFromError && (t.setState(o.getDerivedStateFromError(n)), 
-                r = t.__d), null != t.componentDidCatch && (t.componentDidCatch(n, i || {}), r = t.__d), 
-                r) return t.__E = t;
+            for (var t, r, o; l = l.__; ) if ((t = l.__c) && !t.__) try {
+                if ((r = t.constructor) && null != r.getDerivedStateFromError && (t.setState(r.getDerivedStateFromError(n)), 
+                o = t.__d), null != t.componentDidCatch && (t.componentDidCatch(n, i || {}), o = t.__d), 
+                o) return t.__E = t;
             } catch (l) {
                 n = l;
             }
             throw n;
         }
-    }, preact_module_u = 0, preact_module_d.prototype.setState = function(n, l) {
+    }, preact_module_u = 0, preact_module_t = !1, x.prototype.setState = function(n, l) {
         var u;
-        u = null != this.__s && this.__s !== this.state ? this.__s : this.__s = preact_module_s({}, this.state), 
-        "function" == typeof n && (n = n(preact_module_s({}, u), this.props)), n && preact_module_s(u, n), 
-        null != n && this.__v && (l && this._sb.push(l), b(this));
-    }, preact_module_d.prototype.forceUpdate = function(n) {
-        this.__v && (this.__e = !0, n && this.__h.push(n), b(this));
-    }, preact_module_d.prototype.render = p, preact_module_t = [], g.__r = 0;
+        u = null != this.__s && this.__s !== this.state ? this.__s : this.__s = h({}, this.state), 
+        "function" == typeof n && (n = n(h({}, u), this.props)), n && h(u, n), null != n && this.__v && (l && this._sb.push(l), 
+        T(this));
+    }, x.prototype.forceUpdate = function(n) {
+        this.__v && (this.__e = !0, n && this.__h.push(n), T(this));
+    }, x.prototype.render = _, preact_module_r = [], f = "function" == typeof Promise ? Promise.prototype.then.bind(Promise.resolve()) : setTimeout, 
+    $.__r = 0;
     var hooks_module_t, hooks_module_r, hooks_module_u, hooks_module_i, hooks_module_o = 0, hooks_module_f = [], hooks_module_c = [], hooks_module_e = l.__b, hooks_module_a = l.__r, hooks_module_v = l.diffed, hooks_module_l = l.__c, hooks_module_m = l.unmount;
     function hooks_module_d(t, u) {
         l.__h && l.__h(hooks_module_r, t, hooks_module_o || u), hooks_module_o = 0;
@@ -8327,7 +8073,6 @@ window.smartCard = function(modules) {
         }
     }
     var sdk_constants = __webpack_require__(5);
-    var zalgo_promise = __webpack_require__(13);
     function getOnError(_ref) {
         var onError = _ref.onError;
         var onErrorHandler = onError ? (handler = onError, seenErrors = [], seenStringifiedErrors = {}, 
@@ -8373,7 +8118,7 @@ window.smartCard = function(modules) {
                     getLogger().track(((_getLogger$track = {}).transition_name = "call_rest_api", _getLogger$track.int_error_desc = "Error: " + status + " - " + body, 
                     _getLogger$track.info_msg = "URL: " + url, _getLogger$track));
                 }
-                getLogger().warn("rest_api_" + eventName + "_error");
+                eventName && getLogger().warn("rest_api_" + eventName + "_error");
                 throw error;
             }
             return body;
@@ -8799,6 +8544,27 @@ window.smartCard = function(modules) {
             return _ref2.smartWallet;
         }));
     }));
+    var onApprove_redirect = function(url) {
+        if (!url) throw new Error("Expected redirect url");
+        if (-1 === url.indexOf("://")) {
+            getLogger().warn("redir_url_non_scheme", {
+                url: url
+            }).flush();
+            throw new Error("Invalid redirect url: " + url + " - must be fully qualified url");
+        }
+        url.match(/^https?:\/\//) || getLogger().warn("redir_url_non_http", {
+            url: url
+        }).flush();
+        return dom_redirect(url, window.top);
+    };
+    var onApprove_handleProcessorError = function(err, restart, onError) {
+        if (isUnprocessableEntityError(err)) {
+            err && err.response && (err.message = JSON.stringify(err.response) || err.message);
+            return onError(err).then(unresolvedPromise);
+        }
+        if (isProcessorDeclineError(err)) return restart().then(unresolvedPromise);
+        throw err;
+    };
     function getCreateOrder(_ref5, _ref6) {
         var createOrder = _ref5.createOrder, currency = _ref5.currency;
         var createBillingAgreement = _ref6.createBillingAgreement, createSubscription = _ref6.createSubscription, enableOrdersApprovalSmartWallet = _ref6.enableOrdersApprovalSmartWallet, smartWalletOrderID = _ref6.smartWalletOrderID;
@@ -8930,27 +8696,6 @@ window.smartCard = function(modules) {
             }));
         }));
     }
-    var onApprove_redirect = function(url) {
-        if (!url) throw new Error("Expected redirect url");
-        if (-1 === url.indexOf("://")) {
-            getLogger().warn("redir_url_non_scheme", {
-                url: url
-            }).flush();
-            throw new Error("Invalid redirect url: " + url + " - must be fully qualified url");
-        }
-        url.match(/^https?:\/\//) || getLogger().warn("redir_url_non_http", {
-            url: url
-        }).flush();
-        return dom_redirect(url, window.top);
-    };
-    var onApprove_handleProcessorError = function(err, restart, onError) {
-        if (isUnprocessableEntityError(err)) {
-            err && err.response && (err.message = JSON.stringify(err.response) || err.message);
-            return onError(err).then(unresolvedPromise);
-        }
-        if (isProcessorDeclineError(err)) return restart().then(unresolvedPromise);
-        throw err;
-    };
     var onComplete_redirect = function(url) {
         if (!url) throw new Error("Expected redirect url");
         if (-1 === url.indexOf("://")) {
@@ -10166,11 +9911,10 @@ window.smartCard = function(modules) {
     }
     var disallowedPropsWithAction = [ "onApprove", "onCancel", "onComplete", "createOrder", "intent" ];
     function getCardProps(_ref) {
-        var _fundingEligibility$c, _fundingEligibility$c2;
+        var _fundingEligibility$c, _fundingEligibility$c2, _xprops$parent2;
         var facilitatorAccessToken = _ref.facilitatorAccessToken, featureFlags = _ref.featureFlags;
-        var props = {};
         var xprops = window.xprops;
-        var type = xprops.type, cardSessionID = xprops.cardSessionID, style = xprops.style, placeholder = xprops.placeholder, minLength = xprops.minLength, maxLength = xprops.maxLength, fundingEligibility = xprops.fundingEligibility, inputEvents = xprops.inputEvents, _xprops$branded = xprops.branded, branded = void 0 === _xprops$branded ? null == (_fundingEligibility$c = null == fundingEligibility || null == (_fundingEligibility$c2 = fundingEligibility.card) ? void 0 : _fundingEligibility$c2.branded) || _fundingEligibility$c : _xprops$branded, parent = xprops.parent, xport = xprops.export, action = xprops.action;
+        var type = xprops.type, cardSessionID = xprops.cardSessionID, style = xprops.style, placeholder = xprops.placeholder, minLength = xprops.minLength, maxLength = xprops.maxLength, fundingEligibility = xprops.fundingEligibility, inputEvents = xprops.inputEvents, _xprops$branded = xprops.branded, branded = void 0 === _xprops$branded ? null == (_fundingEligibility$c = null == fundingEligibility || null == (_fundingEligibility$c2 = fundingEligibility.card) ? void 0 : _fundingEligibility$c2.branded) || _fundingEligibility$c : _xprops$branded, parent = xprops.parent, xport = xprops.export;
         var returnData = {
             type: type,
             branded: branded,
@@ -10308,14 +10052,50 @@ window.smartCard = function(modules) {
         }({
             branded: branded
         });
-        return action ? _extends({}, baseProps, props = function(xprops) {
-            disallowedPropsWithAction.forEach((function(prop) {
-                if (xprops[prop]) throw new Error("Do not pass " + prop + " with an action.");
-            }));
-            return {
-                action: xprops.action
-            };
-        }(xprops), returnData) : _extends({}, baseProps, props = getLegacyProps({
+        if (xprops.action || (null == (_xprops$parent2 = xprops.parent) ? void 0 : _xprops$parent2.action)) {
+            var props = function(xprops, baseProps) {
+                var _xprops$parent;
+                disallowedPropsWithAction.forEach((function(prop) {
+                    if (xprops[prop]) throw new Error("Do not pass " + prop + " with an action.");
+                }));
+                var action = xprops.action || (null == (_xprops$parent = xprops.parent) ? void 0 : _xprops$parent.action);
+                switch (action.type) {
+                  case "SAVE":
+                    return {
+                        action: _extends({}, action, {
+                            createVaultSetupToken: (_ref = {
+                                createVaultSetupToken: action.createVaultSetupToken
+                            }, createVaultSetupToken = _ref.createVaultSetupToken, function() {
+                                return createVaultSetupToken({}).then((function(vaultSetupToken) {
+                                    if (!vaultSetupToken || "string" != typeof vaultSetupToken) throw new Error("Expected a vault setup token to be passed to createVaultSetupToken");
+                                    return vaultSetupToken;
+                                }));
+                            }),
+                            onApprove: (_ref20 = {
+                                onApprove: action.onApprove,
+                                onError: baseProps.onError
+                            }, onApprove = _ref20.onApprove, onError = _ref20.onError, function(data) {
+                                try {
+                                    var _onApprove;
+                                    return null == (_onApprove = onApprove(data)) ? void 0 : _onApprove.catch((function(error) {
+                                        return onError(error);
+                                    }));
+                                } catch (error) {
+                                    return onError(error);
+                                }
+                            })
+                        })
+                    };
+
+                  default:
+                    throw new Error("Unsupported type for action: " + action.type);
+                }
+                var _ref20, onApprove, onError;
+                var _ref, createVaultSetupToken;
+            }(xprops, baseProps);
+            return _extends({}, baseProps, props, returnData);
+        }
+        return _extends({}, baseProps, getLegacyProps({
             paymentSource: null,
             partnerAttributionID: xprops.partnerAttributionID,
             merchantID: xprops.merchantID,
@@ -10347,74 +10127,40 @@ window.smartCard = function(modules) {
             fundingEligibility: fundingEligibility,
             inputEvents: inputEvents,
             export: parent ? parent.export : xport,
-            facilitatorAccessToken: facilitatorAccessToken,
-            action: (null == (_props = props) ? void 0 : _props.action) || (null == parent || null == (_parent$props = parent.props) ? void 0 : _parent$props.action)
+            facilitatorAccessToken: facilitatorAccessToken
         });
-        var _props, _parent$props;
     }
-    function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
-        try {
-            var info = gen[key](arg);
-            var value = info.value;
-        } catch (error) {
-            reject(error);
-            return;
-        }
-        info.done ? resolve(value) : Promise.resolve(value).then(_next, _throw);
-    }
-    function _asyncToGenerator(fn) {
-        return function() {
-            var self = this, args = arguments;
-            return new Promise((function(resolve, reject) {
-                var gen = fn.apply(self, args);
-                function _next(value) {
-                    asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
-                }
-                function _throw(err) {
-                    asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
-                }
-                _next(void 0);
+    var vault_vault = {
+        create: function(_ref) {
+            var action = _ref.action, facilitatorAccessToken = _ref.facilitatorAccessToken, paymentSource = _ref.paymentSource;
+            var onApprove = action.onApprove;
+            return (0, action.createVaultSetupToken)().then((function(vaultSetupToken) {
+                return function(_ref3) {
+                    var _ref4, _extends3;
+                    var partnerAttributionID = _ref3.partnerAttributionID, paymentSource = _ref3.paymentSource;
+                    return callRestAPI({
+                        accessToken: _ref3.facilitatorAccessToken,
+                        method: "post",
+                        url: "/v3/vault/setup-tokens/" + _ref3.vaultSetupToken + "/update",
+                        headers: _extends({}, partnerAttributionID ? (_ref4 = {}, _ref4["paypal-partner-attribution-id"] = partnerAttributionID, 
+                        _ref4) : void 0, (_extends3 = {}, _extends3.prefer = "return=representation", _extends3)),
+                        data: {
+                            payment_source: paymentSource
+                        }
+                    });
+                }({
+                    vaultSetupToken: vaultSetupToken,
+                    facilitatorAccessToken: facilitatorAccessToken,
+                    paymentSource: paymentSource,
+                    partnerAttributionID: ""
+                }).then((function() {
+                    return onApprove({
+                        vaultSetupToken: vaultSetupToken
+                    });
+                }));
             }));
-        };
-    }
-    function updateVaultSetupToken(_ref) {
-        var vaultSetupToken = _ref.vaultSetupToken;
-        return request({
-            method: "post",
-            url: "/v3/vault/setup-tokens/" + vaultSetupToken + "/update",
-            headers: {
-                Authorization: "Basic " + _ref.lowScopedAccessToken,
-                "Content-Type": "application/json"
-            },
-            data: {
-                payment_source: {
-                    card: _extends({}, _ref.paymentSourceDetails)
-                }
-            }
-        }).then((function(_ref2) {
-            var body = _ref2.body;
-            if (!body || "APPROVED" === !body.status) throw new Error("request was not approved");
-            return vaultSetupToken;
-        }));
-    }
-    function vaultPaymentSource(_x) {
-        return _vaultPaymentSource.apply(this, arguments);
-    }
-    function _vaultPaymentSource() {
-        return (_vaultPaymentSource = _asyncToGenerator((function*(_ref) {
-            var action = _ref.action, lowScopedAccessToken = _ref.lowScopedAccessToken, paymentSourceDetails = _ref.paymentSourceDetails;
-            var createVaultSetupToken = action.createVaultSetupToken, onApprove = action.onApprove;
-            var vaultSetupToken = (yield createVaultSetupToken()).vaultSetupToken;
-            yield updateVaultSetupToken({
-                vaultSetupToken: vaultSetupToken,
-                lowScopedAccessToken: lowScopedAccessToken,
-                paymentSourceDetails: paymentSourceDetails
-            });
-            yield onApprove({
-                vaultSetupToken: vaultSetupToken
-            });
-        }))).apply(this, arguments);
-    }
+        }
+    };
     function submitCardFields(_ref) {
         var facilitatorAccessToken = _ref.facilitatorAccessToken, extraFields = _ref.extraFields;
         var cardProps = getCardProps({
@@ -10422,7 +10168,7 @@ window.smartCard = function(modules) {
             featureFlags: _ref.featureFlags
         });
         gql_resetGQLErrors();
-        return zalgo_promise.ZalgoPromise.try((function() {
+        return promise_ZalgoPromise.try((function() {
             if (!hasCardFields()) throw new Error("Card fields not available to submit");
             var card = getCardFields();
             if (!card) throw new Error("Card not available to submit");
@@ -10431,19 +10177,23 @@ window.smartCard = function(modules) {
             };
             if (void 0 !== cardProps.action) switch (cardProps.action.type) {
               case "save":
-                try {
-                    return vaultPaymentSource({
-                        action: cardProps.action,
-                        lowScopedAccessToken: facilitatorAccessToken,
-                        paymentSourceDetails: card
-                    });
-                } catch (error) {
-                    getLogger().info("card_fields_vault_payment_source_failed");
-                    throw error;
-                }
+                return vault_vault.create({
+                    action: cardProps.action,
+                    facilitatorAccessToken: facilitatorAccessToken,
+                    paymentSource: {
+                        card: {
+                            name: card.name,
+                            number: card.number,
+                            expiry: card.expiry,
+                            security_code: card.cvv,
+                            billing_address: {
+                                postal_code: card.postalCode
+                            }
+                        }
+                    }
+                });
 
               default:
-                getLogger().info("card_fields_unsupported_action");
                 throw new Error("Action of type " + cardProps.action.type + " is not supported by Card Fields");
             }
             return cardProps.intent === sdk_constants.INTENT.TOKENIZE ? function(_ref24) {
@@ -10508,186 +10258,186 @@ window.smartCard = function(modules) {
         }));
     }
     function Icons() {
-        return h("svg", {
+        return y("svg", {
             class: "card-icons"
-        }, h("defs", null, h("symbol", {
+        }, y("defs", null, y("symbol", {
             id: "icon-visa",
             viewBox: "0 0 44 14.2"
-        }, h("title", null, "Visa"), h("path", {
+        }, y("title", null, "Visa"), y("path", {
             fill: "#1434CB",
             d: "M16.8,0.2L11,13.9H7.3L4.5,3C4.3,2.3,4.2,2.1,3.6,1.8C2.8,1.3,1.4,0.9,0.1,0.6l0.1-0.4h6   c0.8,0,1.5,0.5,1.6,1.4l1.5,7.9L13,0.2H16.8z M31.4,9.4c0-3.6-5-3.8-5-5.4c0-0.5,0.5-1,1.5-1.1c0.5-0.1,1.9-0.1,3.5,0.6L32,0.6   C31.2,0.3,30.1,0,28.7,0c-3.5,0-6,1.9-6,4.5c0,2,1.8,3.1,3.1,3.7c1.4,0.7,1.8,1.1,1.8,1.7c0,0.9-1.1,1.3-2.1,1.3   c-1.8,0-2.8-0.5-3.6-0.9l-0.6,3c0.8,0.4,2.3,0.7,3.9,0.7C28.9,14.1,31.4,12.3,31.4,9.4 M40.6,13.9h3.3L41,0.2h-3   c-0.7,0-1.3,0.4-1.5,1l-5.3,12.7h3.7l0.7-2h4.5L40.6,13.9z M36.7,9.1l1.9-5.1l1.1,5.1H36.7z M21.8,0.2l-2.9,13.7h-3.5l2.9-13.7   H21.8z"
-        })), h("symbol", {
+        })), y("symbol", {
             id: "icon-mastercard",
             viewBox: "0 0 40 24"
-        }, h("title", null, "MasterCard"), h("path", {
+        }, y("title", null, "MasterCard"), y("path", {
             d: "M0 1.927C0 .863.892 0 1.992 0h36.016C39.108 0 40 .863 40 1.927v20.146C40 23.137 39.108 24 38.008 24H1.992C.892 24 0 23.137 0 22.073V1.927z",
             fill: "#FFF"
-        }), h("path", {
+        }), y("path", {
             d: "M11.085 22.2v-1.36c0-.522-.318-.863-.864-.863-.272 0-.568.09-.773.386-.16-.25-.386-.386-.727-.386-.228 0-.455.068-.637.318v-.272h-.478V22.2h.478v-1.202c0-.386.204-.567.523-.567.318 0 .478.205.478.568V22.2h.477v-1.202c0-.386.23-.567.524-.567.32 0 .478.205.478.568V22.2h.523zm7.075-2.177h-.774v-.658h-.478v.658h-.432v.43h.432v.998c0 .5.205.795.75.795.206 0 .433-.068.592-.16l-.136-.407c-.136.09-.296.114-.41.114-.227 0-.318-.137-.318-.363v-.976h.774v-.43zm4.048-.046c-.273 0-.454.136-.568.318v-.272h-.478V22.2h.478v-1.225c0-.363.16-.567.455-.567.09 0 .204.023.295.046l.137-.454c-.09-.023-.228-.023-.32-.023zm-6.118.227c-.228-.16-.546-.227-.888-.227-.546 0-.91.272-.91.703 0 .363.274.567.75.635l.23.023c.25.045.385.113.385.227 0 .16-.182.272-.5.272-.32 0-.57-.113-.728-.227l-.228.363c.25.18.59.272.932.272.637 0 1-.295 1-.703 0-.385-.295-.59-.75-.658l-.227-.022c-.205-.023-.364-.068-.364-.204 0-.16.16-.25.41-.25.272 0 .545.114.682.182l.205-.386zm12.692-.227c-.273 0-.455.136-.568.318v-.272h-.478V22.2h.478v-1.225c0-.363.16-.567.455-.567.09 0 .203.023.294.046L29.1 20c-.09-.023-.227-.023-.318-.023zm-6.096 1.134c0 .66.455 1.135 1.16 1.135.32 0 .546-.068.774-.25l-.228-.385c-.182.136-.364.204-.57.204-.385 0-.658-.272-.658-.703 0-.407.273-.68.66-.702.204 0 .386.068.568.204l.228-.385c-.228-.182-.455-.25-.774-.25-.705 0-1.16.477-1.16 1.134zm4.413 0v-1.087h-.48v.272c-.158-.204-.385-.318-.68-.318-.615 0-1.093.477-1.093 1.134 0 .66.478 1.135 1.092 1.135.317 0 .545-.113.68-.317v.272h.48v-1.09zm-1.753 0c0-.384.25-.702.66-.702.387 0 .66.295.66.703 0 .387-.273.704-.66.704-.41-.022-.66-.317-.66-.703zm-5.71-1.133c-.636 0-1.09.454-1.09 1.134 0 .682.454 1.135 1.114 1.135.32 0 .638-.09.888-.295l-.228-.34c-.18.136-.41.227-.636.227-.296 0-.592-.136-.66-.522h1.615v-.18c.022-.704-.388-1.158-1.002-1.158zm0 .41c.297 0 .502.18.547.52h-1.137c.045-.295.25-.52.59-.52zm11.852.724v-1.95h-.48v1.135c-.158-.204-.385-.318-.68-.318-.615 0-1.093.477-1.093 1.134 0 .66.478 1.135 1.092 1.135.318 0 .545-.113.68-.317v.272h.48v-1.09zm-1.752 0c0-.384.25-.702.66-.702.386 0 .66.295.66.703 0 .387-.274.704-.66.704-.41-.022-.66-.317-.66-.703zm-15.97 0v-1.087h-.476v.272c-.16-.204-.387-.318-.683-.318-.615 0-1.093.477-1.093 1.134 0 .66.478 1.135 1.092 1.135.318 0 .545-.113.682-.317v.272h.477v-1.09zm-1.773 0c0-.384.25-.702.66-.702.386 0 .66.295.66.703 0 .387-.274.704-.66.704-.41-.022-.66-.317-.66-.703z",
             fill: "#000"
-        }), h("path", {
+        }), y("path", {
             fill: "#FF5F00",
             d: "M23.095 3.49H15.93v12.836h7.165"
-        }), h("path", {
+        }), y("path", {
             d: "M16.382 9.91c0-2.61 1.23-4.922 3.117-6.42-1.39-1.087-3.14-1.745-5.05-1.745-4.528 0-8.19 3.65-8.19 8.164 0 4.51 3.662 8.162 8.19 8.162 1.91 0 3.66-.657 5.05-1.746-1.89-1.474-3.118-3.81-3.118-6.417z",
             fill: "#EB001B"
-        }), h("path", {
+        }), y("path", {
             d: "M32.76 9.91c0 4.51-3.664 8.162-8.19 8.162-1.91 0-3.662-.657-5.05-1.746 1.91-1.496 3.116-3.81 3.116-6.417 0-2.61-1.228-4.922-3.116-6.42 1.388-1.087 3.14-1.745 5.05-1.745 4.526 0 8.19 3.674 8.19 8.164z",
             fill: "#F79E1B"
-        })), h("symbol", {
+        })), y("symbol", {
             id: "icon-unionpay",
             viewBox: "0 0 40 24"
-        }, h("title", null, "Union Pay"), h("path", {
+        }, y("title", null, "Union Pay"), y("path", {
             d: "M38.333 24H1.667C.75 24 0 23.28 0 22.4V1.6C0 .72.75 0 1.667 0h36.666C39.25 0 40 .72 40 1.6v20.8c0 .88-.75 1.6-1.667 1.6z",
             fill: "#FFF"
-        }), h("path", {
+        }), y("path", {
             d: "M9.877 2h8.126c1.135 0 1.84.93 1.575 2.077l-3.783 16.35c-.267 1.142-1.403 2.073-2.538 2.073H5.13c-1.134 0-1.84-.93-1.574-2.073L7.34 4.076C7.607 2.93 8.74 2 9.878 2z",
             fill: "#E21836"
-        }), h("path", {
+        }), y("path", {
             d: "M17.325 2h9.345c1.134 0 .623.93.356 2.077l-3.783 16.35c-.265 1.142-.182 2.073-1.32 2.073H12.58c-1.137 0-1.84-.93-1.574-2.073l3.783-16.35C15.056 2.93 16.19 2 17.324 2z",
             fill: "#00447B"
-        }), h("path", {
+        }), y("path", {
             d: "M26.3 2h8.126c1.136 0 1.84.93 1.575 2.077l-3.782 16.35c-.266 1.142-1.402 2.073-2.54 2.073h-8.122c-1.137 0-1.842-.93-1.574-2.073l3.78-16.35C24.03 2.93 25.166 2 26.303 2z",
             fill: "#007B84"
-        }), h("path", {
+        }), y("path", {
             d: "M27.633 14.072l-.99 3.3h.266l-.208.68h-.266l-.062.212h-.942l.064-.21H23.58l.193-.632h.194l1.005-3.35.2-.676h.962l-.1.34s.255-.184.498-.248c.242-.064 1.636-.088 1.636-.088l-.206.672h-.33zm-1.695 0l-.254.843s.285-.13.44-.172c.16-.04.395-.057.395-.057l.182-.614h-.764zm-.38 1.262l-.263.877s.29-.15.447-.196c.157-.037.396-.066.396-.066l.185-.614h-.766zm-.614 2.046h.767l.222-.74h-.765l-.223.74z",
             fill: "#FEFEFE"
-        }), h("path", {
+        }), y("path", {
             d: "M28.055 13.4h1.027l.01.385c-.005.065.05.096.17.096h.208l-.19.637h-.555c-.48.035-.662-.172-.65-.406l-.02-.71zM28.193 16.415h-.978l.167-.566H28.5l.16-.517h-1.104l.19-.638h3.072l-.193.638h-1.03l-.16.516h1.032l-.17.565H29.18l-.2.24h.454l.11.712c.013.07.014.116.036.147.023.026.158.038.238.038h.137l-.21.694h-.348c-.054 0-.133-.004-.243-.01-.105-.008-.18-.07-.25-.105-.064-.03-.16-.11-.182-.24l-.11-.712-.507.7c-.162.222-.38.39-.748.39h-.712l.186-.62h.273c.078 0 .15-.03.2-.056.052-.023.098-.05.15-.126l.74-1.05zM17.478 14.867h2.59l-.19.622H18.84l-.16.53h1.06l-.194.64h-1.06l-.256.863c-.03.095.25.108.353.108l.53-.072-.212.71h-1.193c-.096 0-.168-.013-.272-.037-.1-.023-.145-.07-.19-.138-.043-.07-.11-.128-.064-.278l.343-1.143h-.588l.195-.65h.592l.156-.53h-.588l.188-.623zM19.223 13.75h1.063l-.194.65H18.64l-.157.136c-.067.066-.09.038-.18.087-.08.04-.254.123-.477.123h-.466l.19-.625h.14c.118 0 .198-.01.238-.036.046-.03.098-.096.157-.203l.267-.487h1.057l-.187.356zM20.74 13.4h.905l-.132.46s.286-.23.487-.313c.2-.075.65-.143.65-.143l1.464-.007-.498 1.672c-.085.286-.183.472-.244.555-.055.087-.12.16-.248.23-.124.066-.236.104-.34.115-.096.007-.244.01-.45.012h-1.41l-.4 1.324c-.037.13-.055.194-.03.23.02.03.068.066.135.066l.62-.06-.21.726h-.698c-.22 0-.383-.004-.495-.013-.108-.01-.22 0-.295-.058-.065-.058-.164-.133-.162-.21.007-.073.037-.192.082-.356l1.268-4.23zm1.922 1.69h-1.484l-.09.3h1.283c.152-.018.184.004.196-.003l.096-.297zm-1.402-.272s.29-.266.786-.353c.112-.022.82-.015.82-.015l.106-.357h-1.496l-.216.725z",
             fill: "#FEFEFE"
-        }), h("path", {
+        }), y("path", {
             d: "M23.382 16.1l-.084.402c-.036.125-.067.22-.16.302-.1.084-.216.172-.488.172l-.502.02-.004.455c-.006.13.028.117.048.138.024.022.045.032.067.04l.157-.008.48-.028-.198.663h-.552c-.385 0-.67-.008-.765-.084-.092-.057-.105-.132-.103-.26l.035-1.77h.88l-.013.362h.212c.072 0 .12-.007.15-.026.027-.02.047-.048.06-.093l.087-.282h.692zM10.84 7.222c-.032.143-.596 2.763-.598 2.764-.12.53-.21.91-.508 1.152-.172.14-.37.21-.6.21-.37 0-.587-.185-.624-.537l-.007-.12.113-.712s.593-2.388.7-2.703c.002-.017.005-.026.007-.035-1.152.01-1.357 0-1.37-.018-.007.024-.037.173-.037.173l-.605 2.688-.05.23-.1.746c0 .22.042.4.13.553.275.485 1.06.557 1.504.557.573 0 1.11-.123 1.47-.345.63-.375.797-.962.944-1.48l.067-.267s.61-2.48.716-2.803c.003-.017.006-.026.01-.035-.835.01-1.08 0-1.16-.018zM14.21 12.144c-.407-.006-.55-.006-1.03.018l-.018-.036c.042-.182.087-.363.127-.548l.06-.25c.086-.39.173-.843.184-.98.007-.084.036-.29-.2-.29-.1 0-.203.048-.307.096-.058.207-.174.79-.23 1.055-.118.558-.126.62-.178.897l-.036.037c-.42-.006-.566-.006-1.05.018l-.024-.04c.08-.332.162-.668.24-.998.203-.9.25-1.245.307-1.702l.04-.028c.47-.067.585-.08 1.097-.185l.043.047-.077.287c.086-.052.168-.104.257-.15.242-.12.51-.155.658-.155.223 0 .468.062.57.323.098.232.034.52-.094 1.084l-.066.287c-.13.627-.152.743-.225 1.174l-.05.036zM15.87 12.144c-.245 0-.405-.006-.56 0-.153 0-.303.008-.532.018l-.013-.02-.015-.02c.062-.238.097-.322.128-.406.03-.084.06-.17.115-.41.072-.315.116-.535.147-.728.033-.187.052-.346.075-.53l.02-.014.02-.018c.244-.036.4-.057.56-.082.16-.024.32-.055.574-.103l.008.023.008.022c-.047.195-.094.39-.14.588-.047.197-.094.392-.137.587-.093.414-.13.57-.152.68-.02.105-.026.163-.063.377l-.022.02-.023.017zM19.542 10.728c.143-.633.033-.928-.108-1.11-.213-.273-.59-.36-.978-.36-.235 0-.793.023-1.23.43-.312.29-.458.687-.546 1.066-.088.387-.19 1.086.447 1.344.198.085.48.108.662.108.466 0 .945-.13 1.304-.513.278-.312.405-.775.448-.965zm-1.07-.046c-.02.106-.113.503-.24.673-.086.123-.19.198-.305.198-.033 0-.235 0-.238-.3-.003-.15.027-.304.063-.47.108-.478.236-.88.56-.88.255 0 .27.298.16.78zM29.536 12.187c-.493-.004-.635-.004-1.09.015l-.03-.037c.124-.472.248-.943.358-1.42.142-.62.175-.882.223-1.244l.037-.03c.49-.07.625-.09 1.135-.186l.015.044c-.093.388-.186.777-.275 1.166-.19.816-.258 1.23-.33 1.658l-.044.035z",
             fill: "#FEFEFE"
-        }), h("path", {
+        }), y("path", {
             d: "M29.77 10.784c.144-.63-.432-.056-.525-.264-.14-.323-.052-.98-.62-1.2-.22-.085-.732.025-1.17.428-.31.29-.458.683-.544 1.062-.088.38-.19 1.078.444 1.328.2.085.384.11.567.103.638-.034 1.124-1.002 1.483-1.386.277-.303.326.115.368-.07zm-.974-.047c-.024.1-.117.503-.244.67-.083.117-.283.192-.397.192-.032 0-.232 0-.24-.3 0-.146.03-.3.067-.467.11-.47.235-.87.56-.87.254 0 .363.293.254.774zM22.332 12.144c-.41-.006-.55-.006-1.03.018l-.018-.036c.04-.182.087-.363.13-.548l.057-.25c.09-.39.176-.843.186-.98.008-.084.036-.29-.198-.29-.1 0-.203.048-.308.096-.057.207-.175.79-.232 1.055-.115.558-.124.62-.176.897l-.035.037c-.42-.006-.566-.006-1.05.018l-.022-.04.238-.998c.203-.9.25-1.245.307-1.702l.038-.028c.472-.067.587-.08 1.098-.185l.04.047-.073.287c.084-.052.17-.104.257-.15.24-.12.51-.155.655-.155.224 0 .47.062.575.323.095.232.03.52-.098 1.084l-.065.287c-.133.627-.154.743-.225 1.174l-.05.036zM26.32 8.756c-.07.326-.282.603-.554.736-.225.114-.498.123-.78.123h-.183l.013-.074.336-1.468.01-.076.007-.058.132.015.71.062c.275.105.388.38.31.74zM25.88 7.22l-.34.003c-.883.01-1.238.006-1.383-.012l-.037.182-.315 1.478-.793 3.288c.77-.01 1.088-.01 1.22.004l.21-1.024s.153-.644.163-.667c0 0 .047-.066.096-.092h.07c.665 0 1.417 0 2.005-.437.4-.298.675-.74.797-1.274.03-.132.054-.29.054-.446 0-.205-.04-.41-.16-.568-.3-.423-.896-.43-1.588-.433zM33.572 9.28l-.04-.043c-.502.1-.594.118-1.058.18l-.034.034-.005.023-.003-.007c-.345.803-.334.63-.615 1.26-.003-.03-.003-.048-.004-.077l-.07-1.37-.044-.043c-.53.1-.542.118-1.03.18l-.04.034-.006.056.003.007c.06.315.047.244.108.738.03.244.065.49.093.73.05.4.077.6.134 1.21-.328.55-.408.757-.722 1.238l.017.044c.478-.018.587-.018.94-.018l.08-.088c.265-.578 2.295-4.085 2.295-4.085zM16.318 9.62c.27-.19.304-.45.076-.586-.23-.137-.634-.094-.906.095-.273.186-.304.45-.075.586.228.134.633.094.905-.096z",
             fill: "#FEFEFE"
-        }), h("path", {
+        }), y("path", {
             d: "M31.238 13.415l-.397.684c-.124.232-.357.407-.728.41l-.632-.01.184-.618h.124c.064 0 .11-.004.148-.022.03-.01.054-.035.08-.072l.233-.373h.988z",
             fill: "#FEFEFE"
-        })), h("symbol", {
+        })), y("symbol", {
             id: "icon-american-express",
             viewBox: "0 0 40 24"
-        }, h("title", null, "American Express"), h("path", {
+        }, y("title", null, "American Express"), y("path", {
             d: "M38.333 24H1.667C.75 24 0 23.28 0 22.4V1.6C0 .72.75 0 1.667 0h36.666C39.25 0 40 .72 40 1.6v20.8c0 .88-.75 1.6-1.667 1.6z",
             fill: "#FFF"
-        }), h("path", {
+        }), y("path", {
             fill: "#1478BE",
             d: "M6.26 12.32h2.313L7.415 9.66M27.353 9.977h-3.738v1.23h3.666v1.384h-3.675v1.385h3.821v1.005c.623-.77 1.33-1.466 2.025-2.235l.707-.77c-.934-1.004-1.87-2.08-2.804-3.075v1.077z"
-        }), h("path", {
+        }), y("path", {
             d: "M38.25 7h-5.605l-1.328 1.4L30.072 7H16.984l-1.017 2.416L14.877 7h-9.58L1.25 16.5h4.826l.623-1.556h1.4l.623 1.556H29.99l1.327-1.483 1.328 1.483h5.605l-4.36-4.667L38.25 7zm-17.685 8.1h-1.557V9.883L16.673 15.1h-1.33L13.01 9.883l-.084 5.217H9.73l-.623-1.556h-3.27L5.132 15.1H3.42l2.884-6.772h2.42l2.645 6.233V8.33h2.646l2.107 4.51 1.868-4.51h2.575V15.1zm14.727 0h-2.024l-2.024-2.26-2.023 2.26H22.06V8.328H29.53l1.795 2.177 2.024-2.177h2.025L32.26 11.75l3.032 3.35z",
             fill: "#1478BE"
-        })), h("symbol", {
+        })), y("symbol", {
             id: "icon-jcb",
             viewBox: "0 0 40 24"
-        }, h("title", null, "JCB"), h("path", {
+        }, y("title", null, "JCB"), y("path", {
             d: "M38.333 24H1.667C.75 24 0 23.28 0 22.4V1.6C0 .72.75 0 1.667 0h36.666C39.25 0 40 .72 40 1.6v20.8c0 .88-.75 1.6-1.667 1.6z",
             fill: "#FFF"
-        }), h("path", {
+        }), y("path", {
             d: "M33.273 2.01h.013v17.062c-.004 1.078-.513 2.103-1.372 2.746-.63.47-1.366.67-2.14.67-.437 0-4.833.026-4.855 0-.01-.01 0-.07 0-.082v-6.82c0-.04.004-.064.033-.064h5.253c.867 0 1.344-.257 1.692-.61.44-.448.574-1.162.294-1.732-.24-.488-.736-.78-1.244-.913-.158-.04-.32-.068-.483-.083-.01 0-.064 0-.07-.006-.03-.034.023-.04.038-.046.102-.033.215-.042.32-.073.532-.164.993-.547 1.137-1.105.15-.577-.05-1.194-.524-1.552-.34-.257-.768-.376-1.187-.413-.43-.038-4.774-.022-5.21-.022-.072 0-.05-.02-.05-.09V5.63c0-.31.01-.616.073-.92.126-.592.41-1.144.815-1.59.558-.615 1.337-1.01 2.16-1.093.478-.048 4.89-.017 5.305-.017zm-4.06 8.616c.06.272-.01.567-.204.77-.173.176-.407.25-.648.253-.195.003-1.725 0-1.788 0l.003-1.645c.012-.027.02-.018.06-.018.097 0 1.713-.004 1.823.005.232.02.45.12.598.306.076.096.128.208.155.328zm-2.636 2.038h1.944c.242.002.47.063.652.228.226.204.327.515.283.815-.04.263-.194.5-.422.634-.187.112-.39.125-.6.125h-1.857v-1.8z",
             fill: "#53B230"
-        }), h("path", {
+        }), y("path", {
             d: "M6.574 13.89c-.06-.03-.06-.018-.07-.06-.006-.026-.005-8.365.003-8.558.04-.95.487-1.857 1.21-2.47.517-.434 1.16-.71 1.83-.778.396-.04.803-.018 1.2-.018.69 0 4.11-.013 4.12 0 .008.008.002 16.758 0 17.074-.003.956-.403 1.878-1.105 2.523-.506.465-1.15.77-1.83.86-.41.056-5.02.032-5.363.032-.066 0-.054.013-.066-.024-.01-.025 0-7 0-7.17.66.178 1.35.28 2.03.348.662.067 1.33.093 1.993.062.93-.044 1.947-.192 2.712-.762.32-.238.574-.553.73-.922.148-.353.2-.736.2-1.117 0-.348.006-3.93-.016-3.942-.023-.014-2.885-.015-2.9.012-.012.022 0 3.87 0 3.95-.003.47-.16.933-.514 1.252-.468.42-1.11.47-1.707.423-.687-.055-1.357-.245-1.993-.508-.157-.065-.312-.135-.466-.208z",
             fill: "#006CB9"
-        }), h("path", {
+        }), y("path", {
             d: "M15.95 9.835c-.025.02-.05.04-.072.06V6.05c0-.295-.012-.594.01-.888.12-1.593 1.373-2.923 2.944-3.126.382-.05 5.397-.042 5.41-.026.01.01 0 .062 0 .074v16.957c0 1.304-.725 2.52-1.89 3.1-.504.25-1.045.35-1.605.35-.322 0-4.757.015-4.834 0-.05-.01-.023.01-.035-.02-.007-.022 0-6.548 0-7.44v-.422c.554.48 1.256.75 1.96.908.536.12 1.084.176 1.63.196.537.02 1.076.01 1.61-.037.546-.05 1.088-.136 1.625-.244.137-.028.274-.057.41-.09.033-.006.17-.017.187-.044.013-.02 0-.097 0-.12v-1.324c-.582.292-1.19.525-1.83.652-.778.155-1.64.198-2.385-.123-.752-.326-1.2-1.024-1.274-1.837-.076-.837.173-1.716.883-2.212.736-.513 1.7-.517 2.553-.38.634.1 1.245.305 1.825.58.078.037.154.075.23.113V9.322c0-.02.013-.1 0-.118-.02-.028-.152-.038-.188-.046-.066-.016-.133-.03-.2-.045C22.38 9 21.84 8.908 21.3 8.85c-.533-.06-1.068-.077-1.603-.066-.542.01-1.086.054-1.62.154-.662.125-1.32.337-1.883.716-.085.056-.167.117-.245.18z",
             fill: "#E20138"
-        })), h("symbol", {
+        })), y("symbol", {
             id: "icon-discover",
             viewBox: "0 0 40 24"
-        }, h("title", null, "Discover"), h("path", {
+        }, y("title", null, "Discover"), y("path", {
             d: "M38.333 24H1.667C.75 24 0 23.28 0 22.4V1.6C0 .72.75 0 1.667 0h36.666C39.25 0 40 .72 40 1.6v20.8c0 .88-.75 1.6-1.667 1.6z",
             fill: "#FFF"
-        }), h("path", {
+        }), y("path", {
             d: "M38.995 11.75S27.522 20.1 6.5 23.5h31.495c.552 0 1-.448 1-1V11.75z",
             fill: "#F48024"
-        }), h("path", {
+        }), y("path", {
             d: "M5.332 11.758c-.338.305-.776.438-1.47.438h-.29V8.55h.29c.694 0 1.115.124 1.47.446.37.33.595.844.595 1.372 0 .53-.224 1.06-.595 1.39zM4.077 7.615H2.5v5.515h1.57c.833 0 1.435-.197 1.963-.637.63-.52 1-1.305 1-2.116 0-1.628-1.214-2.762-2.956-2.762zM7.53 13.13h1.074V7.616H7.53M11.227 9.732c-.645-.24-.834-.397-.834-.695 0-.347.338-.61.8-.61.322 0 .587.132.867.446l.562-.737c-.462-.405-1.015-.612-1.618-.612-.975 0-1.718.678-1.718 1.58 0 .76.346 1.15 1.355 1.513.42.148.635.247.743.314.215.14.322.34.322.57 0 .448-.354.78-.834.78-.51 0-.924-.258-1.17-.736l-.695.67c.495.726 1.09 1.05 1.907 1.05 1.116 0 1.9-.745 1.9-1.812 0-.876-.363-1.273-1.585-1.72zM13.15 10.377c0 1.62 1.27 2.877 2.907 2.877.462 0 .858-.09 1.347-.32v-1.267c-.43.43-.81.604-1.297.604-1.082 0-1.85-.785-1.85-1.9 0-1.06.792-1.895 1.8-1.895.512 0 .9.183 1.347.62V7.83c-.472-.24-.86-.34-1.322-.34-1.627 0-2.932 1.283-2.932 2.887zM25.922 11.32l-1.468-3.705H23.28l2.337 5.656h.578l2.38-5.655H27.41M29.06 13.13h3.046v-.934h-1.973v-1.488h1.9v-.934h-1.9V8.55h1.973v-.935H29.06M34.207 10.154h-.314v-1.67h.33c.67 0 1.034.28 1.034.818 0 .554-.364.852-1.05.852zm2.155-.91c0-1.033-.71-1.628-1.95-1.628H32.82v5.514h1.073v-2.215h.14l1.487 2.215h1.32l-1.733-2.323c.81-.165 1.255-.72 1.255-1.563z",
             fill: "#221F20"
-        }), h("path", {
+        }), y("path", {
             d: "M23.6 10.377c0 1.62-1.31 2.93-2.927 2.93-1.617.002-2.928-1.31-2.928-2.93s1.31-2.932 2.928-2.932c1.618 0 2.928 1.312 2.928 2.932z",
             fill: "#F48024"
-        })), h("symbol", {
+        })), y("symbol", {
             id: "icon-diners-club",
             viewBox: "0 0 40 24"
-        }, h("title", null, "Diners Club"), h("path", {
+        }, y("title", null, "Diners Club"), y("path", {
             d: "M38.333 24H1.667C.75 24 0 23.28 0 22.4V1.6C0 .72.75 0 1.667 0h36.666C39.25 0 40 .72 40 1.6v20.8c0 .88-.75 1.6-1.667 1.6z",
             fill: "#FFF"
-        }), h("path", {
+        }), y("path", {
             d: "M9.02 11.83c0-5.456 4.54-9.88 10.14-9.88 5.6 0 10.139 4.424 10.139 9.88-.002 5.456-4.54 9.88-10.14 9.88-5.6 0-10.14-4.424-10.14-9.88z",
             fill: "#FEFEFE"
-        }), h("path", {
+        }), y("path", {
             fill: "#FFF",
             d: "M32.522 22H8.5V1.5h24.022"
-        }), h("path", {
+        }), y("path", {
             d: "M25.02 11.732c-.003-2.534-1.607-4.695-3.868-5.55v11.102c2.26-.857 3.865-3.017 3.87-5.552zm-8.182 5.55V6.18c-2.26.86-3.86 3.017-3.867 5.55.007 2.533 1.61 4.69 3.868 5.55zm2.158-14.934c-5.25.002-9.503 4.202-9.504 9.384 0 5.182 4.254 9.38 9.504 9.382 5.25 0 9.504-4.2 9.505-9.382 0-5.182-4.254-9.382-9.504-9.384zM18.973 22C13.228 22.027 8.5 17.432 8.5 11.84 8.5 5.726 13.228 1.5 18.973 1.5h2.692c5.677 0 10.857 4.225 10.857 10.34 0 5.59-5.18 10.16-10.857 10.16h-2.692z",
             fill: "#004A97"
-        })), h("symbol", {
+        })), y("symbol", {
             id: "icon-maestro",
             viewBox: "0 0 40 24"
-        }, h("title", null, "Maestro"), h("path", {
+        }, y("title", null, "Maestro"), y("path", {
             d: "M38.333 24H1.667C.75 24 0 23.28 0 22.4V1.6C0 .72.75 0 1.667 0h36.666C39.25 0 40 .72 40 1.6v20.8c0 .88-.75 1.6-1.667 1.6z",
             fill: "#FFF"
-        }), h("path", {
+        }), y("path", {
             d: "M14.67 22.39V21c.022-.465-.303-.86-.767-.882h-.116c-.3-.023-.603.14-.788.394-.164-.255-.442-.417-.743-.394-.256-.023-.51.116-.65.324v-.278h-.487v2.203h.487v-1.183c-.046-.278.162-.533.44-.58h.094c.325 0 .488.21.488.58v1.23h.487v-1.23c-.047-.278.162-.556.44-.58h.093c.325 0 .487.21.487.58v1.23l.534-.024zm2.712-1.09v-1.113h-.487v.28c-.162-.21-.417-.326-.695-.326-.65 0-1.16.51-1.16 1.16 0 .65.51 1.16 1.16 1.16.278 0 .533-.117.695-.325v.278h.487V21.3zm-1.786 0c.024-.37.348-.65.72-.626.37.023.65.348.626.72-.023.347-.302.625-.673.625-.372 0-.674-.28-.674-.65-.023-.047-.023-.047 0-.07zm12.085-1.16c.163 0 .325.024.465.094.14.046.278.14.37.255.117.115.186.23.256.37.117.3.117.626 0 .927-.046.14-.138.255-.254.37-.116.117-.232.186-.37.256-.303.116-.65.116-.952 0-.14-.046-.28-.14-.37-.255-.118-.116-.187-.232-.257-.37-.116-.302-.116-.627 0-.928.047-.14.14-.255.256-.37.115-.117.23-.187.37-.256.163-.07.325-.116.488-.093zm0 .465c-.092 0-.185.023-.278.046-.092.024-.162.094-.232.14-.07.07-.116.14-.14.232-.068.185-.068.394 0 .58.024.092.094.162.14.23.07.07.14.117.232.14.186.07.37.07.557 0 .092-.023.16-.092.23-.14.07-.068.117-.138.14-.23.07-.186.07-.395 0-.58-.023-.093-.093-.162-.14-.232-.07-.07-.138-.116-.23-.14-.094-.045-.187-.07-.28-.045zm-7.677.695c0-.695-.44-1.16-1.043-1.16-.65 0-1.16.534-1.137 1.183.023.65.534 1.16 1.183 1.136.325 0 .65-.093.905-.302l-.23-.348c-.187.14-.42.232-.65.232-.326.023-.627-.21-.673-.533h1.646v-.21zm-1.646-.21c.023-.3.278-.532.58-.532.3 0 .556.232.556.533h-1.136zm3.664-.346c-.207-.116-.44-.186-.695-.186-.255 0-.417.093-.417.255 0 .163.162.186.37.21l.233.022c.488.07.766.278.766.672 0 .395-.37.72-1.02.72-.348 0-.673-.094-.95-.28l.23-.37c.21.162.465.232.743.232.324 0 .51-.094.51-.28 0-.115-.117-.185-.395-.23l-.232-.024c-.487-.07-.765-.302-.765-.65 0-.44.37-.718.927-.718.325 0 .627.07.905.232l-.21.394zm2.32-.116h-.788v.997c0 .23.07.37.325.37.14 0 .3-.046.417-.115l.14.417c-.186.116-.395.162-.604.162-.58 0-.765-.302-.765-.812v-1.02h-.44v-.44h.44v-.673h.487v.672h.79v.44zm1.67-.51c.117 0 .233.023.35.07l-.14.463c-.093-.045-.21-.045-.302-.045-.325 0-.464.208-.464.58v1.25h-.487v-2.2h.487v.277c.116-.255.325-.37.557-.394z",
             fill: "#000"
-        }), h("path", {
+        }), y("path", {
             fill: "#7673C0",
             d: "M23.64 3.287h-7.305V16.41h7.306"
-        }), h("path", {
+        }), y("path", {
             d: "M16.8 9.848c0-2.55 1.183-4.985 3.2-6.56C16.384.435 11.12 1.06 8.29 4.7 5.435 8.32 6.06 13.58 9.703 16.41c3.038 2.387 7.283 2.387 10.32 0-2.04-1.578-3.223-3.99-3.223-6.562z",
             fill: "#EB001B"
-        }), h("path", {
+        }), y("path", {
             d: "M33.5 9.848c0 4.613-3.735 8.346-8.35 8.346-1.88 0-3.69-.626-5.15-1.785 3.618-2.83 4.245-8.092 1.415-11.71-.418-.532-.882-.996-1.415-1.413C23.618.437 28.883 1.06 31.736 4.7 32.873 6.163 33.5 7.994 33.5 9.85z",
             fill: "#00A1DF"
-        })), h("symbol", {
+        })), y("symbol", {
             id: "icon-unknown",
             viewBox: "0 0 48 29"
-        }, h("path", {
+        }, y("path", {
             d: "M46.177 29H1.823C.9 29 0 28.13 0 27.187V1.813C0 .87.9 0 1.823 0h44.354C47.1 0 48 .87 48 1.813v25.375C48 28.13 47.1 29 46.177 29z",
             fill: "#FFF"
-        }), h("path", {
+        }), y("path", {
             d: "M4.8 9.14c0-.427.57-.973 1.067-.973h7.466c.496 0 1.067.546 1.067.972v3.888c0 .425-.57.972-1.067.972H5.867c-.496 0-1.067-.547-1.067-.972v-3.89z",
             fill: "#828282"
-        }), h("rect", {
+        }), y("rect", {
             fill: "#828282",
             x: "10.8",
             y: "22.167",
             width: "3.6",
             height: "2.333",
             rx: "1.167"
-        }), h("rect", {
+        }), y("rect", {
             fill: "#828282",
             x: "4.8",
             y: "22.167",
             width: "3.6",
             height: "2.333",
             rx: "1.167"
-        }), h("path", {
+        }), y("path", {
             d: "M6.55 16.333h34.9c.966 0 1.75.784 1.75 1.75 0 .967-.784 1.75-1.75 1.75H6.55c-.966 0-1.75-.783-1.75-1.75 0-.966.784-1.75 1.75-1.75z",
             fill: "#828282"
-        }), h("ellipse", {
+        }), y("ellipse", {
             fill: "#828282",
             cx: "40.2",
             cy: "6.417",
             rx: "3",
             ry: "2.917"
-        })), h("symbol", {
+        })), y("symbol", {
             id: "icon-error",
             viewBox: "0 0 24 24"
-        }, h("path", {
+        }, y("path", {
             d: "M21.64 17.34L14.05 4.2c-.92-1.59-3.22-1.59-4.14 0L2.32 17.34c-.92 1.59.23 3.59 2.07 3.59h15.18c1.84 0 2.99-2 2.07-3.59zM11.26 7.91h1.45c.26 0 .47.25.45.53l-.5 5.53c-.01.15-.13.27-.27.27h-.78c-.14 0-.26-.12-.27-.27l-.53-5.52c-.02-.29.18-.54.45-.54zm.73 10.19c-.64 0-1.17-.52-1.17-1.17 0-.64.53-1.17 1.17-1.17.65 0 1.17.53 1.17 1.17 0 .65-.52 1.17-1.17 1.17z"
         }))));
     }
     function Icon(_ref) {
-        return h("svg", {
+        return y("svg", {
             className: _ref.iconClass,
             fill: "currentColor"
-        }, h("use", {
+        }, y("use", {
             href: "#" + _ref.iconId
         }));
     }
     function AriaMessage(_ref) {
-        return h("div", {
+        return y("div", {
             style: {
                 height: "1px",
                 width: "1px",
@@ -10767,7 +10517,7 @@ window.smartCard = function(modules) {
                 inputState: inputState
             }) && navigation.next();
         }), [ isValid, isPotentiallyValid ]);
-        return h(p, null, h("input", _extends({
+        return y(_, null, y("input", _extends({
             "aria-describedby": "card-number-field-description",
             name: name,
             autocomplete: autocomplete,
@@ -10852,15 +10602,15 @@ window.smartCard = function(modules) {
                     });
                 }));
             }
-        }, attributes)), h(Icon, {
+        }, attributes)), y(Icon, {
             iconId: getIconId(cardType.type),
             iconClass: "card-icon"
-        }), h(AriaMessage, {
+        }), y(AriaMessage, {
             ariaMessageId: "card-number-field-description",
             ariaMessageRef: ariaMessageRef
         }));
     }
-    var main = __webpack_require__(14);
+    var main = __webpack_require__(13);
     var main_default = __webpack_require__.n(main);
     function CardExpiry(_ref) {
         var _ref$name = _ref.name, name = void 0 === _ref$name ? "expiry" : _ref$name, _ref$autocomplete = _ref.autocomplete, autocomplete = void 0 === _ref$autocomplete ? "cc-exp" : _ref$autocomplete, _ref$navigation = _ref.navigation, navigation = void 0 === _ref$navigation ? defaultNavigation : _ref$navigation, state = _ref.state, type = _ref.type, style = _ref.style, maxLength = _ref.maxLength, onChange = _ref.onChange, onFocus = _ref.onFocus, onBlur = _ref.onBlur, onKeyDown = _ref.onKeyDown, onValidityChange = _ref.onValidityChange, _ref$allowNavigation = _ref.allowNavigation, allowNavigation = void 0 !== _ref$allowNavigation && _ref$allowNavigation;
@@ -10895,7 +10645,7 @@ window.smartCard = function(modules) {
             });
             allowNavigation && maskedInputValue && isValid && navigation.next();
         }), [ isValid, isPotentiallyValid ]);
-        return h(p, null, h("input", _extends({
+        return y(_, null, y("input", _extends({
             "aria-describedby": "card-expiry-field-description",
             name: name,
             autocomplete: autocomplete,
@@ -10936,7 +10686,7 @@ window.smartCard = function(modules) {
                     });
                 }));
             }
-        }, attributes)), h(AriaMessage, {
+        }, attributes)), y(AriaMessage, {
             ariaMessageId: "card-expiry-field-description",
             ariaMessageRef: ariaMessageRef
         }));
@@ -10993,7 +10743,7 @@ window.smartCard = function(modules) {
             });
             allowNavigation && inputValue && isValid && navigation.next();
         }), [ isValid, isPotentiallyValid ]);
-        return h(p, null, h("input", _extends({
+        return y(_, null, y("input", _extends({
             "aria-describedby": "card-cvv-field-description",
             name: name,
             autocomplete: autocomplete,
@@ -11028,7 +10778,7 @@ window.smartCard = function(modules) {
             }
         }, attributes, {
             placeholder: null != (_attributes$placehold = attributes.placeholder) ? _attributes$placehold : cardType.code.name
-        })), h(AriaMessage, {
+        })), y(AriaMessage, {
             ariaMessageId: "card-cvv-field-description",
             ariaMessageRef: ariaMessageRef
         }));
@@ -11057,7 +10807,7 @@ window.smartCard = function(modules) {
             });
             allowNavigation && inputValue && isValid && navigation.next();
         }), [ isValid, isPotentiallyValid ]);
-        return h(p, null, h("input", _extends({
+        return y(_, null, y("input", _extends({
             "aria-describedby": "card-name-field-description",
             name: name,
             inputmode: "text",
@@ -11087,7 +10837,7 @@ window.smartCard = function(modules) {
                 "function" == typeof onBlur && onBlur(event);
                 "function" == typeof onKeyDown && onKeyDown(!1);
             }
-        }, attributes)), h(AriaMessage, {
+        }, attributes)), y(AriaMessage, {
             ariaMessageId: "card-name-field-description",
             ariaMessageRef: ariaMessageRef
         }));
@@ -11116,7 +10866,7 @@ window.smartCard = function(modules) {
             });
             allowNavigation && inputValue && isValid && navigation.next();
         }), [ isValid, isPotentiallyValid ]);
-        return h(p, null, h("input", _extends({
+        return y(_, null, y("input", _extends({
             "aria-describedby": "card-postalCode-field-description",
             name: name,
             inputmode: "numeric",
@@ -11148,7 +10898,7 @@ window.smartCard = function(modules) {
                 "function" == typeof onKeyDown && onKeyDown(!1);
             },
             minLength: minLength
-        }, attributes)), h(AriaMessage, {
+        }, attributes)), y(AriaMessage, {
             ariaMessageId: "card-postalCode-field-description",
             ariaMessageRef: ariaMessageRef
         }));
@@ -11259,12 +11009,12 @@ window.smartCard = function(modules) {
                 validationMessage.length > 0 ? element.classList.add("invalid") : element.classList.remove("invalid");
             }
         }), [ hasFocus, validationMessage ]);
-        return h(p, null, h("style", {
+        return y(_, null, y("style", {
             nonce: cspNonce
-        }, cssText), h(Icons, null), h("fieldset", _extends({
+        }, cssText), y(Icons, null), y("fieldset", _extends({
             ref: cardFieldRef,
             className: "card-field"
-        }, attributes), h(CardNumber, {
+        }, attributes), y(CardNumber, {
             ref: numberRef,
             autocomplete: autocomplete,
             navigation: cardNumberNavivation,
@@ -11286,7 +11036,7 @@ window.smartCard = function(modules) {
             onBlur: function() {
                 return setHasFocus(!1);
             }
-        }), h(CardExpiry, {
+        }), y(CardExpiry, {
             ref: expiryRef,
             autocomplete: autocomplete,
             navigation: cardExpiryNavivation,
@@ -11306,7 +11056,7 @@ window.smartCard = function(modules) {
             onBlur: function() {
                 return setHasFocus(!1);
             }
-        }), h(CardCVV, {
+        }), y(CardCVV, {
             ref: cvvRef,
             autocomplete: autocomplete,
             navigation: cardCvvNavivation,
@@ -11325,15 +11075,15 @@ window.smartCard = function(modules) {
             onBlur: function() {
                 return setHasFocus(!1);
             }
-        })), h(ValidationMessage, {
+        })), y(ValidationMessage, {
             message: validationMessage
         }));
     }
     function ValidationMessage(_ref5) {
         var message = _ref5.message;
-        return h("div", {
+        return y("div", {
             className: "card-field-validation-error " + (message.length ? "" : "hidden")
-        }, h(Icon, {
+        }, y(Icon, {
             iconId: "icon-error"
         }), message);
     }
@@ -11387,9 +11137,9 @@ window.smartCard = function(modules) {
                 isInputSubmitRequest: isSubmitRequest
             });
         }), [ isSubmitRequest ]);
-        return h(p, null, h("style", {
+        return y(_, null, y("style", {
             nonce: cspNonce
-        }, cssText), h(Icons, null), h(CardNumber, {
+        }, cssText), y(Icons, null), y(CardNumber, {
             ref: numberRef,
             type: "text",
             autocomplete: autocomplete,
@@ -11457,9 +11207,9 @@ window.smartCard = function(modules) {
                 isInputSubmitRequest: isSubmitRequest
             });
         }), [ isSubmitRequest ]);
-        return h(p, null, h("style", {
+        return y(_, null, y("style", {
             nonce: cspNonce
-        }, cssText), h(CardExpiry, {
+        }, cssText), y(CardExpiry, {
             ref: expiryRef,
             type: "text",
             autocomplete: autocomplete,
@@ -11522,9 +11272,9 @@ window.smartCard = function(modules) {
                 isInputSubmitRequest: isSubmitRequest
             });
         }), [ isSubmitRequest ]);
-        return h(p, null, h("style", {
+        return y(_, null, y("style", {
             nonce: cspNonce
-        }, cssText), h(CardCVV, {
+        }, cssText), y(CardCVV, {
             ref: cvvRef,
             type: "text",
             autocomplete: autocomplete,
@@ -11586,9 +11336,9 @@ window.smartCard = function(modules) {
                 isInputSubmitRequest: isSubmitRequest
             });
         }), [ isSubmitRequest ]);
-        return h(p, null, h("style", {
+        return y(_, null, y("style", {
             nonce: cspNonce
-        }, cssText), h(CardName, {
+        }, cssText), y(CardName, {
             ref: nameRef,
             type: "text",
             placeholder: null != placeholder ? placeholder : "Cardholder name",
@@ -11650,9 +11400,9 @@ window.smartCard = function(modules) {
                 isInputSubmitRequest: isSubmitRequest
             });
         }), [ isSubmitRequest ]);
-        return h(p, null, h("style", {
+        return y(_, null, y("style", {
             nonce: cspNonce
-        }, cssText), h(CardPostalCode, {
+        }, cssText), y(CardPostalCode, {
             ref: postalRef,
             type: "text",
             autocomplete: autocomplete,
@@ -11887,7 +11637,7 @@ window.smartCard = function(modules) {
         var onInputSubmit = function(_ref5) {
             setInputSubmit(_ref5.isInputSubmitRequest);
         };
-        return h(p, null, "single" === type ? h(CardField, {
+        return y(_, null, "single" === type ? y(CardField, {
             gqlErrorsObject: fieldGQLErrors.singleField,
             cspNonce: cspNonce,
             autocomplete: autocomplete,
@@ -11897,7 +11647,7 @@ window.smartCard = function(modules) {
             autoFocusRef: function(ref) {
                 return setRef(ref.current.base);
             }
-        }) : null, "number" === type ? h(CardNumberField, {
+        }) : null, "number" === type ? y(CardNumberField, {
             ref: mainRef,
             gqlErrors: fieldGQLErrors.numberField,
             cspNonce: cspNonce,
@@ -11910,7 +11660,7 @@ window.smartCard = function(modules) {
             autoFocusRef: function(ref) {
                 return setRef(ref.current.base);
             }
-        }) : null, "cvv" === type ? h(CardCVVField, {
+        }) : null, "cvv" === type ? y(CardCVVField, {
             ref: mainRef,
             gqlErrors: fieldGQLErrors.cvvField,
             cspNonce: cspNonce,
@@ -11923,7 +11673,7 @@ window.smartCard = function(modules) {
             autoFocusRef: function(ref) {
                 return setRef(ref.current.base);
             }
-        }) : null, "expiry" === type ? h(CardExpiryField, {
+        }) : null, "expiry" === type ? y(CardExpiryField, {
             ref: mainRef,
             gqlErrors: fieldGQLErrors.expiryField,
             cspNonce: cspNonce,
@@ -11936,7 +11686,7 @@ window.smartCard = function(modules) {
             autoFocusRef: function(ref) {
                 return setRef(ref.current.base);
             }
-        }) : null, "name" === type ? h(CardNameField, {
+        }) : null, "name" === type ? y(CardNameField, {
             ref: mainRef,
             gqlErrors: fieldGQLErrors.nameField,
             cspNonce: cspNonce,
@@ -11948,7 +11698,7 @@ window.smartCard = function(modules) {
             autoFocusRef: function(ref) {
                 return setRef(ref.current.base);
             }
-        }) : null, "postal" === type ? h(CardPostalCodeField, {
+        }) : null, "postal" === type ? y(CardPostalCodeField, {
             ref: mainRef,
             gqlErrors: fieldGQLErrors.postalCodeField,
             cspNonce: cspNonce,
@@ -11966,15 +11716,17 @@ window.smartCard = function(modules) {
     }
     function setupCard(_ref6) {
         var featureFlags = _ref6.featureFlags;
-        u = h(Page, {
+        !function(u, i, t) {
+            var o, f;
+            l.__ && l.__(u, i), o = !1 ? null : i.__k, f = [], M(i, u = i.__k = y(_, null, [ u ]), o || c, c, void 0 !== i.ownerSVGElement, o ? null : i.firstChild ? n.call(i.childNodes) : null, f, o ? o.__e : i.firstChild, !1), 
+            N(f, u);
+        }(y(Page, {
             cspNonce: _ref6.cspNonce,
             props: getCardProps({
                 facilitatorAccessToken: _ref6.facilitatorAccessToken,
                 featureFlags: featureFlags
             }),
             featureFlags: featureFlags
-        }), i = util_getBody(), l.__ && l.__(u, i), r = !1 ? null : i.__k, e = [], j(i, u = i.__k = h(p, null, [ u ]), r || f, f, void 0 !== i.ownerSVGElement, r ? null : i.firstChild ? n.call(i.childNodes) : null, e, r ? r.__e : i.firstChild, !1), 
-        z(e, u);
-        var u, i, r, e;
+        }), util_getBody());
     }
 } ]);
