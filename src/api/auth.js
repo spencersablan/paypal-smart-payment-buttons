@@ -78,7 +78,7 @@ let lsatUpgradeCalled : boolean = false;
 let lsatUpgradeError : ?mixed;
 
 export const onLsatUpgradeCalled = () => {
-    lsatUpgradeCalled = false;
+    lsatUpgradeCalled = true;
 };
 
 export const getLsatUpgradeCalled = () : boolean => {
@@ -99,6 +99,7 @@ export const clearLsatState = () => {
 };
 
 export function upgradeFacilitatorAccessToken(facilitatorAccessToken : string, { buyerAccessToken, orderID } : {| buyerAccessToken : string, orderID : string |}) : ZalgoPromise<void> {
+    clearLsatState();
     onLsatUpgradeCalled();
 
     return callGraphQL({
