@@ -109,7 +109,7 @@ describe('exports cases', () => {
             // no-op error is expected
         }
         if (!getLsatUpgradeError()) {
-            throw new Error(`Expected ${ getLsatUpgradeError() } to be not null`);
+            throw new Error(`Expected LSAT Upgrade Error to be set`);
         }
 
         setBuyerAccessToken(MOCK_BUYER_ACCESS_TOKEN);
@@ -119,7 +119,7 @@ describe('exports cases', () => {
             throw new Error('Failed to upgrade LSAT');
         }
         if (getLsatUpgradeError()) {
-            throw new Error(`Expected ${ getLsatUpgradeError() } to be null`);
+            throw new Error(`Expected LSAT Upgrade Error to be empty`);
         }
         gqlMock.done();
     });
