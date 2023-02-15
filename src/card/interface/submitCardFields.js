@@ -5,7 +5,7 @@ import { ZalgoPromise } from "@krakenjs/zalgo-promise/src"
 import { uniqueID } from "@krakenjs/belter"
 
 import { getCardProps } from "../props"
-import { confirmOrderAPI, tokenizeCard } from "../../api"
+import { confirmOrderAPI } from "../../api"
 import { getLogger } from "../../lib"
 import type { ExtraFields } from "../types"
 import type { FeatureFlags } from "../../types"
@@ -88,13 +88,6 @@ export function submitCardFields({
           throw new Error(`Action of type ${cardProps.action.type} is not supported by Card Fields`)
         }
       }
-    }
-
-    if (cardProps.intent === INTENT.TOKENIZE) {
-      return tokenizeCard({ card }).then(({ paymentMethodToken }) => {
-        // $FlowFixMe
-        return cardProps.onApprove({ paymentMethodToken }, { restart });
-      });
     }
 
     if (cardProps.intent === INTENT.CAPTURE || cardProps.intent === INTENT.AUTHORIZE) {

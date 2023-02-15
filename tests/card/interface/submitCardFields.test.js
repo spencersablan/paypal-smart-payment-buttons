@@ -50,9 +50,6 @@ vi.mock("../../../src/card/interface/vault", () => ({
 
 vi.mock("../../../src/lib")
 vi.mock("../../../src/api", () => ({
-  tokenizeCard: vi
-    .fn()
-    .mockResolvedValue({ paymentMethodToken: "test-payment-method-token" }),
     // eslint-disable-next-line compat/compat, promise/no-native, no-restricted-globals
   confirmOrderAPI: vi.fn(() => Promise.resolve({ id: "test-order-id" })),
 }));

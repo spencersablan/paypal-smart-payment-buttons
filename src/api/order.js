@@ -1,10 +1,9 @@
 /* @flow */
 /* eslint max-lines: 0 */
-/* eslint-disable flowtype/require-exact-type */
 
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 import { CURRENCY, FPTI_KEY, FUNDING, WALLET_INSTRUMENT, INTENT } from '@paypal/sdk-constants/src';
-import { request, noop, memoize, uniqueID, stringifyError } from '@krakenjs/belter/src';
+import { request, noop, memoize, stringifyError } from '@krakenjs/belter/src';
 
 import { SMART_API_URI, ORDERS_API_URL, VALIDATE_PAYMENT_METHOD_API } from '../config';
 import { getLogger, setBuyerAccessToken } from '../lib';
@@ -969,29 +968,6 @@ export function updateButtonClientConfig({ orderID, productFlow, fundingSource, 
     });
 }
 
-type TokenizeCardOptions = {
-    card : {
-        number : ?string,
-        cvv : ?string,
-        expiry : ?string,
-        name? : ?string
-    }
-};
-
-type TokenizeCardResult = {|
-    paymentMethodToken : string
-|};
-
-export function tokenizeCard({ card } : TokenizeCardOptions) : ZalgoPromise<TokenizeCardResult> {
-    return ZalgoPromise.try(() => {
-        // eslint-disable-next-line no-console
-        console.info('Card Tokenize GQL mutation not yet implemented', { card });
-        return {
-            paymentMethodToken: uniqueID()
-        };
-    });
-}
-
 type ApproveCardPaymentOptions = {|
     orderID : string,
     vault : boolean,
@@ -1035,5 +1011,3 @@ export function approveCardPayment({ card, orderID, clientID, branded } : Approv
         return gqlResult;
     });
 }
-
-/* eslint-enable flowtype/require-exact-type */
