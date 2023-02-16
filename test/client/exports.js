@@ -4,6 +4,7 @@ import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 import { FUNDING, CARD, INTENT, WALLET_INSTRUMENT } from '@paypal/sdk-constants/src';
 
 import { getBuyerAccessToken, setBuyerAccessToken } from '../../src/lib/session';
+import { getLsatUpgradeError } from "../../src/api";
 
 import {
     MOCK_BUYER_ACCESS_TOKEN,
@@ -69,9 +70,63 @@ describe('exports cases', () => {
         gqlMock.done();
     });
 
+    it('should clear error state for upgradeFacilitatorAccessToken() on retry', async () => {
+        // upgradeFacilitatorAccessToken
+        const facilitatorAccessToken = 'QQQ123000';
+
+        const gqlMock = getGraphQLApiMock({
+            extraHandler: ({ data }) => {
+                if (data.query.includes('mutation UpgradeFacilitatorAccessToken')) {
+                    if (!data.variables.facilitatorAccessToken) {
+                        throw new Error(`We haven't received the facilitatorAccessToken`);
+                    }
+
+                    if (data.variables.buyerAccessToken === 'INVALID_BUYER_TOKEN') {
+                        throw new Error(`Buyer's access token is invalid`);
+                    }
+
+                    if (!data.variables.orderID) {
+                        throw new Error(`We haven't received the orderID`);
+                    }
+
+                    return {
+                        data: {
+                            upgradeLowScopeAccessToken: true
+                        }
+                    };
+                }
+            }
+        }).expectCalls();
+
+        setBuyerAccessToken('INVALID_BUYER_TOKEN');
+
+        await mockSetupButton({ facilitatorAccessToken });
+
+        try {
+            await window.exports.paymentSession().upgradeFacilitatorAccessToken({ facilitatorAccessToken, orderID: 'asdf4321' });
+            throw new Error(`upgradeFacilitatorAccessToken should have failed`);
+        } catch {
+            // no-op error is expected
+        }
+        if (!getLsatUpgradeError()) {
+            throw new Error(`Expected LSAT Upgrade Error to be set`);
+        }
+
+        setBuyerAccessToken(MOCK_BUYER_ACCESS_TOKEN);
+        try {
+            await window.exports.paymentSession().upgradeFacilitatorAccessToken({ facilitatorAccessToken, orderID: 'asdf4321' });
+        } catch {
+            throw new Error('Failed to upgrade LSAT');
+        }
+        if (getLsatUpgradeError()) {
+            throw new Error(`Expected LSAT Upgrade Error to be empty`);
+        }
+        gqlMock.done();
+    });
+
     it('should handle error from exports.paymentSession().upgradeFacilitatorAccessToken()',  async () => {
         const facilitatorAccessToken = 'QQQ123000';
-            
+
         setBuyerAccessToken(undefined);
 
         await mockSetupButton({ facilitatorAccessToken });
