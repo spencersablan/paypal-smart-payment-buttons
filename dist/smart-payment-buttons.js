@@ -10333,9 +10333,6 @@ window.spb = function(modules) {
         __webpack_require__.d(__webpack_exports__, "updateButtonClientConfig", (function() {
             return updateButtonClientConfig;
         }));
-        __webpack_require__.d(__webpack_exports__, "tokenizeCard", (function() {
-            return tokenizeCard;
-        }));
         __webpack_require__.d(__webpack_exports__, "approveCardPayment", (function() {
             return approveCardPayment;
         }));
@@ -10879,7 +10876,7 @@ window.spb = function(modules) {
             Object(lib.getLogger)().info("rest_api_create_order_token");
             var headers = ((_headers15 = {})[constants.HEADERS.AUTHORIZATION] = "Bearer " + accessToken, 
             _headers15[constants.HEADERS.PARTNER_ATTRIBUTION_ID] = partnerAttributionID, _headers15[constants.HEADERS.CLIENT_METADATA_ID] = clientMetadataID, 
-            _headers15[constants.HEADERS.APP_NAME] = constants.SMART_PAYMENT_BUTTONS, _headers15[constants.HEADERS.APP_VERSION] = "5.0.127", 
+            _headers15[constants.HEADERS.APP_NAME] = constants.SMART_PAYMENT_BUTTONS, _headers15[constants.HEADERS.APP_VERSION] = "5.0.128", 
             _headers15);
             var paymentSource = {
                 token: {
@@ -11070,19 +11067,8 @@ window.spb = function(modules) {
                 buttonSessionID: _ref23.buttonSessionID
             });
         }
-        function tokenizeCard(_ref24) {
-            var card = _ref24.card;
-            return src.ZalgoPromise.try((function() {
-                console.info("Card Tokenize GQL mutation not yet implemented", {
-                    card: card
-                });
-                return {
-                    paymentMethodToken: Object(belter_src.uniqueID)()
-                };
-            }));
-        }
-        function approveCardPayment(_ref25) {
-            var card = _ref25.card, orderID = _ref25.orderID, clientID = _ref25.clientID, branded = _ref25.branded;
+        function approveCardPayment(_ref24) {
+            var card = _ref24.card, orderID = _ref24.orderID, clientID = _ref24.clientID, branded = _ref24.branded;
             return Object(api.callGraphQL)({
                 name: "ProcessPayment",
                 query: '\n            mutation ProcessPayment(\n                $orderID: String!\n                $clientID: String!\n                $card: CardInput!\n                $branded: Boolean!\n            ) {\n                processPayment(\n                    clientID: $clientID\n                    paymentMethod: { type: CARD, card: $card }\n                    branded: $branded\n                    orderID: $orderID\n                    buttonSessionID: "f7r7367r4"\n                )\n            }\n        ',
@@ -13777,15 +13763,7 @@ window.spb = function(modules) {
                                   default:
                                     throw new Error("Action of type " + cardProps.action.type + " is not supported by Card Fields");
                                 }
-                                return cardProps.intent === sdk_constants.INTENT.TOKENIZE ? Object(api.tokenizeCard)({
-                                    card: card
-                                }).then((function(_ref2) {
-                                    return cardProps.onApprove({
-                                        paymentMethodToken: _ref2.paymentMethodToken
-                                    }, {
-                                        restart: restart
-                                    });
-                                })) : cardProps.intent === sdk_constants.INTENT.CAPTURE || cardProps.intent === sdk_constants.INTENT.AUTHORIZE ? cardProps.createOrder().then((function(orderID) {
+                                if (cardProps.intent === sdk_constants.INTENT.CAPTURE || cardProps.intent === sdk_constants.INTENT.AUTHORIZE) return cardProps.createOrder().then((function(orderID) {
                                     var cardObject = Object(esm_extends.default)({
                                         name: card.name,
                                         number: card.number,
@@ -13813,7 +13791,7 @@ window.spb = function(modules) {
                                     }, orderData), {
                                         restart: restart
                                     });
-                                })) : void 0;
+                                }));
                             }));
                         }({
                             facilitatorAccessToken: facilitatorAccessToken,
@@ -16720,7 +16698,7 @@ window.spb = function(modules) {
                     var _ref3;
                     return (_ref3 = {})[sdk_constants_src.FPTI_KEY.CONTEXT_TYPE] = constants.FPTI_CONTEXT_TYPE.BUTTON_SESSION_ID, 
                     _ref3[sdk_constants_src.FPTI_KEY.CONTEXT_ID] = buttonSessionID, _ref3[sdk_constants_src.FPTI_KEY.BUTTON_SESSION_UID] = buttonSessionID, 
-                    _ref3[sdk_constants_src.FPTI_KEY.BUTTON_VERSION] = "5.0.127", _ref3[constants.FPTI_BUTTON_KEY.BUTTON_CORRELATION_ID] = buttonCorrelationID, 
+                    _ref3[sdk_constants_src.FPTI_KEY.BUTTON_VERSION] = "5.0.128", _ref3[constants.FPTI_BUTTON_KEY.BUTTON_CORRELATION_ID] = buttonCorrelationID, 
                     _ref3[sdk_constants_src.FPTI_KEY.STICKINESS_ID] = Object(lib.isAndroidChrome)() ? stickinessID : null, 
                     _ref3[sdk_constants_src.FPTI_KEY.PARTNER_ATTRIBUTION_ID] = partnerAttributionID, 
                     _ref3[sdk_constants_src.FPTI_KEY.USER_ACTION] = commit ? sdk_constants_src.FPTI_USER_ACTION.COMMIT : sdk_constants_src.FPTI_USER_ACTION.CONTINUE, 

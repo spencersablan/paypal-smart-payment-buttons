@@ -89,7 +89,7 @@ window.smartCard = function(modules) {
     var card_number_1 = __webpack_require__(20);
     var expiration_date_1 = __webpack_require__(22);
     var expiration_month_1 = __webpack_require__(9);
-    var expiration_year_1 = __webpack_require__(6);
+    var expiration_year_1 = __webpack_require__(5);
     var cvv_1 = __webpack_require__(25);
     var postal_code_1 = __webpack_require__(26);
     module.exports = {
@@ -294,8 +294,6 @@ window.smartCard = function(modules) {
         }
     };
 }, function(module, exports, __webpack_require__) {
-    module.exports = __webpack_require__(28);
-}, function(module, exports, __webpack_require__) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
         value: !0
@@ -332,6 +330,8 @@ window.smartCard = function(modules) {
         }
         return verification(valid, valid, isCurrentYear);
     };
+}, function(module, exports, __webpack_require__) {
+    module.exports = __webpack_require__(28);
 }, function(module, exports, __webpack_require__) {
     "use strict";
     var __assign = this && this.__assign || function() {
@@ -800,7 +800,7 @@ window.smartCard = function(modules) {
     exports.expirationDate = void 0;
     var parse_date_1 = __webpack_require__(23);
     var expiration_month_1 = __webpack_require__(9);
-    var expiration_year_1 = __webpack_require__(6);
+    var expiration_year_1 = __webpack_require__(5);
     function verification(isValid, isPotentiallyValid, month, year) {
         return {
             isValid: isValid,
@@ -839,7 +839,7 @@ window.smartCard = function(modules) {
         value: !0
     });
     exports.parseDate = void 0;
-    var expiration_year_1 = __webpack_require__(6);
+    var expiration_year_1 = __webpack_require__(5);
     var is_array_1 = __webpack_require__(24);
     exports.parseDate = function(datestring) {
         var date;
@@ -8072,7 +8072,7 @@ window.smartCard = function(modules) {
             return _expiry$split[1] + "-" + _expiry$split[0];
         }
     }
-    var sdk_constants = __webpack_require__(5);
+    var sdk_constants = __webpack_require__(6);
     function getOnError(_ref) {
         var onError = _ref.onError;
         var onErrorHandler = onError ? (handler = onError, seenErrors = [], seenStringifiedErrors = {}, 
@@ -10196,25 +10196,7 @@ window.smartCard = function(modules) {
               default:
                 throw new Error("Action of type " + cardProps.action.type + " is not supported by Card Fields");
             }
-            return cardProps.intent === sdk_constants.INTENT.TOKENIZE ? function(_ref24) {
-                var card = _ref24.card;
-                return promise_ZalgoPromise.try((function() {
-                    console.info("Card Tokenize GQL mutation not yet implemented", {
-                        card: card
-                    });
-                    return {
-                        paymentMethodToken: uniqueID()
-                    };
-                }));
-            }({
-                card: card
-            }).then((function(_ref2) {
-                return cardProps.onApprove({
-                    paymentMethodToken: _ref2.paymentMethodToken
-                }, {
-                    restart: restart
-                });
-            })) : cardProps.intent === sdk_constants.INTENT.CAPTURE || cardProps.intent === sdk_constants.INTENT.AUTHORIZE ? cardProps.createOrder().then((function(orderID) {
+            if (cardProps.intent === sdk_constants.INTENT.CAPTURE || cardProps.intent === sdk_constants.INTENT.AUTHORIZE) return cardProps.createOrder().then((function(orderID) {
                 var cardObject = _extends({
                     name: card.name,
                     number: card.number,
@@ -10254,7 +10236,7 @@ window.smartCard = function(modules) {
                 }, orderData), {
                     restart: restart
                 });
-            })) : void 0;
+            }));
         }));
     }
     function Icons() {
