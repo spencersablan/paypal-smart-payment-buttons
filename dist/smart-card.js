@@ -9858,7 +9858,11 @@ window.smartCard = function(modules) {
                         return createSubscription ? accessToken : function(facilitatorAccessToken, _ref3) {
                             var _headers;
                             var buyerAccessToken = _ref3.buyerAccessToken, orderID = _ref3.orderID;
-                            lsatUpgradeCalled = !1;
+                            !function() {
+                                lsatUpgradeCalled = !1;
+                                lsatUpgradeError = null;
+                            }();
+                            lsatUpgradeCalled = !0;
                             return callGraphQL({
                                 name: "UpgradeFacilitatorAccessToken",
                                 headers: (_headers = {}, _headers["x-paypal-internal-euat"] = buyerAccessToken, 
