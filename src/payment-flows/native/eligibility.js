@@ -176,10 +176,6 @@ export function isNativeEligible({ props, config, serviceData } : IsEligibleOpti
         return false;
     }
 
-    if (env === ENV.LOCAL || env === ENV.STAGE) {
-        return false;
-    }
-
     if (merchantID.length > 1) {
         return false;
     }
